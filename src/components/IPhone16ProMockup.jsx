@@ -175,7 +175,7 @@ export default function IPhone16ProMockup() {
   const fmt = (s) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
 
   return (
-    <div className="relative flex flex-col items-center py-2 sm:py-4 select-none [zoom:0.82] sm:[zoom:1]">
+    <div data-keep-dark className="relative flex flex-col items-center py-2 sm:py-4 select-none [zoom:0.82] sm:[zoom:1]">
       {/* ambient glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[560px] rounded-full blur-[90px] pointer-events-none -z-10"
         style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(0,102,255,0.16) 40%, rgba(6,7,9,0) 75%)' }} />
@@ -190,10 +190,10 @@ export default function IPhone16ProMockup() {
 
         {/* Titanium frame */}
         <div
-          className="relative w-[312px] sm:w-[336px] h-[680px] rounded-[58px] p-[3px]"
+          className="phone-frame relative w-[312px] sm:w-[336px] h-[680px] rounded-[58px] p-[3px]"
           style={{
             background: 'linear-gradient(145deg,#d6d2ca 0%,#9a968f 22%,#c9c5bd 48%,#85817b 74%,#bdb9b1 100%)',
-            boxShadow: '0 40px 90px -20px rgba(0,0,0,0.85), 0 0 0 1px rgba(255,255,255,0.25), inset 0 0 2px rgba(255,255,255,0.7)',
+            boxShadow: '0 50px 90px -40px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.25), inset 0 0 2px rgba(255,255,255,0.7)',
           }}
         >
           {/* black bezel */}

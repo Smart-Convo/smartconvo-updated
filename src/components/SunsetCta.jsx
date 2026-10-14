@@ -16,7 +16,7 @@ export default function SunsetCta({ onOpenModal }) {
     >
       <motion.div 
         variants={staggerItemVariants}
-        className="max-w-6xl mx-auto rounded-[2.5rem] bg-zinc-950 border border-zinc-800 text-white relative overflow-hidden py-16 sm:py-24 px-6 sm:px-12 text-center shadow-2xl"
+        data-keep-dark className="max-w-6xl mx-auto rounded-[2.5rem] bg-zinc-950 border border-zinc-800 text-white relative overflow-hidden py-16 sm:py-24 px-6 sm:px-12 text-center shadow-2xl"
       >
         {/* Electric Blue ambient background radial highlight */}
         <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#0066FF]/25 blur-[100px] rounded-full pointer-events-none" />

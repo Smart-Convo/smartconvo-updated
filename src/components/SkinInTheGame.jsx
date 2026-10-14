@@ -16,7 +16,7 @@ export default function SkinInTheGame({ onOpenModal }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Full-width Apple Grade Midnight Banner with Neon Yellow & Blue Highlights */}
-        <div className="rounded-3xl bg-zinc-950 p-8 sm:p-14 lg:p-16 text-white shadow-2xl relative overflow-hidden border border-zinc-800/80">
+        <div data-keep-dark className="rounded-3xl bg-zinc-950 p-8 sm:p-14 lg:p-16 text-white shadow-2xl relative overflow-hidden border border-zinc-800/80">
           
           {/* Subtle Electric Blue & Neon Ambient Glow */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-[#0066FF]/20 blur-3xl pointer-events-none" />
@@ -28,7 +28,7 @@ export default function SkinInTheGame({ onOpenModal }) {
             <motion.div variants={staggerItemVariants} className="lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/15">
                 <span className="w-2 h-2 rounded-full bg-[#D4FF00] animate-pulse" />
-                <span className="ios-badge text-[10px] font-extrabold tracking-widest text-[#D4FF00] uppercase">
+                <span className="ios-badge text-[10px] font-extrabold tracking-widest text-accent uppercase">
                   WE HAVE GOT SKIN IN THE GAME
                 </span>
               </div>
@@ -51,7 +51,7 @@ export default function SkinInTheGame({ onOpenModal }) {
                 </button>
 
                 <div className="flex items-center gap-2 text-xs text-white">
-                  <div className="flex text-[#D4FF00]">
+                  <div className="flex text-accent">
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="w-3.5 h-3.5 fill-current" />
                     ))}
@@ -80,8 +80,8 @@ export default function SkinInTheGame({ onOpenModal }) {
               </div>
 
               <div className="p-5 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 text-center flex flex-col items-center justify-center space-y-2 hover:bg-white/10 transition-colors">
-                <div className="w-10 h-10 rounded-full bg-[#D4FF00]/20 text-[#D4FF00] flex items-center justify-center">
-                  <Zap className="w-5 h-5 text-[#D4FF00]" />
+                <div className="w-10 h-10 rounded-full bg-[#D4FF00]/20 text-accent flex items-center justify-center">
+                  <Zap className="w-5 h-5 text-accent" />
                 </div>
                 <div className="text-sm font-bold text-white">Same-day setup</div>
                 <div className="ios-caption text-zinc-400">Live on your UAN &lt; 24h</div>

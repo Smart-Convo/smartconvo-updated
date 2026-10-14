@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Star, PhoneCall, Sparkles } from 'lucide-react';
 import { MonarkLogo } from './ClientLogos';
+import LogoImg from './LogoImg';
 import IPhone16ProMockup from './IPhone16ProMockup';
 import { sectionContainerVariants, staggerItemVariants, heroSectionViewport } from '../utils/motionVariants';
 
@@ -17,7 +18,7 @@ function TrustLogos() {
             ['partners/azure-dark', 'Microsoft Azure', 'h-5 sm:h-9'],
             ['partners/elevenlabs-startups-dark', 'ElevenLabs Startups', 'h-6 sm:h-10'],
           ].map(([f, name, h]) => (
-            <img key={f} src={`/logos/${f}.png`} alt={name} title={name} className={`${h} w-auto object-contain`} />
+            <LogoImg key={f} src={`/logos/${f}.png`} alt={name} className={`${h} w-auto object-contain`} />
           ))}
         </div>
       </div>
@@ -29,7 +30,7 @@ function TrustLogos() {
             ['gp-hospital-full-dark', 'General Practice Hospital', 'h-6 sm:h-10'],
             ['canada-govt-fcm-dark', 'Federation of Canadian Municipalities', 'h-5 sm:h-8'],
           ].map(([f, name, h]) => (
-            <img key={f} src={`/logos/${f}.png`} alt={name} title={name} className={`${h} w-auto object-contain`} />
+            <LogoImg key={f} src={`/logos/${f}.png`} alt={name} className={`${h} w-auto object-contain`} />
           ))}
           <MonarkLogo className="h-5 sm:h-10" />
         </div>
@@ -54,7 +55,7 @@ function LogoMarquee() {
     f === '__monark' ? (
       <span key={name} className="shrink-0 mr-9 flex items-center"><MonarkLogo className="h-[18px]" /></span>
     ) : (
-      <img key={f} src={`/logos/${f}.png`} alt={name} className={`shrink-0 mr-9 ${f.includes('cartesia') ? 'h-[14px]' : 'h-[18px]'} w-auto object-contain opacity-90`} />
+      <LogoImg key={f} src={`/logos/${f}.png`} alt={name} className={`shrink-0 mr-9 ${f.includes('cartesia') ? 'h-[14px]' : 'h-[18px]'} w-auto object-contain opacity-90`} />
     )
   );
   return (
@@ -75,7 +76,7 @@ export default function Hero({ onOpenModal, onScrollTo }) {
       whileInView="visible"
       viewport={heroSectionViewport}
       variants={sectionContainerVariants}
-      className="relative pt-9 pb-10 sm:pt-10 sm:pb-16 md:pt-14 md:pb-20 overflow-hidden bg-transparent"
+      className="relative pt-9 pb-10 sm:pt-10 sm:pb-16 md:pt-14 md:pb-20 overflow-x-clip bg-transparent"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[420px] lg:hidden" style={{ background: "radial-gradient(60% 70% at 50% 0%, rgba(212,255,0,0.14) 0%, rgba(212,255,0,0) 70%)" }} />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -104,13 +105,13 @@ export default function Hero({ onOpenModal, onScrollTo }) {
                   transition={{ duration: 0.7, delay: 0.34, ease: [0.22, 1, 0.36, 1] }}
                 >
                   call
-                  <span className="text-[#D4FF00]">.</span>
+                  <span className="text-accent">.</span>
                   {/* live waveform */}
-                  <span aria-hidden="true" className="absolute left-0 right-[0.18em] -bottom-[0.2em] h-[0.3em] flex items-end justify-between">
+                  <span aria-hidden="true" className="absolute left-0 right-[0.18em] -bottom-[0.22em] h-[0.34em] flex items-end justify-between">
                     {[0.5, 0.9, 0.4, 1, 0.65, 0.85, 0.45, 0.95, 0.6, 0.8, 0.5].map((h, i) => (
                       <motion.span
                         key={i}
-                        className="w-[3px] sm:w-[4px] rounded-full bg-[#D4FF00] origin-bottom"
+                        className="w-[3px] sm:w-[4.5px] rounded-full bg-[#D4FF00] light:bg-[#6d28d9] origin-bottom"
                         style={{ height: '100%' }}
                         animate={{ scaleY: [h * 0.3, h, h * 0.4, h * 0.9, h * 0.3] }}
                         transition={{ duration: 1.1 + (i % 4) * 0.15, repeat: Infinity, ease: 'easeInOut', delay: 0.9 + i * 0.07 }}
@@ -142,7 +143,7 @@ export default function Hero({ onOpenModal, onScrollTo }) {
                     <motion.path
                       d="M2 9 C 40 2, 90 12, 130 6 S 190 4, 198 7"
                       fill="none"
-                      stroke="#D4FF00"
+                      stroke="var(--color-accent)"
                       strokeWidth="4"
                       strokeLinecap="round"
                       initial={{ pathLength: 0 }}
@@ -171,7 +172,7 @@ export default function Hero({ onOpenModal, onScrollTo }) {
 
               <button
                 onClick={() => onScrollTo('calculator')}
-                className="text-[12.5px] sm:text-sm text-zinc-400 hover:text-[#D4FF00] underline underline-offset-4 decoration-white/20 sm:no-underline sm:text-center sm:px-6 sm:py-3.5 sm:rounded-full sm:bg-zinc-900/90 sm:hover:bg-zinc-800 sm:text-white sm:font-medium sm:border sm:border-zinc-700/80 sm:shadow-md sm:hover:border-zinc-500 transition-all cursor-pointer"
+                className="text-[12.5px] sm:text-sm text-zinc-400 hover:text-accent underline underline-offset-4 decoration-white/20 sm:no-underline sm:text-center sm:px-6 sm:py-3.5 sm:rounded-full sm:bg-zinc-900/90 sm:hover:bg-zinc-800 sm:text-white sm:font-medium sm:border sm:border-zinc-700/80 sm:shadow-md sm:hover:border-zinc-500 transition-all cursor-pointer"
               >
                 Calculate lost revenue
               </button>

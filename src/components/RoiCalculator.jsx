@@ -199,7 +199,7 @@ export default function RoiCalculator({ onOpenModal }) {
             <button
               onClick={() => handleCurrencyToggle('PKR')}
               className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
-                currency === 'PKR' ? 'bg-[#0066FF] text-white shadow-xs' : 'text-zinc-400 hover:text-white'
+                currency === 'PKR' ? 'bg-[#0066FF] text-[#fff] shadow-xs' : 'text-zinc-400 hover:text-white'
               }`}
             >
               PKR (Rs)
@@ -207,7 +207,7 @@ export default function RoiCalculator({ onOpenModal }) {
             <button
               onClick={() => handleCurrencyToggle('USD')}
               className={`px-3 py-1 rounded-lg transition-all cursor-pointer ${
-                currency === 'USD' ? 'bg-[#0066FF] text-white shadow-xs' : 'text-zinc-400 hover:text-white'
+                currency === 'USD' ? 'bg-[#0066FF] text-[#fff] shadow-xs' : 'text-zinc-400 hover:text-white'
               }`}
             >
               USD ($)
@@ -229,7 +229,7 @@ export default function RoiCalculator({ onOpenModal }) {
                   {currentDefaults.subtitle}
                 </p>
               </div>
-              <span className="ios-badge text-[11px] font-bold text-[#D4FF00] bg-zinc-800/90 px-3 py-1 rounded-full border border-zinc-700">
+              <span className="ios-badge text-[11px] font-bold text-accent bg-zinc-800/90 px-3 py-1 rounded-full border border-zinc-700">
                 {currentDefaults.name}
               </span>
             </div>
@@ -302,7 +302,7 @@ export default function RoiCalculator({ onOpenModal }) {
                   <span className="font-semibold text-zinc-200">Call-to-Deal Conversion Rate</span>
                   <div className="text-[11px] text-zinc-400">{currentDefaults.unitName}</div>
                 </div>
-                <span className="font-mono font-bold text-[#D4FF00] text-sm bg-zinc-800 px-2.5 py-0.5 rounded-md border border-zinc-700 shadow-xs">
+                <span className="font-mono font-bold text-accent text-sm bg-zinc-800 px-2.5 py-0.5 rounded-md border border-zinc-700 shadow-xs">
                   {safeConversion}%
                 </span>
               </div>
@@ -338,7 +338,7 @@ export default function RoiCalculator({ onOpenModal }) {
                     step={currency === 'PKR' ? '500' : '10'}
                     value={avgOrderValue}
                     onChange={(e) => setAvgOrderValue(Math.max(0, Number(e.target.value) || 0))}
-                    className="w-full pl-8 pr-3 py-2 rounded-xl bg-zinc-800 border border-zinc-700 text-xs font-bold text-white focus:outline-none focus:border-[#D4FF00]"
+                    className="w-full pl-8 pr-3 py-2 rounded-xl bg-zinc-800 border border-zinc-700 text-xs font-bold text-white focus:outline-none focus:border-accent"
                   />
                 </div>
               </div>
@@ -353,7 +353,7 @@ export default function RoiCalculator({ onOpenModal }) {
                   max="31"
                   value={daysOpenPerMonth}
                   onChange={(e) => setDaysOpenPerMonth(Math.min(31, Math.max(1, Number(e.target.value) || 1)))}
-                  className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-zinc-700 text-xs font-bold text-white focus:outline-none focus:border-[#D4FF00]"
+                  className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-zinc-700 text-xs font-bold text-white focus:outline-none focus:border-accent"
                 />
               </div>
 
@@ -367,7 +367,7 @@ export default function RoiCalculator({ onOpenModal }) {
                   max="50"
                   value={locationsCount}
                   onChange={(e) => setLocationsCount(Math.min(50, Math.max(1, Number(e.target.value) || 1)))}
-                  className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-zinc-700 text-xs font-bold text-white focus:outline-none focus:border-[#D4FF00]"
+                  className="w-full px-3 py-2 rounded-xl bg-zinc-800 border border-zinc-700 text-xs font-bold text-white focus:outline-none focus:border-accent"
                 />
               </div>
 
@@ -375,13 +375,13 @@ export default function RoiCalculator({ onOpenModal }) {
           </div>
 
           {/* Right Column: Real-Time ROI Impact Card */}
-          <div className="lg:col-span-5 bg-zinc-950 rounded-3xl p-6 sm:p-8 text-white flex flex-col justify-between shadow-2xl border border-zinc-800 relative overflow-hidden">
+          <div data-keep-dark className="lg:col-span-5 bg-zinc-950 rounded-3xl p-6 sm:p-8 text-white flex flex-col justify-between shadow-2xl border border-zinc-800 relative overflow-hidden">
             
             <div>
               {/* Header with Scope Switcher */}
               <div className="flex items-center justify-between pb-4 border-b border-zinc-800/80 mb-5">
                 <div className="flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-[#D4FF00]" />
+                  <TrendingUp className="w-4 h-4 text-accent" />
                   <span className="ios-badge text-[11px] font-bold tracking-wider text-zinc-300 uppercase">
                     Pipeline Impact Model
                   </span>
@@ -410,12 +410,12 @@ export default function RoiCalculator({ onOpenModal }) {
 
               {/* Highlight 1: Projected Recovered Revenue with Smart Convo */}
               <div className="p-5 rounded-2xl bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-800/90 border border-zinc-700/80 space-y-2 mb-4 shadow-lg relative">
-                <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-[#D4FF00]/15 border border-[#D4FF00]/30 text-[#D4FF00] text-[10px] font-bold tracking-wide uppercase">
+                <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-[#D4FF00]/15 border border-accent/30 text-accent text-[10px] font-bold tracking-wide uppercase">
                   <Sparkles className="w-3 h-3" />
                   <span>Smart Convo 85% Recovery Engine</span>
                 </div>
 
-                <div className="text-3xl sm:text-4xl font-extrabold text-[#D4FF00] tracking-tight font-mono">
+                <div className="text-3xl sm:text-4xl font-extrabold text-accent tracking-tight font-mono">
                   +{formatMoney(displayMonthlyRecovered)}
                 </div>
                 

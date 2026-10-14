@@ -14,7 +14,7 @@ const CALL_VOLUMES = ['Under 500', '500 – 2,000', '2,000 – 10,000', '10,000+
 const clean = (str = '') => str.replace(/<[^>]*>?/gm, '').trim();
 
 const inputCls =
-  'w-full px-4 py-3.5 rounded-2xl bg-white/[0.04] border border-white/10 text-[15px] text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#D4FF00]/70 focus:bg-white/[0.06] focus:ring-4 focus:ring-[#D4FF00]/10 transition-all aria-[invalid=true]:border-rose-400/50 aria-[invalid=true]:bg-rose-500/[0.04]';
+  'w-full px-4 py-3.5 rounded-2xl bg-white/[0.04] border border-white/10 text-[15px] text-white placeholder:text-zinc-600 focus:outline-none focus:border-accent/70 focus:bg-white/[0.06] focus:ring-4 focus:ring-accent/10 transition-all aria-[invalid=true]:border-rose-400/50 aria-[invalid=true]:bg-rose-500/[0.04]';
 
 function Field({ label, error, children }) {
   return (
@@ -49,7 +49,7 @@ function Chips({ options, value, onChange }) {
             onClick={() => onChange(o)}
             className={`px-4 py-2.5 rounded-full text-[13.5px] font-medium border transition-all cursor-pointer ${
               on
-                ? 'bg-[#D4FF00] text-zinc-950 border-[#D4FF00] shadow-[0_0_24px_rgba(212,255,0,0.25)]'
+                ? 'bg-[#D4FF00] text-zinc-950 border-accent shadow-[0_0_24px_rgba(212,255,0,0.25)]'
                 : 'bg-white/[0.04] text-zinc-300 border-white/10 hover:border-white/25 hover:text-white'
             }`}
           >
@@ -231,7 +231,7 @@ export default function LeadModal({ isOpen, onClose, calculatorData }) {
         initial={{ opacity: 0, y: 24, scale: 0.97 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-        className="relative z-10 w-full max-w-[480px] my-8 rounded-[32px] bg-[#0b0c0f] border border-white/10 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)] overflow-hidden text-white"
+        className="relative z-10 w-full max-w-[480px] my-8 rounded-[32px] bg-panel border border-white/10 shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)] overflow-hidden text-white"
       >
         {/* ambient glow */}
         <div className="pointer-events-none absolute -top-32 -right-24 w-80 h-80 rounded-full bg-[#D4FF00]/[0.12] blur-[90px]" />
@@ -281,7 +281,7 @@ export default function LeadModal({ isOpen, onClose, calculatorData }) {
                 </div>
                 <button
                   onClick={onClose}
-                  className="mt-7 w-full py-4 rounded-full bg-white text-zinc-950 font-semibold text-[15px] hover:bg-[#D4FF00] transition-colors cursor-pointer"
+                  className="mt-7 w-full py-4 rounded-full bg-white text-zinc-950 light:text-[#fff] font-semibold text-[15px] hover:bg-[#D4FF00] light:hover:text-zinc-950 transition-colors cursor-pointer"
                 >
                   Done
                 </button>
@@ -370,7 +370,7 @@ export default function LeadModal({ isOpen, onClose, calculatorData }) {
                       </p>
                       <a
                         href={mailtoHref}
-                        className="mt-4 inline-flex items-center gap-2 h-[44px] px-5 rounded-full bg-white text-zinc-950 text-[14px] font-medium hover:bg-[#D4FF00] transition-colors"
+                        className="mt-4 inline-flex items-center gap-2 h-[44px] px-5 rounded-full bg-white text-zinc-950 light:text-[#fff] text-[14px] font-medium hover:bg-[#D4FF00] light:hover:text-zinc-950 transition-colors"
                       >
                         <Mail className="w-4 h-4" /> Email us your request
                       </a>

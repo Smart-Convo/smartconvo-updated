@@ -26,7 +26,7 @@ function Value({ v, strong = false }) {
   if (v === true) {
     return (
       <span className={`inline-flex items-center gap-2 ${strong ? 'text-white' : 'text-zinc-400'}`}>
-        <Check className={`w-[18px] h-[18px] ${strong ? 'text-[#D4FF00]' : 'text-zinc-500'}`} strokeWidth={2.5} />
+        <Check className={`w-[18px] h-[18px] ${strong ? 'text-accent' : 'text-zinc-500'}`} strokeWidth={2.5} />
         Yes
       </span>
     );
@@ -63,7 +63,7 @@ export default function ComparisonTable() {
           <div className="text-[10.5px] sm:text-[12px] font-medium tracking-[0.22em] text-zinc-500 uppercase mb-3 sm:mb-5">Compare</div>
           <h2 className="text-[25px] sm:text-5xl lg:text-[56px] font-semibold tracking-[-0.03em] leading-[1.08] text-white">
             Built different from<br />
-            <span className="bg-gradient-to-r from-[#D4FF00] to-[#7CFFB2] bg-clip-text text-transparent">everything else.</span>
+            <span className="bg-gradient-to-r from-[#D4FF00] to-accent-2 light:from-[#5b21b6] light:to-[#8b5cf6] bg-clip-text text-transparent">everything else.</span>
           </h2>
           <p className="mt-3 sm:mt-5 text-zinc-400 text-[13px] sm:text-[17px] leading-relaxed max-w-xl mx-auto">
             See how Smart Convo stacks up against the alternatives. Pick one to compare.
@@ -84,7 +84,7 @@ export default function ComparisonTable() {
                 {active === o.id && (
                   <motion.span
                     layoutId="compare-pill"
-                    className="absolute inset-0 rounded-full bg-white"
+                    className="absolute inset-0 rounded-full bg-white light:bg-[#D4FF00]"
                     transition={{ type: 'spring', stiffness: 380, damping: 32 }}
                     style={{ zIndex: -1 }}
                   />
@@ -98,7 +98,7 @@ export default function ComparisonTable() {
         {/* Comparison */}
         <motion.div variants={staggerItemVariants} className="relative hidden sm:block">
           {/* Smart Convo glowing column */}
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-1/2 sm:w-[31.7%] rounded-[28px] bg-gradient-to-b from-[#D4FF00]/[0.10] via-white/[0.035] to-transparent border border-[#D4FF00]/25 shadow-[0_0_90px_-20px_rgba(212,255,0,0.35)]" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-1/2 sm:w-[31.7%] rounded-[28px] bg-gradient-to-b from-[#D4FF00]/[0.10] via-white/[0.035] light:via-[#fff]/70 to-transparent border border-accent/25 shadow-[0_0_90px_-20px_rgba(212,255,0,0.35)]" />
 
           {/* Column headers */}
           <div className="relative grid grid-cols-2 sm:grid-cols-[1.15fr_1fr_1fr] items-center">
@@ -175,18 +175,12 @@ export default function ComparisonTable() {
                     <AnimatePresence mode="wait" initial={false}>
                       <motion.div key={active} initial={{ opacity: 0, y: 4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.16 }}>
                         <Value v={row[active]} />
-                        <button
-            onClick={() => setShowAll((v) => !v)}
-            className="w-full h-10 rounded-full border border-white/12 text-[12.5px] font-medium text-zinc-300 hover:text-white transition-colors cursor-pointer"
-          >
-            {showAll ? 'Show less' : `Show all ${ROWS.length} comparisons`}
-          </button>
-        </motion.div>
+                      </motion.div>
                     </AnimatePresence>
                   </div>
                 </div>
-                <div className="rounded-lg bg-[#D4FF00]/[0.10] border border-[#D4FF00]/30 px-2.5 py-2 min-w-0">
-                  <div className="text-[9px] uppercase tracking-[0.14em] text-[#D4FF00] mb-0.5">Smart Convo</div>
+                <div className="rounded-lg bg-[#D4FF00]/[0.10] border border-accent/30 px-2.5 py-2 min-w-0">
+                  <div className="text-[9px] uppercase tracking-[0.14em] text-accent mb-0.5">Smart Convo</div>
                   <div className="text-[11.5px] leading-snug font-medium text-white">
                     <Value v={row.smartConvo} strong />
                   </div>
@@ -194,6 +188,12 @@ export default function ComparisonTable() {
               </div>
             </div>
           ))}
+          <button
+            onClick={() => setShowAll((v) => !v)}
+            className="w-full h-10 rounded-full border border-white/12 text-[12.5px] font-medium text-zinc-300 hover:text-white transition-colors cursor-pointer"
+          >
+            {showAll ? 'Show less' : `Show all ${ROWS.length} comparisons`}
+          </button>
         </motion.div>
 
       </div>

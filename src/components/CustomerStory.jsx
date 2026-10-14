@@ -56,7 +56,7 @@ export default function CustomerStory({ onOpenModal }) {
               <div className="pt-2">
                 <button
                   onClick={onOpenModal}
-                  className="inline-flex items-center gap-2 font-bold text-sm text-[#D4FF00] hover:text-[#c6ee00] transition-colors cursor-pointer group"
+                  className="inline-flex items-center gap-2 font-bold text-sm text-accent hover:text-[#c6ee00] transition-colors cursor-pointer group"
                 >
                   <span>Read full enterprise case study</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

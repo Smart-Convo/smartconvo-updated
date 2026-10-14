@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Home, Workflow, Building2, Calculator, Mail, CalendarCheck, ArrowUpRight } from 'lucide-react';
 import SmartConvoLogo from './SmartConvoLogo';
+import ThemeToggle from './ThemeToggle';
 
 const LINKS = [
   { id: 'how-it-works', label: 'How it works' },
@@ -76,13 +77,13 @@ export default function Navbar({ onOpenModal, onScrollTo }) {
       <div
         className={`header-glow pointer-events-auto mx-auto max-w-6xl flex items-center justify-between gap-3 rounded-full border pl-4 sm:pl-6 pr-2 h-[52px] sm:h-[60px] backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 ${
           scrolled || !onHome
-            ? 'bg-[#0a0b0d]/80 border-white/10 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.8)]'
+            ? 'bg-panel/80 border-white/10 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.8)]'
             : 'bg-white/[0.04] border-white/10'
         }`}
       >
         <Link to="/" className="flex items-center hover:opacity-90 transition-opacity shrink-0">
-          <span className="hidden sm:inline-flex"><SmartConvoLogo markSize={36} /></span>
-          <span className="inline-flex sm:hidden"><SmartConvoLogo markSize={28} /></span>
+          <span className="hidden sm:inline-flex"><SmartConvoLogo markSize={36} underline accentTag /></span>
+          <span className="inline-flex sm:hidden"><SmartConvoLogo markSize={28} underline accentTag /></span>
         </Link>
 
         <nav className="hidden lg:flex items-center gap-1">
@@ -104,6 +105,8 @@ export default function Navbar({ onOpenModal, onScrollTo }) {
           ))}
         </nav>
 
+        <div className="flex items-center gap-2 sm:gap-3">
+        <ThemeToggle />
         <button
           onClick={() => onOpenModal()}
           className="group whitespace-nowrap inline-flex items-center gap-2 h-[38px] sm:h-[44px] pl-4 sm:pl-5 pr-1.5 rounded-full bg-[#D4FF00] hover:bg-[#c6ee00] text-zinc-950 text-[13px] sm:text-[14px] font-semibold shadow-[0_6px_24px_rgba(212,255,0,0.35)] hover:shadow-[0_8px_30px_rgba(212,255,0,0.5)] transition-all duration-200 cursor-pointer"
@@ -113,6 +116,7 @@ export default function Navbar({ onOpenModal, onScrollTo }) {
             <ArrowUpRight className="w-4 h-4" strokeWidth={2.4} />
           </span>
         </button>
+        </div>
       </div>
     </header>
 
@@ -123,7 +127,7 @@ export default function Navbar({ onOpenModal, onScrollTo }) {
       style={{ paddingBottom: 'max(10px, env(safe-area-inset-bottom))' }}
     >
       <div
-        className="pointer-events-auto mx-auto max-w-[360px] flex items-center justify-between rounded-full px-1.5 py-1.5 border border-white/15 bg-zinc-900/55 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_12px_40px_rgba(0,0,0,0.65),inset_0_1px_0_rgba(255,255,255,0.12)]"
+        className="pointer-events-auto mx-auto max-w-[360px] flex items-center justify-between rounded-full px-1.5 py-1.5 border border-white/15 bg-panel/70 backdrop-blur-2xl backdrop-saturate-150 shadow-[0_12px_40px_rgba(0,0,0,0.65),inset_0_1px_0_rgba(255,255,255,0.12)]"
         style={font}
       >
         {MOBILE_ITEMS.map((it) => {
@@ -147,7 +151,7 @@ export default function Navbar({ onOpenModal, onScrollTo }) {
               onClick={() => (it.home ? goHome() : go(it))}
               className={`flex flex-col items-center gap-0.5 min-w-[46px] px-1.5 py-1 rounded-full transition-colors cursor-pointer ${on ? 'text-white' : 'text-zinc-400'}`}
             >
-              <span className={`flex items-center justify-center w-8 h-6 rounded-full transition-colors ${on ? 'bg-[#D4FF00]/20 text-[#D4FF00]' : ''}`}>
+              <span className={`flex items-center justify-center w-8 h-6 rounded-full transition-colors ${on ? 'bg-[#D4FF00]/20 text-accent' : ''}`}>
                 <Icon className="w-[17px] h-[17px]" strokeWidth={on ? 2.3 : 1.9} />
               </span>
               <span className="text-[9.5px] leading-none font-medium tracking-wide">{it.label}</span>

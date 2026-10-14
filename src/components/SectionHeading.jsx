@@ -19,7 +19,7 @@ export default function SectionHeading({ eyebrow, lead, accent, align = 'center'
         {accent && (
           <>
             <br />
-            <span className={tone === 'dark' ? 'text-zinc-950/55' : 'bg-gradient-to-r from-[#D4FF00] to-[#7CFFB2] bg-clip-text text-transparent'}>{accent}</span>
+            <span className={tone === 'dark' ? 'text-zinc-950/55' : 'bg-gradient-to-r from-[#D4FF00] to-accent-2 light:from-[#5b21b6] light:to-[#8b5cf6] bg-clip-text text-transparent'}>{accent}</span>
           </>
         )}
       </h2>

@@ -1,5 +1,6 @@
 import SectionHeading from './SectionHeading';
 import IntegrationsBanner from './IntegrationsBanner';
+import IntegrationCards from './IntegrationCards';
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, MessageSquare, Database, PhoneCall } from 'lucide-react';
@@ -165,61 +166,7 @@ export default function IntegrationsSection({ onOpenModal }) {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-8">
-            {/* Card 1: Simple CRM Integration */}
-            <div className="group p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-zinc-900/80 backdrop-blur-md border border-zinc-800 shadow-xl hover:shadow-2xl hover:border-zinc-650 transition-all flex flex-col justify-between">
-              <div>
-                <div className="w-9 h-9 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-zinc-800 text-[#0066FF] flex items-center justify-center mb-3 sm:mb-6 group-hover:scale-105 transition-transform border border-zinc-700/60 shadow-md">
-                  <Database className="w-[18px] h-[18px] sm:w-7 sm:h-7 stroke-[2]" />
-                </div>
-                <h3 className="text-[14.5px] sm:text-xl font-bold text-white mb-1.5 sm:mb-2">
-                  Simple CRM & HubSpot Sync
-                </h3>
-                <p className="ios-subtext text-zinc-300 leading-relaxed">
-                  Callers are automatically converted into qualified Leads or Deals across Ginko, GTEC, Zoho, Salesforce, or HubSpot. Buyer budget, preferred property phase, and call transcripts sync in real time.
-                </p>
-              </div>
-              <div className="hidden sm:block mt-6 pt-4 border-t border-zinc-800 ios-caption font-semibold text-zinc-400">
-                Automated Custom Field Mapping
-              </div>
-            </div>
-
-            {/* Card 2: WhatsApp Dispatch */}
-            <div className="group p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-zinc-900/80 backdrop-blur-md border border-zinc-800 shadow-xl hover:shadow-2xl hover:border-zinc-650 transition-all flex flex-col justify-between">
-              <div>
-                <div className="w-9 h-9 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-zinc-800 text-emerald-400 flex items-center justify-center mb-3 sm:mb-6 group-hover:scale-105 transition-transform border border-zinc-700/60 shadow-md">
-                  <MessageSquare className="w-[18px] h-[18px] sm:w-7 sm:h-7 stroke-[2]" />
-                </div>
-                <h3 className="text-[14.5px] sm:text-xl font-bold text-white mb-1.5 sm:mb-2">
-                  WhatsApp Cloud API Dispatch
-                </h3>
-                <p className="ios-subtext text-zinc-300 leading-relaxed">
-                  Immediately upon call conclusion, Smart Convo pings the customer with a site visit location pin, brochure PDF, or appointment token on WhatsApp.
-                </p>
-              </div>
-              <div className="hidden sm:block mt-6 pt-4 border-t border-zinc-800 ios-caption font-semibold text-zinc-400">
-                Meta Official Verified Green Tick
-              </div>
-            </div>
-
-            {/* Card 3: PTCL & SIP Trunks */}
-            <div className="group p-4 sm:p-8 rounded-2xl sm:rounded-3xl bg-zinc-900/80 backdrop-blur-md border border-zinc-800 shadow-xl hover:shadow-2xl hover:border-zinc-650 transition-all flex flex-col justify-between">
-              <div>
-                <div className="w-9 h-9 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-zinc-800 text-blue-400 flex items-center justify-center mb-3 sm:mb-6 group-hover:scale-105 transition-transform border border-zinc-700/60 shadow-md">
-                  <PhoneCall className="w-[18px] h-[18px] sm:w-7 sm:h-7 stroke-[2]" />
-                </div>
-                <h3 className="text-[14.5px] sm:text-xl font-bold text-white mb-1.5 sm:mb-2">
-                  PTCL, UAN & Local SIP
-                </h3>
-                <p className="ios-subtext text-zinc-300 leading-relaxed">
-                  Keep your existing 042 / 021 / 051 landlines, 0300 numbers, or nationwide UAN 111-helplines with seamless conditional call forwarding.
-                </p>
-              </div>
-              <div className="hidden sm:block mt-6 pt-4 border-t border-zinc-800 ios-caption font-semibold text-zinc-400">
-                Zero Hardware Replacement
-              </div>
-            </div>
-          </div>
+          <IntegrationCards />
         </motion.div>
 
         <motion.div variants={staggerItemVariants}>

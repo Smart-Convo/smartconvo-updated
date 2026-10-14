@@ -214,12 +214,12 @@ export default function AudioExperience({ onOpenModal }) {
           </div>
 
           {/* Tablet Screen Content */}
-          <div className="rounded-2xl bg-zinc-950 p-6 sm:p-8 border border-zinc-800 text-white">
+          <div data-keep-dark className="rounded-2xl bg-zinc-950 p-6 sm:p-8 border border-zinc-800 text-white">
             
             {/* Call Meta Bar */}
             <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-zinc-800">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-[#0066FF] flex items-center justify-center font-bold text-white text-xs shadow-xs">
+                <div className="w-8 h-8 rounded-full bg-[#0066FF] flex items-center justify-center font-bold text-[#fff] text-xs shadow-xs">
                   SC
                 </div>
                 <div>
@@ -250,7 +250,7 @@ export default function AudioExperience({ onOpenModal }) {
                         ? 'text-zinc-400 font-mono text-[11px] italic bg-transparent py-1'
                         : line.speaker === 'agent'
                         ? 'bg-zinc-900 border border-zinc-800 text-zinc-100 ml-0 mr-auto'
-                        : 'bg-[#0066FF] text-white ml-auto mr-0 shadow-md font-medium'
+                        : 'bg-[#0066FF] text-[#fff] ml-auto mr-0 shadow-md font-medium'
                     }`}
                   >
                     {line.text}
@@ -262,7 +262,7 @@ export default function AudioExperience({ onOpenModal }) {
               <div className="md:col-span-4 rounded-2xl bg-zinc-900 p-4 border border-zinc-800 space-y-3 text-xs">
                 <div className="font-bold text-zinc-300 pb-2 border-b border-zinc-800 flex items-center justify-between">
                   <span className="ios-badge text-[11px] text-zinc-300">Simple CRM Lead Feed</span>
-                  <span className="ios-badge text-[9px] text-[#D4FF00] font-mono">AUTOMATED</span>
+                  <span className="ios-badge text-[9px] text-accent font-mono">AUTOMATED</span>
                 </div>
                 {scenario.items.map((item, i) => (
                   <div key={i} className="flex justify-between items-center text-zinc-400">
@@ -272,7 +272,7 @@ export default function AudioExperience({ onOpenModal }) {
                 ))}
                 <div className="pt-3 border-t border-zinc-800 flex justify-between font-bold text-white text-sm">
                   <span className="text-xs">Pipeline Status</span>
-                  <span className="text-[#D4FF00] font-mono text-xs">{scenario.total}</span>
+                  <span className="text-accent font-mono text-xs">{scenario.total}</span>
                 </div>
               </div>
 
@@ -293,7 +293,7 @@ export default function AudioExperience({ onOpenModal }) {
                     value={phoneNumber}
                     maxLength={25}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="px-3.5 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-[#D4FF00] w-full sm:w-48 transition-colors"
+                    className="px-3.5 py-2 rounded-xl bg-zinc-900 border border-zinc-700 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-accent w-full sm:w-48 transition-colors"
                   />
                   <button
                     type="submit"
@@ -311,7 +311,7 @@ export default function AudioExperience({ onOpenModal }) {
                   type="button"
                   onClick={() => setIsPlaying(!isPlaying)}
                   className={`px-4 py-2 rounded-xl font-bold text-xs flex items-center gap-2 transition-all cursor-pointer shadow-sm ${
-                    isPlaying ? 'bg-[#0066FF] text-white shadow-[0_0_12px_rgba(0,102,255,0.5)]' : 'bg-white hover:bg-zinc-100 text-zinc-950'
+                    isPlaying ? 'bg-[#0066FF] text-[#fff] shadow-[0_0_12px_rgba(0,102,255,0.5)]' : 'bg-white hover:bg-zinc-100 text-zinc-950'
                   }`}
                 >
                   {isPlaying ? (

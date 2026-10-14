@@ -12,13 +12,8 @@ import React from 'react';
 
 export const MonarkLogo = ({ className = 'h-10 sm:h-12' }) => (
   <div className="inline-flex items-center group transition-transform hover:scale-105" title="Monark">
-    <img
-      src="/logos/monark.png"
-      alt="Monark"
-      className={`${className} w-auto object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.1)] select-none`}
-      referrerPolicy="no-referrer"
-      loading="eager"
-    />
+    <img src="/logos/monark.png" alt="Monark" className={`theme-dark-only ${className} w-auto object-contain select-none`} referrerPolicy="no-referrer" loading="eager" />
+    <img src="/logos/monark-dark.png" alt="Monark" className={`theme-light-only ${className} w-auto object-contain select-none`} referrerPolicy="no-referrer" loading="eager" />
   </div>
 );
 

@@ -71,7 +71,7 @@ export default function AboutPage() {
               </h1>
               <p className="text-base sm:text-xl text-zinc-300 max-w-lg leading-relaxed">
                 Revolutionizing customer communication with{" "}
-                <span className="text-[#D4FF00] font-bold">AI-powered voice agents</span> that understand, engage, and convert 24/7.
+                <span className="text-accent font-bold">AI-powered voice agents</span> that understand, engage, and convert 24/7.
               </p>
               <div className="flex flex-wrap items-center gap-4 text-sm text-zinc-400">
                 <div className="flex items-center gap-2">
@@ -88,7 +88,7 @@ export default function AboutPage() {
                   {["Government", "Enterprise", "Restaurants", "Healthcare", "Hospitality", "Automotive"].map((ind) => (
                     <span
                       key={ind}
-                      className="px-3 py-1 text-xs border border-white/10 rounded-full hover:border-[#D4FF00] hover:text-[#D4FF00] transition-all"
+                      className="px-3 py-1 text-xs border border-white/10 rounded-full hover:border-accent hover:text-accent transition-all"
                     >
                       {ind}
                     </span>
@@ -126,11 +126,11 @@ export default function AboutPage() {
             ].map((item, index) => (
               <div
                 key={index}
-                className="p-6 sm:p-8 border border-white/10 rounded-[1rem] hover:border-[#D4FF00]/30 transition-all duration-300 hover:shadow-lg group"
+                className="p-6 sm:p-8 border border-white/10 rounded-[1rem] hover:border-accent/30 transition-all duration-300 hover:shadow-lg group"
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-1 h-8 bg-gradient-to-b from-[#D4FF00] to-[#4374b9] rounded-full" />
-                  <h3 className="text-xl font-bold group-hover:text-[#D4FF00] transition-colors">{item.title}</h3>
+                  <h3 className="text-xl font-bold group-hover:text-accent transition-colors">{item.title}</h3>
                 </div>
                 <p className="text-sm text-zinc-300 leading-relaxed pl-6">{item.content}</p>
               </div>
@@ -153,15 +153,15 @@ export default function AboutPage() {
             {capabilities.map((cap, index) => (
               <div
                 key={index}
-                className="p-6 bg-zinc-900/70 border border-white/10 rounded-[1rem] hover:border-[#D4FF00]/30 transition-all duration-300 hover:shadow-md group"
+                className="p-6 bg-zinc-900/70 border border-white/10 rounded-[1rem] hover:border-accent/30 transition-all duration-300 hover:shadow-md group"
               >
-                <h3 className="text-base font-bold mb-2 group-hover:text-[#D4FF00] transition-colors">{cap.title}</h3>
+                <h3 className="text-base font-bold mb-2 group-hover:text-accent transition-colors">{cap.title}</h3>
                 <p className="text-sm text-zinc-300 leading-relaxed mb-4">{cap.description}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {cap.tech.map((tech) => (
                     <span
                       key={tech}
-                      className="px-2 py-0.5 text-xs text-zinc-400 border border-white/10 rounded group-hover:border-[#D4FF00]/30 group-hover:text-[#D4FF00] transition-all"
+                      className="px-2 py-0.5 text-xs text-zinc-400 border border-white/10 rounded group-hover:border-accent/30 group-hover:text-accent transition-all"
                     >
                       {tech}
                     </span>
@@ -187,7 +187,7 @@ export default function AboutPage() {
                 className="grid lg:grid-cols-12 gap-4 py-5 border-b border-white/10 group"
               >
                 <div className="lg:col-span-4">
-                  <h3 className="text-lg font-bold group-hover:text-[#D4FF00] transition-colors">{item.value}</h3>
+                  <h3 className="text-lg font-bold group-hover:text-accent transition-colors">{item.value}</h3>
                 </div>
                 <div className="lg:col-span-8">
                   <p className="text-sm text-zinc-300 leading-relaxed">{item.description}</p>

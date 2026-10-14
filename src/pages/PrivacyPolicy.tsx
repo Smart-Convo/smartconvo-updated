@@ -81,8 +81,8 @@ export default function PrivacyPolicyPage() {
           </div>
 
           {/* Intro */}
-          <div className="mt-8 p-6 border border-[#D4FF00]/20 rounded-xl bg-white/[0.04]">
-            <p className="text-[#D4FF00] font-bold text-sm mb-2">Your Privacy Matters</p>
+          <div className="mt-8 p-6 border border-accent/20 rounded-xl bg-white/[0.04]">
+            <p className="text-accent font-bold text-sm mb-2">Your Privacy Matters</p>
             <p className={pCls}>
               Pentagon AI respects your privacy and is committed to protecting personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard personal information when you interact with our AI-powered voice and conversational services. By accessing or using the Services, you acknowledge that you have read and understood this Privacy Policy.
             </p>
@@ -103,7 +103,7 @@ export default function PrivacyPolicyPage() {
                     onClick={() => document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth" })}
                     className={`block w-full text-left px-3 py-2 rounded-lg text-xs transition-all duration-200 cursor-pointer ${
                       activeSection === s.id
-                        ? "bg-[#D4FF00]/10 text-[#D4FF00] font-bold border-l-2 border-[#D4FF00]"
+                        ? "bg-[#D4FF00]/10 text-accent font-bold border-l-2 border-accent"
                         : "text-zinc-400 hover:text-zinc-300 hover:bg-white/[0.06]"
                     }`}
                   >
@@ -121,8 +121,8 @@ export default function PrivacyPolicyPage() {
                 <h2 className={h2Cls}>1. Scope and Roles</h2>
                 <p className={pCls}>Depending on the context:</p>
                 <div className="grid sm:grid-cols-2 gap-4 mt-4">
-                  <div className="p-5 border border-[#D4FF00]/20 rounded-xl bg-white/[0.04]">
-                    <p className="text-[#D4FF00] font-bold text-sm mb-1">Data Controller</p>
+                  <div className="p-5 border border-accent/20 rounded-xl bg-white/[0.04]">
+                    <p className="text-accent font-bold text-sm mb-1">Data Controller</p>
                     <p className="text-xs text-zinc-300">Pentagon AI acts as a data controller for website visitors, prospects, and direct users.</p>
                   </div>
                   <div className="p-5 border border-white/10 rounded-xl bg-white/[0.04]">
@@ -158,7 +158,7 @@ export default function PrivacyPolicyPage() {
                 <h3 className={h3Cls}>2.3 Voice, Call, and AI Interaction Data</h3>
                 <p className={pCls}>Our Services may process voice calls, transcripts, or conversational data.</p>
                 <div className="mt-3 p-4 border border-[#03cf86]/30 rounded-xl bg-[#03cf86]/5">
-                  <p className="text-[#03cf86] font-bold text-sm mb-2">Call Recording Policy:</p>
+                  <p className="text-[#03cf86] light:text-[#047857] font-bold text-sm mb-2">Call Recording Policy:</p>
                   <ul className={listCls}>
                     <li>• Call recording is <strong>disabled by default</strong></li>
                     <li>• Recordings or transcripts are processed or stored only if explicitly enabled by the customer</li>
@@ -200,8 +200,8 @@ export default function PrivacyPolicyPage() {
                   <li>• To protect rights, safety, and security</li>
                   <li>• In connection with corporate transactions (e.g., merger or acquisition)</li>
                 </ul>
-                <div className="mt-4 p-4 border border-[#D4FF00]/20 rounded-xl bg-white/[0.04]">
-                  <p className="text-[#D4FF00] font-bold text-sm">We do not sell personal information.</p>
+                <div className="mt-4 p-4 border border-accent/20 rounded-xl bg-white/[0.04]">
+                  <p className="text-accent font-bold text-sm">We do not sell personal information.</p>
                 </div>
               </section>
 
@@ -264,9 +264,9 @@ export default function PrivacyPolicyPage() {
               <section id="exercising-rights" ref={(el) => { sectionsRef.current[9] = el }} className={sectionCls}>
                 <h2 className={h2Cls}>10. Exercising Your Rights</h2>
                 <p className={pCls}>Requests to exercise privacy rights may be submitted by contacting us at:</p>
-                <div className="mt-3 p-4 border border-[#D4FF00]/20 rounded-xl bg-white/[0.04]">
+                <div className="mt-3 p-4 border border-accent/20 rounded-xl bg-white/[0.04]">
                   <p className="text-sm font-bold mb-1">Email:</p>
-                  <a href="mailto:info@pentagonai.co" className="text-[#D4FF00] text-sm hover:underline">info@pentagonai.co</a>
+                  <a href="mailto:info@pentagonai.co" className="text-accent text-sm hover:underline">info@pentagonai.co</a>
                 </div>
                 <p className={`${pCls} mt-3`}>Where Pentagon AI acts as a processor, requests may be redirected to the relevant customer acting as data controller.</p>
               </section>
@@ -283,7 +283,7 @@ export default function PrivacyPolicyPage() {
               <section id="no-sale" ref={(el) => { sectionsRef.current[11] = el }} className={sectionCls}>
                 <h2 className={h2Cls}>12. No Sale of Personal Information</h2>
                 <div className="p-5 border border-[#03cf86]/30 rounded-xl bg-[#03cf86]/5">
-                  <p className="text-[#03cf86] font-bold text-sm">Pentagon AI does not sell, rent, or trade personal information to third parties for monetary or commercial benefit.</p>
+                  <p className="text-[#03cf86] light:text-[#047857] font-bold text-sm">Pentagon AI does not sell, rent, or trade personal information to third parties for monetary or commercial benefit.</p>
                 </div>
               </section>
 
@@ -303,18 +303,18 @@ export default function PrivacyPolicyPage() {
               <section id="contact" ref={(el) => { sectionsRef.current[14] = el }} className={sectionCls}>
                 <h2 className={h2Cls}>15. Contact Information</h2>
                 <p className={pCls}>If you have questions, concerns, or requests regarding this Privacy Policy, please contact:</p>
-                <div className="mt-4 p-6 border border-[#D4FF00]/20 rounded-xl bg-white/[0.04]">
+                <div className="mt-4 p-6 border border-accent/20 rounded-xl bg-white/[0.04]">
                   <p className="font-bold mb-2">Pentagon AI</p>
-                  <a href="mailto:info@pentagonai.co" className="text-[#D4FF00] text-sm hover:underline">info@pentagonai.co</a>
+                  <a href="mailto:info@pentagonai.co" className="text-accent text-sm hover:underline">info@pentagonai.co</a>
                 </div>
               </section>
 
               {/* Bottom CTA */}
-              <div className="mt-12 p-8 border border-[#D4FF00]/20 rounded-[1.5rem] bg-white/[0.04] text-center">
+              <div className="mt-12 p-8 border border-accent/20 rounded-[1.5rem] bg-white/[0.04] text-center">
                 <h3 className="text-xl font-bold mb-2">Questions About Your Privacy?</h3>
                 <p className="text-sm text-zinc-400 max-w-lg mx-auto mb-6">We&apos;re committed to transparency. Reach out to our team for any privacy-related inquiries or concerns.</p>
                 <div className="flex flex-wrap justify-center gap-3">
-                  <Link href="/terms-and-conditions" className="px-5 py-2.5 border border-white/10 rounded-[62.5rem] text-sm font-medium hover:border-[#D4FF00] hover:text-[#D4FF00] transition-all">
+                  <Link href="/terms-and-conditions" className="px-5 py-2.5 border border-white/10 rounded-[62.5rem] text-sm font-medium hover:border-accent hover:text-accent transition-all">
                     View Terms &amp; Conditions
                   </Link>
                   <a href="mailto:info@pentagonai.co" className="px-5 py-2.5 rounded-[62.5rem] text-sm font-bold text-white transition-all hover:brightness-110" style={{ background: "#D4FF00", color: "#0a0a0a" }}>

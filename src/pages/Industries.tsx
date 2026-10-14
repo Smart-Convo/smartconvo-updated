@@ -1,5 +1,6 @@
 
 import { useState } from "react"
+import { useTheme } from "../components/ThemeProvider.jsx"
 import { SectionWrapper } from "../components/kit/SectionWrapper"
 import { GradientText } from "../components/kit/GradientText"
 import { SectionTag } from "../components/kit/SectionTag"
@@ -15,7 +16,7 @@ const industries = [
     accentColor: "#7C9BFF",
     accentBg: "bg-[#7C9BFF10]",
     accentBorder: "border-[#7C9BFF30]",
-    accentText: "text-[#7C9BFF]",
+    accentText: "text-[#7C9BFF] light:text-[#3446b8]",
     hoverBorder: "hover:border-[#7C9BFF40]",
     activeBg: "bg-[#7C9BFF10]",
     activeBorder: "border-[#7C9BFF50]",
@@ -201,10 +202,13 @@ const industries = [
 ]
 
 export default function IndustriesPage() {
+  const { isLight } = useTheme()
   const [activeIndustryId, setActiveIndustryId] = useState("government")
   const [activeDept, setActiveDept] = useState(0)
 
-  const activeIndustry = industries.find((i) => i.id === activeIndustryId)!
+  const activeIndustryRaw = industries.find((i) => i.id === activeIndustryId)!
+  const fixAccent = (c: string) => (isLight && c === "#7C9BFF" ? "#3446b8" : c)
+  const activeIndustry = { ...activeIndustryRaw, accentColor: fixAccent(activeIndustryRaw.accentColor) }
   const activeDeptData = activeIndustry.departments[activeDept]
 
   const handleIndustrySwitch = (id: string) => {
@@ -249,7 +253,7 @@ export default function IndustriesPage() {
                   {isActive && (
                     <span
                       className="absolute top-0 left-0 right-0 h-1 rounded-t-[1.25rem]"
-                      style={{ background: industry.accentColor }}
+                      style={{ background: fixAccent(industry.accentColor) }}
                     />
                   )}
                   <div className="flex items-start justify-between gap-3 mb-3">
@@ -257,7 +261,7 @@ export default function IndustriesPage() {
                       className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
                         isActive ? industry.accentBg : "bg-white/[0.06]"
                       }`}
-                      style={{ color: isActive ? industry.accentColor : "#8d8d8d" }}
+                      style={{ color: isActive ? fixAccent(industry.accentColor) : "var(--color-zinc-500)" }}
                     >
                       {industry.icon}
                     </div>
@@ -304,7 +308,7 @@ export default function IndustriesPage() {
                   >
                     <span
                       className="[&>svg]:w-4 [&>svg]:h-4 sm:[&>svg]:w-5 sm:[&>svg]:h-5 flex-shrink-0"
-                      style={{ color: isActive ? activeIndustry.accentColor : "#8d8d8d" }}
+                      style={{ color: isActive ? activeIndustry.accentColor : "var(--color-zinc-500)" }}
                     >
                       {dept.icon}
                     </span>
@@ -353,7 +357,7 @@ export default function IndustriesPage() {
                     style={{
                       backgroundColor: `${activeIndustry.accentColor}08`,
                       borderColor: `${activeIndustry.accentColor}25`,
-                      color: "#d4d4d8",
+                      color: "var(--color-zinc-300)",
                     }}
                   >
                     {cap}
@@ -412,12 +416,12 @@ export default function IndustriesPage() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="bg-zinc-900/70 rounded-[1rem] border border-white/10 p-5 sm:p-6 hover:border-[#D4FF00]/30 hover:shadow-md transition-all duration-300 group"
+                className="bg-zinc-900/70 rounded-[1rem] border border-white/10 p-5 sm:p-6 hover:border-accent/30 hover:shadow-md transition-all duration-300 group"
               >
-                <div className="w-10 h-10 rounded-xl bg-[#7C9BFF10] flex items-center justify-center text-[#D4FF00] mb-4 group-hover:scale-110 transition-transform duration-300">
+                <div className="w-10 h-10 rounded-xl bg-[#7C9BFF10] flex items-center justify-center text-accent mb-4 group-hover:scale-110 transition-transform duration-300">
                   {item.icon}
                 </div>
-                <h3 className="text-[15px] font-bold mb-2 group-hover:text-[#D4FF00] transition-colors">{item.title}</h3>
+                <h3 className="text-[15px] font-bold mb-2 group-hover:text-accent transition-colors">{item.title}</h3>
                 <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">{item.description}</p>
               </div>
             ))}

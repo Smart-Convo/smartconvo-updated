@@ -66,8 +66,8 @@ export default function TermsPage() {
           </div>
 
           {/* Important Notice */}
-          <div className="mt-8 p-6 border border-[#D4FF00]/20 rounded-xl bg-white/[0.04]">
-            <p className="text-[#D4FF00] font-bold text-sm mb-2">Important Notice</p>
+          <div className="mt-8 p-6 border border-accent/20 rounded-xl bg-white/[0.04]">
+            <p className="text-accent font-bold text-sm mb-2">Important Notice</p>
             <p className={pCls}>
               These Terms and Conditions constitute a legally binding agreement between Pentagon AI and you. By accessing, registering for, or using the Services, you acknowledge that you have read, understood, and agree to be bound by these Terms. If you do not agree, you must not access or use the Services.
             </p>
@@ -88,7 +88,7 @@ export default function TermsPage() {
                     onClick={() => document.getElementById(s.id)?.scrollIntoView({ behavior: "smooth" })}
                     className={`block w-full text-left px-3 py-2 rounded-lg text-xs transition-all duration-200 cursor-pointer ${
                       activeSection === s.id
-                        ? "bg-[#D4FF00]/10 text-[#D4FF00] font-bold border-l-2 border-[#D4FF00]"
+                        ? "bg-[#D4FF00]/10 text-accent font-bold border-l-2 border-accent"
                         : "text-zinc-400 hover:text-zinc-300 hover:bg-white/[0.06]"
                     }`}
                   >
@@ -246,7 +246,7 @@ export default function TermsPage() {
               {/* 11. Disclaimer of Warranties */}
               <section id="warranties" ref={(el) => { sectionsRef.current[10] = el }} className={sectionCls}>
                 <h2 className={h2Cls}>11. Disclaimer of Warranties</h2>
-                <div className="p-4 border border-[#D4FF00]/20 rounded-xl bg-white/[0.04]">
+                <div className="p-4 border border-accent/20 rounded-xl bg-white/[0.04]">
                   <p className={pCls}>TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE SERVICES ARE PROVIDED &quot;AS-IS&quot;, WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR NON-INFRINGEMENT.</p>
                 </div>
               </section>
@@ -255,7 +255,7 @@ export default function TermsPage() {
               <section id="liability" ref={(el) => { sectionsRef.current[11] = el }} className={sectionCls}>
                 <h2 className={h2Cls}>12. Limitation of Liability</h2>
                 <p className={pCls}>To the maximum extent permitted by law:</p>
-                <div className="mt-3 p-4 border border-[#D4FF00]/20 rounded-xl bg-white/[0.04] space-y-2">
+                <div className="mt-3 p-4 border border-accent/20 rounded-xl bg-white/[0.04] space-y-2">
                   <p className={pCls}>• Pentagon AI&apos;s total liability shall not exceed the fees paid by you in the three (3) months preceding the event giving rise to the claim</p>
                   <p className={pCls}>• Pentagon AI shall not be liable for indirect, incidental, consequential, or special damages, including loss of profits, data, or business</p>
                 </div>
@@ -299,14 +299,14 @@ export default function TermsPage() {
               <section id="contact" ref={(el) => { sectionsRef.current[16] = el }} className={sectionCls}>
                 <h2 className={h2Cls}>17. Contact Information</h2>
                 <p className={pCls}>If you have any questions about these Terms, please contact us:</p>
-                <div className="mt-4 p-6 border border-[#D4FF00]/20 rounded-xl bg-white/[0.04]">
+                <div className="mt-4 p-6 border border-accent/20 rounded-xl bg-white/[0.04]">
                   <p className="font-bold mb-2">Pentagon AI</p>
-                  <p className="text-sm text-zinc-300">Email: <a href="mailto:info@pentagonai.co" className="text-[#D4FF00] hover:underline">info@pentagonai.co</a></p>
+                  <p className="text-sm text-zinc-300">Email: <a href="mailto:info@pentagonai.co" className="text-accent hover:underline">info@pentagonai.co</a></p>
                 </div>
               </section>
 
               {/* Bottom CTA */}
-              <div className="mt-12 p-8 border border-[#D4FF00]/20 rounded-[1.5rem] bg-white/[0.04] text-center">
+              <div className="mt-12 p-8 border border-accent/20 rounded-[1.5rem] bg-white/[0.04] text-center">
                 <h3 className="text-xl font-bold mb-2">Have Questions About Our Terms?</h3>
                 <p className="text-sm text-zinc-400 max-w-lg mx-auto mb-6">Our team is here to help clarify any concerns.</p>
                 <Link href="/contact" className="inline-block px-6 py-3 rounded-[62.5rem] text-sm font-bold text-white transition-all hover:brightness-110" style={{ background: "#D4FF00", color: "#0a0a0a" }}>

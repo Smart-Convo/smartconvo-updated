@@ -68,7 +68,7 @@ export default function HowItWorks() {
                   onClick={() => setActiveStep(step.num)}
                   className={`p-3.5 sm:p-6 rounded-xl sm:rounded-2xl border transition-all cursor-pointer backdrop-blur-md ${
                     isActive
-                      ? 'bg-zinc-900 border-zinc-650 border-zinc-700 shadow-xl ring-2 ring-[#D4FF00]'
+                      ? 'bg-zinc-900 border-zinc-650 border-zinc-700 shadow-xl ring-2 ring-accent'
                       : 'bg-zinc-900/60 border-zinc-800 hover:bg-zinc-900/90 hover:border-zinc-700'
                   }`}
                 >

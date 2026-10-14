@@ -107,7 +107,7 @@ export default function CallDemoPhone() {
   const inCall = stage !== 'lock';
 
   return (
-    <div className="relative flex flex-col items-center select-none [zoom:0.82] sm:[zoom:1]">
+    <div data-keep-dark className="relative flex flex-col items-center select-none [zoom:0.82] sm:[zoom:1]">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[560px] rounded-full blur-[90px] pointer-events-none -z-10"
         style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.12) 0%, rgba(120,70,255,0.16) 40%, rgba(6,7,9,0) 75%)' }} />
 

@@ -39,7 +39,7 @@ const ROW_B = [
 function Card({ it }) {
   const Icon = it.icon;
   return (
-    <div className="group shrink-0 mr-3 sm:mr-4 flex items-center gap-2.5 sm:gap-3 rounded-2xl bg-[#0a0b0d] border border-black/80 pl-2 pr-4 sm:pl-2.5 sm:pr-5 py-2 sm:py-2.5 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.6)] hover:-translate-y-0.5 transition-transform">
+    <div data-keep-dark className="group shrink-0 mr-3 sm:mr-4 flex items-center gap-2.5 sm:gap-3 rounded-2xl bg-[#0a0b0d] border border-black/80 pl-2 pr-4 sm:pl-2.5 sm:pr-5 py-2 sm:py-2.5 shadow-[0_10px_30px_-12px_rgba(0,0,0,0.6)] hover:-translate-y-0.5 transition-transform">
       <span
         className={`h-9 sm:h-11 min-w-9 sm:min-w-11 px-2 sm:px-2.5 rounded-xl flex items-center justify-center shrink-0 ${it.dark ? 'bg-[#1a2140]' : it.icon ? 'bg-[#D4FF00]/12 border border-[#D4FF00]/30 text-[#D4FF00]' : 'bg-white'}`}
       >
@@ -51,7 +51,7 @@ function Card({ it }) {
       </span>
       <span className="leading-tight whitespace-nowrap">
         <span className="block text-[12.5px] sm:text-[14px] font-semibold text-white">{it.name}</span>
-        <span className="block text-[10px] sm:text-[11px] tracking-wide text-zinc-500 group-hover:text-[#D4FF00] transition-colors">{it.tag}</span>
+        <span className="block text-[10px] sm:text-[11px] tracking-wide text-zinc-500 group-hover:text-accent transition-colors">{it.tag}</span>
       </span>
     </div>
   );
@@ -70,26 +70,26 @@ function Row({ items, reverse, seconds }) {
 export default function IntegrationsBanner({ onOpenModal }) {
   const mask = 'linear-gradient(90deg, transparent 0, #000 7%, #000 93%, transparent 100%)';
   return (
-    <div className="relative overflow-hidden rounded-[28px] sm:rounded-[40px] bg-[#D4FF00] py-9 sm:py-14 shadow-[0_40px_100px_-30px_rgba(212,255,0,0.45)] [--logo-scale:0.8] sm:[--logo-scale:1]">
+    <div data-keep-dark className="relative overflow-hidden rounded-[28px] sm:rounded-[40px] bg-[#D4FF00] py-9 sm:py-14 shadow-[0_40px_100px_-30px_rgba(212,255,0,0.45)] [--logo-scale:0.8] sm:[--logo-scale:1]">
       {/* decoration */}
       <div className="pointer-events-none absolute -top-32 -left-24 w-[420px] h-[420px] rounded-full bg-white/50 blur-[90px]" />
       <div className="pointer-events-none absolute -bottom-40 -right-24 w-[460px] h-[460px] rounded-full bg-[#9dff00]/60 blur-[100px]" />
       <div className="pointer-events-none absolute inset-0 opacity-[0.07]" style={{ backgroundImage: 'radial-gradient(#000 1px, transparent 1px)', backgroundSize: '22px 22px' }} />
 
       <div className="relative px-5 sm:px-12 text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-        <div className="inline-flex items-center gap-2 text-[10.5px] sm:text-[12px] font-semibold tracking-[0.22em] uppercase text-zinc-950/60 mb-3 sm:mb-4">
-          <span className="w-1.5 h-1.5 rounded-full bg-zinc-950" /> Integrations
+        <div className="inline-flex items-center gap-2 text-[10.5px] sm:text-[12px] font-semibold tracking-[0.22em] uppercase text-[#0a0a0a]/60 mb-3 sm:mb-4">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#0a0a0a]" /> Integrations
         </div>
-        <h2 className="text-[26px] sm:text-5xl lg:text-[52px] font-semibold tracking-[-0.03em] leading-[1.08] text-zinc-950">
+        <h2 className="text-[26px] sm:text-5xl lg:text-[52px] font-semibold tracking-[-0.03em] leading-[1.08] text-[#0a0a0a]">
           Plugs into the tools<br className="hidden sm:block" /> you already use.
         </h2>
-        <p className="mt-3 sm:mt-4 text-[13px] sm:text-[17px] leading-relaxed text-zinc-950/70">
+        <p className="mt-3 sm:mt-4 text-[13px] sm:text-[17px] leading-relaxed text-[#0a0a0a]/70">
           CRMs, WhatsApp, telephony, e-commerce and couriers. Smart Convo connects to your stack, with no manual data entry.
         </p>
         {onOpenModal && (
           <button
             onClick={() => onOpenModal()}
-            className="group mt-5 sm:mt-7 inline-flex items-center gap-2.5 h-11 sm:h-[52px] pl-5 sm:pl-7 pr-1.5 rounded-full bg-zinc-950 text-[#D4FF00] text-[13.5px] sm:text-[15px] font-semibold shadow-[0_14px_30px_-10px_rgba(0,0,0,0.6)] hover:bg-black transition-colors cursor-pointer"
+            className="group mt-5 sm:mt-7 inline-flex items-center gap-2.5 h-11 sm:h-[52px] pl-5 sm:pl-7 pr-1.5 rounded-full bg-[#0a0a0a] text-[#D4FF00] text-[13.5px] sm:text-[15px] font-semibold shadow-[0_14px_30px_-10px_rgba(0,0,0,0.6)] hover:bg-black transition-colors cursor-pointer"
           >
             Connect your stack
             <span className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#D4FF00] text-zinc-950 flex items-center justify-center transition-transform group-hover:translate-x-0.5">

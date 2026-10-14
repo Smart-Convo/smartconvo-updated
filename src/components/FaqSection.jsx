@@ -98,7 +98,7 @@ export default function FaqSection({ onOpenModal }) {
                 {tab === t && (
                   <motion.span
                     layoutId="faq-pill"
-                    className="absolute inset-0 rounded-full bg-white"
+                    className="absolute inset-0 rounded-full bg-white light:bg-[#D4FF00]"
                     transition={{ type: 'spring', stiffness: 380, damping: 32 }}
                     style={{ zIndex: -1 }}
                   />
@@ -123,7 +123,7 @@ export default function FaqSection({ onOpenModal }) {
                   <span className={`text-[15px] font-medium leading-snug transition-colors ${isOpen ? 'text-white' : 'text-zinc-300'}`}>
                     {faq.q}
                   </span>
-                  <ChevronDown className={`w-[18px] h-[18px] shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#D4FF00]' : 'text-zinc-500'}`} />
+                  <ChevronDown className={`w-[18px] h-[18px] shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180 text-accent' : 'text-zinc-500'}`} />
                 </button>
                 <AnimatePresence initial={false}>
                   {isOpen && (
@@ -145,7 +145,7 @@ export default function FaqSection({ onOpenModal }) {
 
         <motion.div
           variants={staggerItemVariants}
-          className="relative mt-10 overflow-hidden rounded-[28px] border border-[#D4FF00]/25 bg-gradient-to-br from-[#D4FF00]/[0.12] via-white/[0.03] to-transparent p-7 sm:p-9 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left"
+          className="relative mt-10 overflow-hidden rounded-[28px] border border-accent/25 bg-gradient-to-br from-[#D4FF00]/[0.12] via-white/[0.03] to-transparent p-7 sm:p-9 flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left"
         >
           <div className="pointer-events-none absolute -top-20 -right-16 w-64 h-64 rounded-full bg-[#D4FF00]/20 blur-[80px]" />
           <div className="relative">

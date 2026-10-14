@@ -22,7 +22,7 @@ export function SmartConvoMark({
       alt="Smart Convo"
       width={size}
       height={Math.round(size * 0.743)}
-      className={`shrink-0 object-contain select-none ${className}`}
+      className={`sc-mark shrink-0 object-contain select-none ${className}`}
       draggable={false}
     />
   );
@@ -49,6 +49,8 @@ export default function SmartConvoLogo({
   showStarburst = true,
   showEqualizer = false,
   tone, // 'dark' = dark mark + text, for use on light / lime backgrounds
+  underline = false, // underline the SMART CONVO wordmark (header)
+  accentTag = false, // colour the VOICE AI AGENTS tagline with the brand accent
 }) {
   const isDark = variant !== 'light-text';
   const onLight = tone === 'dark';
@@ -78,8 +80,7 @@ export default function SmartConvoLogo({
                 letterSpacing: '0.1em',
                 fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Plus Jakarta Sans", "Inter", sans-serif',
                 lineHeight: 1.1,
-                color: '#FFFFFF',
-                textShadow: '0 1px 2px rgba(0, 0, 0, 0.5), 0 0 1px rgba(255, 255, 255, 0.3)',
+                color: 'var(--color-white)',
               }}
             >
               SMART CONVO
@@ -91,7 +92,7 @@ export default function SmartConvoLogo({
                 letterSpacing: '0.28em',
                 fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Plus Jakarta Sans", "Inter", sans-serif',
                 lineHeight: 1,
-                color: '#CBD5E1',
+                color: 'var(--color-zinc-300)',
                 opacity: 0.95,
               }}
             >
@@ -124,11 +125,16 @@ export default function SmartConvoLogo({
               letterSpacing: '0.08em',
               fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Plus Jakarta Sans", "Inter", sans-serif',
               lineHeight: 1.05,
-              color: onLight ? '#0A0A0A' : '#FFFFFF',
-              textShadow: onLight ? 'none' : '0 1px 2px rgba(0, 0, 0, 0.45), 0 0 1px rgba(255, 255, 255, 0.25)',
+              color: onLight ? '#0A0A0A' : 'var(--color-white)',
+              textShadow: 'none',
             }}
           >
-            SMART CONVO
+            {underline ? (
+              <span className="relative inline-block pb-[3px]">
+                SMART CONVO
+                <span aria-hidden="true" className="sc-underline absolute left-0 right-0 bottom-0 h-px" />
+              </span>
+            ) : 'SMART CONVO'}
           </span>
           <span
             className={`font-bold uppercase transition-colors mt-1.5 tracking-[0.24em] ${tagColor}`}
@@ -137,8 +143,9 @@ export default function SmartConvoLogo({
               letterSpacing: '0.24em',
               fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Plus Jakarta Sans", "Inter", sans-serif',
               lineHeight: 1,
-              color: onLight ? '#2B3300' : '#CBD5E1',
-              opacity: 0.92,
+              color: accentTag ? 'var(--sc-tagline)' : onLight ? '#2B3300' : 'var(--color-zinc-300)',
+              opacity: accentTag ? 1 : 0.92,
+              fontWeight: accentTag ? 700 : undefined,
             }}
           >
             VOICE AI AGENTS

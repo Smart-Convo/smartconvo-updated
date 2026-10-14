@@ -94,7 +94,7 @@ export default function ContactPage() {
           </h1>
           <p className="text-base sm:text-lg text-zinc-300 max-w-2xl mx-auto leading-relaxed">
             Ready to transform your customer communication? Let&apos;s talk about how{" "}
-            <span className="text-[#D4FF00] font-bold">Pentagon AI</span> can help your business grow with AI-powered voice agents.
+            <span className="text-accent font-bold">Pentagon AI</span> can help your business grow with AI-powered voice agents.
           </p>
         </div>
       </section>
@@ -115,7 +115,7 @@ export default function ContactPage() {
                   name="name"
                   placeholder="Your name"
                   required
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-zinc-500 focus:border-[#D4FF00]/50 focus:outline-none focus:ring-2 focus:ring-[#D4FF00]/20 transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-zinc-500 focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all"
                 />
               </div>
               <div>
@@ -128,7 +128,7 @@ export default function ContactPage() {
                   type="email"
                   placeholder="your@email.com"
                   required
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-zinc-500 focus:border-[#D4FF00]/50 focus:outline-none focus:ring-2 focus:ring-[#D4FF00]/20 transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-zinc-500 focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all"
                 />
               </div>
               <div>
@@ -139,7 +139,7 @@ export default function ContactPage() {
                   id="company"
                   name="company"
                   placeholder="Your company"
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-zinc-500 focus:border-[#D4FF00]/50 focus:outline-none focus:ring-2 focus:ring-[#D4FF00]/20 transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-zinc-500 focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all"
                 />
               </div>
               <div>
@@ -152,7 +152,7 @@ export default function ContactPage() {
                   placeholder="Tell us about your needs..."
                   required
                   rows={5}
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-zinc-500 focus:border-[#D4FF00]/50 focus:outline-none focus:ring-2 focus:ring-[#D4FF00]/20 transition-all resize-none"
+                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-zinc-500 focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all resize-none"
                 />
               </div>
 
@@ -189,10 +189,10 @@ export default function ContactPage() {
             {contactInfo.map((item, index) => (
               <div
                 key={index}
-                className="bg-zinc-900/70 rounded-[1rem] p-6 border border-white/10 hover:border-[#D4FF00]/30 transition-all duration-300 hover:shadow-md"
+                className="bg-zinc-900/70 rounded-[1rem] p-6 border border-white/10 hover:border-accent/30 transition-all duration-300 hover:shadow-md"
               >
                 <div className="flex items-start gap-4">
-                  <div className="p-3 bg-[#D4FF0010] rounded-xl text-[#D4FF00] flex-shrink-0">
+                  <div className="p-3 bg-[#D4FF0010] rounded-xl text-accent flex-shrink-0">
                     {item.icon}
                   </div>
                   <div>
@@ -204,7 +204,7 @@ export default function ContactPage() {
             ))}
 
             {/* Map */}
-            <div className="relative bg-zinc-900/70 rounded-[1rem] overflow-hidden border border-white/10 hover:border-[#D4FF00]/30 transition-all duration-300 h-[280px] group">
+            <div className="relative bg-zinc-900/70 rounded-[1rem] overflow-hidden border border-white/10 hover:border-accent/30 transition-all duration-300 h-[280px] group">
               <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/60 z-10 pointer-events-none" />
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2886.8276729474805!2d-79.38569492346621!3d43.64860735110451!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b34d1eced3c73%3A0x96a1c3b6d6b6d6b6!2s150%20King%20St%20W%2C%20Toronto%2C%20ON%20M5H%201J9%2C%20Canada!5e0!3m2!1sen!2s!4v1706865600000!5m2!1sen!2s"
@@ -216,7 +216,7 @@ export default function ContactPage() {
                 referrerPolicy="no-referrer-when-downgrade"
                 className="absolute inset-0 opacity-50 group-hover:opacity-70 transition-opacity duration-500"
               />
-              <div className="absolute bottom-4 left-4 right-4 z-20 bg-zinc-900/90 backdrop-blur-sm border border-[#D4FF00]/20 rounded-lg p-3">
+              <div className="absolute bottom-4 left-4 right-4 z-20 bg-zinc-900/90 backdrop-blur-sm border border-accent/20 rounded-lg p-3">
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-[#D4FF0010] rounded-lg">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4FF00" strokeWidth="2">
@@ -232,7 +232,7 @@ export default function ContactPage() {
                     href="https://maps.google.com/?q=150+King+St+W+Suite+200+Toronto+Ontario+Canada"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3 py-1.5 bg-[#D4FF0010] hover:bg-[#D4FF0020] border border-[#D4FF00]/20 rounded-md text-xs text-[#D4FF00] font-bold transition-colors"
+                    className="px-3 py-1.5 bg-[#D4FF0010] hover:bg-[#D4FF0020] border border-accent/20 rounded-md text-xs text-accent font-bold transition-colors"
                   >
                     View
                   </a>

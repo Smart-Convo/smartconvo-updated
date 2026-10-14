@@ -26,11 +26,11 @@ export const CATALOG_MOTIFS = [
 export default function BackgroundUI({ onNavigateSection }) {
   return (
     <div 
-      className="fixed inset-0 pointer-events-none -z-10 overflow-hidden select-none bg-[#060709]"
+      className="fixed inset-0 pointer-events-none -z-10 overflow-hidden select-none bg-page"
       aria-hidden="true"
     >
       {/* Plain black base background */}
-      <div className="absolute inset-0 bg-[#060709]" />
+      <div className="absolute inset-0 bg-page" />
     </div>
   );
 }

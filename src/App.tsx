@@ -88,9 +88,10 @@ export default function App({ children }: { children?: React.ReactNode }) {
 
   return (
     <ErrorBoundary fallbackTitle="Smart Convo Application Notice">
-      <div className="relative min-h-screen text-white selection:bg-[#D4FF00] selection:text-zinc-950 font-sans antialiased bg-[#060709] pb-24 lg:pb-0">
+      <div className="relative min-h-screen text-white selection:bg-[#D4FF00] selection:text-zinc-950 font-sans antialiased pb-24 lg:pb-0">
         {/* Dynamic Background UI */}
         <BackgroundUI onNavigateSection={handleScrollTo} />
+        <div className="hero-ambience" aria-hidden="true" />
 
         {/* 1. Sticky Navbar */}
         <Navbar 

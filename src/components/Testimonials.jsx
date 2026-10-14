@@ -84,7 +84,7 @@ export default function Testimonials({ onOpenModal }) {
             <motion.div
               key={idx}
               variants={cardItemVariants}
-              className="group relative rounded-2xl overflow-hidden bg-zinc-950 shadow-xl border border-zinc-800 flex flex-col justify-end min-h-[340px] p-6 text-white cursor-pointer hover:shadow-2xl hover:border-zinc-700 transition-all"
+              data-keep-dark className="group relative rounded-2xl overflow-hidden bg-zinc-950 shadow-xl border border-zinc-800 flex flex-col justify-end min-h-[340px] p-6 text-white cursor-pointer hover:shadow-2xl hover:border-zinc-700 transition-all"
               onClick={() => setActiveVideo(activeVideo === idx ? null : idx)}
             >
               {/* Background Photo with Dark Gradient Overlay */}
@@ -101,7 +101,7 @@ export default function Testimonials({ onOpenModal }) {
               </div>
 
               {/* Play Button Icon Centered */}
-              <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center group-hover:scale-110 group-hover:bg-[#D4FF00] group-hover:border-[#D4FF00] transition-all">
+              <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center group-hover:scale-110 group-hover:bg-[#D4FF00] group-hover:border-accent transition-all">
                 <Play className="w-5 h-5 text-white fill-white group-hover:text-zinc-950 group-hover:fill-zinc-950 ml-0.5 transition-colors" />
               </div>
 
