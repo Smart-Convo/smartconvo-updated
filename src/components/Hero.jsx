@@ -190,6 +190,7 @@ export default function Hero({ onOpenModal, onScrollTo }) {
 
 
         </div>
+
       </div>
     </motion.section>
   );

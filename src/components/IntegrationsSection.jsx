@@ -1,4 +1,5 @@
 import SectionHeading from './SectionHeading';
+import IntegrationsBanner from './IntegrationsBanner';
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, MessageSquare, Database, PhoneCall } from 'lucide-react';
@@ -221,54 +222,8 @@ export default function IntegrationsSection({ onOpenModal }) {
           </div>
         </motion.div>
 
-        {/* Sub-Section 2: Integration Ecosystem with Official Company Logos */}
-        <motion.div variants={staggerItemVariants} className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center bg-zinc-900/80 backdrop-blur-md p-5 sm:p-12 rounded-3xl border border-zinc-800 shadow-2xl">
-          
-          <div className="lg:col-span-4 space-y-4">
-            <SectionHeading eyebrow="Zero-code connectors" lead="Simple CRM integration" accent="for your entire stack" align="left" size="md" className="mb-3" />
-            <p className="ios-subtext text-zinc-300 leading-relaxed">
-              Smart Convo connects directly with your enterprise software, including Ginko, GTEC, Zoho, HubSpot, and Salesforce. Sales closers get clean notifications on desktop and mobile without tedious manual data entry.
-            </p>
-            <div className="pt-2">
-              <button
-                onClick={onOpenModal}
-                className="inline-flex items-center gap-2 font-extrabold text-sm text-[#D4FF00] hover:text-[#c6ee00] transition-colors cursor-pointer group"
-                style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif' }}
-              >
-                <span>Connect your CRM</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
-          </div>
-
-          <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3.5">
-            {ENTERPRISE_INTEGRATIONS.map((item) => {
-              const LogoComp = item.logo;
-              return (
-                <div
-                  key={item.name}
-                  className={`p-2 sm:p-3.5 rounded-xl sm:rounded-2xl border flex items-center gap-2 sm:gap-3 transition-all shadow-sm group cursor-default ${
-                    item.highlight
-                      ? 'bg-blue-950/40 border-blue-600/80 text-white ring-1 ring-blue-500/40 hover:bg-blue-900/50'
-                      : 'bg-zinc-800/80 border-zinc-700/80 text-zinc-100 hover:bg-zinc-750 hover:border-zinc-600'
-                  }`}
-                >
-                  <div className="w-8 h-8 rounded-xl bg-black/40 flex items-center justify-center p-1 border border-white/10 shrink-0 group-hover:scale-110 transition-transform">
-                    <LogoComp />
-                  </div>
-                  <div className="text-left min-w-0">
-                    <div className="font-bold text-[11.5px] sm:text-sm text-white tracking-tight break-words leading-tight" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif' }}>
-                      {item.name}
-                    </div>
-                    <div className="hidden sm:block text-[10px] font-semibold text-zinc-400 uppercase tracking-wider leading-tight mt-0.5">
-                      {item.category}
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
+        <motion.div variants={staggerItemVariants}>
+          <IntegrationsBanner onOpenModal={onOpenModal} />
         </motion.div>
 
       </div>
