@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ArrowRight, ArrowLeft, Check, Mail } from 'lucide-react';
 import { SmartConvoMark } from './SmartConvoLogo';
-import { sendDemoRequest } from '../lib/sendLead';
+import { sendLead, roiText } from '../lib/sendLead';
 
 const INDUSTRIES = [
   'Real estate', 'Retail & e-commerce', 'Healthcare', 'Hospitals & clinics', 'Government', 'Restaurants',
@@ -168,6 +168,8 @@ export default function LeadModal({ isOpen, onClose, calculatorData }) {
 
   const submit = async (ev) => {
     ev.preventDefault();
+    if (step === 1) { next(); return; } // Enter on step 1 = Continue, never a half-filled submit
+    if (status === 'loading') return;
     setFailed(false);
     if (form.hp_field) { setStatus('success'); return; } // bot trap
     const e = {};
@@ -179,15 +181,15 @@ export default function LeadModal({ isOpen, onClose, calculatorData }) {
 
     setStatus('loading');
     try {
-      await sendDemoRequest({
+      await sendLead('demo', {
         name: clean(form.fullName),
         email: clean(form.email).toLowerCase(),
         phone: clean(form.phone),
         company: clean(form.companyName),
         industry: finalIndustry,
         monthlyCalls: form.monthlyCalls,
-        notes: clean(form.notes),
-        calculatorData,
+        message: clean(form.notes),
+        roiSummary: roiText(calculatorData),
       });
       setStatus('success');
     } catch (err) {
@@ -285,7 +287,7 @@ export default function LeadModal({ isOpen, onClose, calculatorData }) {
                 </button>
               </motion.div>
             ) : (
-              <motion.form key="form" onSubmit={submit} initial={{ opacity: 0 }} animate={{ opacity: 1 }} noValidate>
+              <motion.form key="form" onSubmit={submit} onKeyDown={(e) => { if (e.key === 'Enter' && step === 1 && e.target.tagName === 'INPUT') { e.preventDefault(); next(); } }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} noValidate>
                 {/* header */}
                 <div className="flex items-center gap-3 mb-8">
                   <div className="w-11 h-11 rounded-2xl bg-white/[0.06] border border-white/10 flex items-center justify-center">

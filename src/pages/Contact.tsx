@@ -1,6 +1,6 @@
 
 import { useRef, useState } from "react"
-import emailjs from "@emailjs/browser"
+import { sendLead } from "../lib/sendLead"
 import { SectionWrapper } from "../components/kit/SectionWrapper"
 import { GradientText } from "../components/kit/GradientText"
 import { SectionTag } from "../components/kit/SectionTag"
@@ -19,13 +19,13 @@ export default function ContactPage() {
     setSent(false)
     setError(false)
 
-    emailjs
-      .sendForm(
-        "service_0wptkk6",
-        "template_0x1wzok",
-        formRef.current!,
-        "1nvz4SCWKMu2KkTvT"
-      )
+    const fd = new FormData(formRef.current!)
+    sendLead("contact", {
+      name: String(fd.get("name") || ""),
+      email: String(fd.get("email") || ""),
+      company: String(fd.get("company") || ""),
+      message: String(fd.get("message") || ""),
+    })
       .then(
         () => {
           setIsSending(false)

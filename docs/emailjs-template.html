@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="supported-color-schemes" content="light dark">
+  <title>{{subject}}</title>
+  <style>
+    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse; }
+    body { margin: 0 !important; padding: 0 !important; width: 100% !important; background: #eef0f3; }
+    a { text-decoration: none; }
+    .font { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; }
+    @media only screen and (max-width: 620px) {
+      .wrap { padding: 12px !important; }
+      .card { border-radius: 20px !important; }
+      .px { padding-left: 20px !important; padding-right: 20px !important; }
+      .h-pad { padding: 26px 20px 22px !important; }
+      .name { font-size: 24px !important; line-height: 30px !important; }
+      .col { display: block !important; width: 100% !important; padding: 0 0 10px 0 !important; }
+      .btn a { display: block !important; }
+    }
+    @media (prefers-color-scheme: dark) {
+      body, .bg { background: #0a0b0d !important; }
+      .card { background: #121317 !important; border-color: #24262d !important; }
+      .tile { background: #1a1c22 !important; border-color: #2a2d36 !important; }
+      .t1 { color: #ffffff !important; }
+      .t2 { color: #a3a7b3 !important; }
+      .rule { border-color: #24262d !important; }
+    }
+  </style>
+</head>
+<body class="bg" style="margin:0;padding:0;background:#eef0f3;">
+
+  <!-- Preheader (inbox preview text) -->
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0;font-size:1px;line-height:1px;color:#eef0f3;">
+    {{preheader}}
+  </div>
+
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="bg" style="background:#eef0f3;">
+    <tr>
+      <td align="center" class="wrap" style="padding:32px 16px;">
+
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="card font"
+               style="max-width:600px;background:#ffffff;border:1px solid #e3e6ec;border-radius:28px;overflow:hidden;">
+
+          <!-- Header -->
+          <tr>
+            <td class="h-pad" style="background:#0a0b0d;padding:30px 36px 28px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td class="font" style="font-size:13px;font-weight:700;letter-spacing:0.22em;color:#ffffff;">
+                    SMART&nbsp;CONVO
+                    <span style="display:inline-block;width:6px;height:6px;border-radius:3px;background:#D4FF00;margin-left:6px;vertical-align:middle;"></span>
+                  </td>
+                  <td align="right" class="font">
+                    <span style="display:inline-block;background:#D4FF00;color:#0a0b0d;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:7px 12px;border-radius:999px;">
+                      {{form_type}}
+                    </span>
+                  </td>
+                </tr>
+              </table>
+
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:30px;">
+                <tr>
+                  <td class="font" style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#8b90a0;">New enquiry from</td>
+                </tr>
+                <tr>
+                  <td class="font name" style="padding-top:8px;font-size:30px;line-height:36px;font-weight:700;letter-spacing:-0.02em;color:#ffffff;">{{name}}</td>
+                </tr>
+                {{{company_html}}}
+              </table>
+            </td>
+          </tr>
+
+          <!-- Lime accent line -->
+          <tr><td style="height:3px;line-height:3px;font-size:0;background:#D4FF00;">&nbsp;</td></tr>
+
+          <!-- Contact details (only fields that were filled in) -->
+          {{{details_html}}}
+
+          <!-- Message (omitted when empty) -->
+          {{{message_html}}}
+
+          <!-- ROI estimate (omitted when the calculator was not used) -->
+          {{{roi_html}}}
+
+          <!-- Reply button -->
+          <tr>
+            <td class="px btn" align="left" style="padding:28px 36px 8px;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td align="center" bgcolor="#D4FF00" style="border-radius:999px;">
+                    <a href="mailto:{{email}}?subject=Re:%20{{subject}}" class="font"
+                       style="display:inline-block;padding:15px 30px;font-size:15px;font-weight:700;color:#0a0b0d;border-radius:999px;">
+                      Reply to {{name}} &rarr;
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Meta -->
+          <tr>
+            <td class="px" style="padding:26px 36px 30px;">
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="rule" style="border-top:1px solid #eceef2;">
+                <tr>
+                  <td class="font t2" style="padding-top:18px;font-size:12px;line-height:20px;color:#7b8190;">
+                    Received <strong class="t1" style="color:#3a3e49;">{{submitted_at}}</strong><br>
+                    Sent from <a href="{{page}}" style="color:#7b8190;text-decoration:underline;">{{page}}</a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;">
+          <tr>
+            <td align="center" class="font" style="padding:20px 16px 0;font-size:12px;line-height:19px;color:#8a8f9c;">
+              Smart Convo &middot; AI voice agents that answer every call<br>
+              This message was generated by your website forms.
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
