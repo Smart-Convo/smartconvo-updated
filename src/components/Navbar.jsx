@@ -74,9 +74,9 @@ export default function Navbar({ onOpenModal, onScrollTo }) {
     <>
     <header style={font} className="sticky top-0 z-50 px-3 sm:px-6 pt-2.5 sm:pt-4 pointer-events-none">
       <div
-        className={`pointer-events-auto mx-auto max-w-6xl flex items-center justify-between gap-3 rounded-full border pl-4 sm:pl-6 pr-2 h-[52px] sm:h-[60px] backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 ${
+        className={`header-glow pointer-events-auto mx-auto max-w-6xl flex items-center justify-between gap-3 rounded-full border pl-4 sm:pl-6 pr-2 h-[52px] sm:h-[60px] backdrop-blur-2xl backdrop-saturate-150 transition-all duration-300 ${
           scrolled || !onHome
-            ? 'bg-[#0a0b0d]/75 border-white/12 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.8)]'
+            ? 'bg-[#0a0b0d]/80 border-white/10 shadow-[0_12px_40px_-12px_rgba(0,0,0,0.8)]'
             : 'bg-white/[0.04] border-white/10'
         }`}
       >

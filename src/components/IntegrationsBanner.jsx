@@ -15,6 +15,7 @@ const ROW_A = [
   { name: 'LeadSquared', tag: 'Lead Pipeline', logo: 'leadsquared.png', round: true },
   { name: 'Google Calendar', tag: 'Booking', logo: 'googlecalendar.svg' },
   { name: 'PTCL / SIP Trunks', tag: 'Telephony', icon: PhoneCall },
+  { name: 'GoHighLevel', tag: 'CRM & Automation', logo: 'highlevel.png', round: true },
   { name: 'Custom REST Webhook', tag: 'Webhooks', icon: Webhook },
 ];
 
@@ -30,6 +31,9 @@ const ROW_B = [
   { name: 'Leopards Courier', tag: 'Courier', logo: 'leopards.png', h: 26 },
   { name: 'Shopify', tag: 'E-Commerce', logo: 'shopify.svg' },
   { name: 'Zapier', tag: 'Automation', logo: 'zapier.svg', round: true },
+  { name: 'Meta', tag: 'Ads & Messaging', logo: 'meta.svg', h: 22 },
+  { name: 'Claude', tag: 'AI Assistant', logo: 'claude.svg' },
+  { name: 'n8n', tag: 'Workflow Automation', logo: 'n8n.svg' },
 ];
 
 function Card({ it }) {
