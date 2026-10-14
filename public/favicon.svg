@@ -1,0 +1,170 @@
+<svg width="64" height="64" viewBox="0 0 160 136" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Outer Left Ring Metallic Gradient -->
+    <linearGradient id="fav-grad-s" x1="16" y1="18" x2="98" y2="120" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#475569" />
+      <stop offset="16%" stop-color="#94A3B8" />
+      <stop offset="34%" stop-color="#FFFFFF" />
+      <stop offset="52%" stop-color="#E2E8F0" />
+      <stop offset="70%" stop-color="#64748B" />
+      <stop offset="88%" stop-color="#CBD5E1" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+
+    <!-- Inner Left Ring Bevel Gradient -->
+    <linearGradient id="fav-grad-s-inner" x1="22" y1="118" x2="84" y2="22" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#0B1120" />
+      <stop offset="28%" stop-color="#334155" />
+      <stop offset="55%" stop-color="#F8FAFC" />
+      <stop offset="75%" stop-color="#94A3B8" />
+      <stop offset="92%" stop-color="#475569" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+
+    <!-- Outer Right Ring Metallic Gradient -->
+    <linearGradient id="fav-grad-c" x1="144" y1="20" x2="68" y2="118" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#64748B" />
+      <stop offset="22%" stop-color="#CBD5E1" />
+      <stop offset="42%" stop-color="#FFFFFF" />
+      <stop offset="64%" stop-color="#94A3B8" />
+      <stop offset="82%" stop-color="#334155" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+
+    <!-- Inner Right Ring Bevel Gradient -->
+    <linearGradient id="fav-grad-c-inner" x1="140" y1="114" x2="72" y2="22" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="26%" stop-color="#475569" />
+      <stop offset="54%" stop-color="#F1F5F9" />
+      <stop offset="78%" stop-color="#94A3B8" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+
+    <!-- Subtle Drop Shadow -->
+    <filter id="fav-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="3.5" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+
+    <!-- Starburst Gradient -->
+    <radialGradient id="fav-star-glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9" />
+      <stop offset="40%" stop-color="#E0F2FE" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#38BDF8" stop-opacity="0" />
+    </radialGradient>
+
+    <linearGradient id="fav-star-h" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0" />
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="1" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+    </linearGradient>
+
+    <linearGradient id="fav-star-v" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0" />
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="1" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Deep dark squircle frame for browser tabs -->
+  <rect width="160" height="136" rx="28" fill="#060709" />
+  <rect x="1" y="1" width="158" height="134" rx="27" stroke="#1E293B" stroke-width="1.5" />
+
+  <!-- Back Layer: Right Ring Back Arc -->
+  <path
+    d="M 125 22 
+       C 105 10, 80 18, 68 38 
+       C 62 48, 59 60, 60 72 
+       C 62 88, 72 102, 88 114 
+       C 108 126, 132 120, 142 108 
+       C 134 100, 120 112, 102 105 
+       C 86 98, 77 86, 75 72 
+       C 74 58, 80 44, 94 34 
+       C 106 25, 118 28, 125 22 Z"
+    fill="url(#fav-grad-c-inner)"
+    opacity="0.9"
+  />
+
+  <!-- Middle Layer: Left Ring Main Chrome Flow -->
+  <path
+    d="M 68 18 
+       C 40 18, 18 38, 16 66 
+       C 15 88, 30 110, 58 118 
+       C 74 122, 88 118, 98 108 
+       C 92 102, 78 110, 62 104 
+       C 42 96, 32 80, 32 64 
+       C 32 44, 46 30, 68 28 
+       C 82 28, 94 36, 100 46 
+       C 106 38, 96 24, 82 19 
+       C 78 18, 73 18, 68 18 Z"
+    fill="url(#fav-grad-s)"
+    filter="url(#fav-shadow)"
+  />
+
+  <!-- Left Ring Inner Bevel -->
+  <path
+    d="M 68 20 
+       C 42 20, 22 40, 20 66 
+       C 19 86, 33 106, 58 114 
+       C 68 117, 80 115, 90 108 
+       C 84 105, 74 110, 60 105 
+       C 42 98, 33 84, 34 68 
+       C 35 48, 48 34, 68 31 
+       C 80 31, 90 38, 96 46 
+       C 100 41, 92 30, 80 23 
+       C 76 21, 72 20, 68 20 Z"
+    fill="url(#fav-grad-s-inner)"
+    opacity="0.94"
+  />
+
+  <!-- Foreground Layer: Right Ring Loop -->
+  <path
+    d="M 142 28 
+       C 126 14, 102 14, 86 28 
+       C 72 40, 66 60, 68 80 
+       C 71 102, 86 122, 114 124 
+       C 134 125, 148 114, 150 102 
+       C 142 96, 134 108, 118 110 
+       C 98 112, 84 98, 82 80 
+       C 80 62, 88 44, 102 34 
+       C 116 24, 134 26, 142 28 Z"
+    fill="url(#fav-grad-c)"
+    filter="url(#fav-shadow)"
+  />
+
+  <!-- Right Ring Inner Bevel -->
+  <path
+    d="M 138 31 
+       C 124 18, 104 18, 90 30 
+       C 78 40, 72 58, 74 76 
+       C 77 96, 90 114, 114 118 
+       C 130 119, 142 110, 146 102 
+       C 140 98, 132 106, 118 107 
+       C 100 108, 88 96, 86 80 
+       C 84 64, 90 48, 102 38 
+       C 114 28, 130 30, 138 31 Z"
+    fill="url(#fav-grad-c-inner)"
+    opacity="0.95"
+  />
+
+  <!-- Specular Highlights -->
+  <path
+    d="M 134 24 C 120 16, 102 18, 90 28 C 86 31, 88 33, 92 31 C 104 23, 120 20, 132 27 C 135 28, 137 26, 134 24 Z"
+    fill="#FFFFFF"
+    opacity="0.8"
+  />
+  <path
+    d="M 36 78 C 36 94, 46 108, 62 114 C 65 115, 66 112, 63 111 C 49 105, 40 93, 40 78 C 40 75, 36 75, 36 78 Z"
+    fill="#FFFFFF"
+    opacity="0.75"
+  />
+
+  <!-- Radiant Center Starburst Flare -->
+  <g>
+    <circle cx="80" cy="67" r="24" fill="url(#fav-star-glow)" />
+    <path d="M 44 67 Q 72 65 80 62 Q 88 65 116 67 Q 88 69 80 72 Q 72 69 44 67 Z" fill="url(#fav-star-h)" />
+    <path d="M 80 32 Q 78 59 75 67 Q 78 75 80 102 Q 82 75 85 67 Q 82 59 80 32 Z" fill="url(#fav-star-v)" />
+    <path d="M 64 51 L 96 83 M 96 51 L 64 83" stroke="#FFFFFF" stroke-width="1.2" stroke-linecap="round" opacity="0.45" />
+    <path d="M 80 48 Q 80 67 61 67 Q 80 67 80 86 Q 80 67 99 67 Q 80 67 80 48 Z" fill="#FFFFFF" opacity="0.95" />
+    <circle cx="80" cy="67" r="3.2" fill="#FFFFFF" />
+  </g>
+</svg>

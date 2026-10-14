@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2560 1440" width="2560" height="1440">
+  <defs>
+    <linearGradient id="studio-bg-wide" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EDF2F7" />
+      <stop offset="30%" stop-color="#F4F7FB" />
+      <stop offset="70%" stop-color="#E2E8F0" />
+      <stop offset="100%" stop-color="#D8E0E9" />
+    </linearGradient>
+
+    <linearGradient id="chrome-body-wide" x1="10%" y1="0%" x2="90%" y2="100%">
+      <stop offset="0%" stop-color="#CBD5E1" />
+      <stop offset="15%" stop-color="#FFFFFF" />
+      <stop offset="32%" stop-color="#94A3B8" />
+      <stop offset="50%" stop-color="#334155" />
+      <stop offset="68%" stop-color="#64748B" />
+      <stop offset="85%" stop-color="#F1F5F9" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+
+    <linearGradient id="chrome-scoop-wide" x1="20%" y1="10%" x2="80%" y2="90%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95" />
+      <stop offset="20%" stop-color="#E2E8F0" />
+      <stop offset="40%" stop-color="#94A3B8" />
+      <stop offset="60%" stop-color="#475569" />
+      <stop offset="80%" stop-color="#1E293B" />
+      <stop offset="95%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+
+    <linearGradient id="red-specular-wide" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF1744" stop-opacity="0" />
+      <stop offset="25%" stop-color="#FF1744" stop-opacity="0.9" />
+      <stop offset="50%" stop-color="#FF5252" stop-opacity="1" />
+      <stop offset="75%" stop-color="#FF1744" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#D50000" stop-opacity="0" />
+    </linearGradient>
+
+    <linearGradient id="specular-rim-wide" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9" />
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="1" />
+      <stop offset="80%" stop-color="#CBD5E1" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#64748B" stop-opacity="0.2" />
+    </linearGradient>
+
+    <filter id="shadow-wide" x="-20%" y="-20%" width="150%" height="150%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="40" />
+      <feOffset dx="30" dy="50" />
+      <feComponentTransfer><feFuncA type="linear" slope="0.25" /></feComponentTransfer>
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="glow-red-wide" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="14" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <rect width="2560" height="1440" fill="url(#studio-bg-wide)" />
+
+  <!-- Studio Ambient Specular Light Pools -->
+  <circle cx="2000" cy="350" r="700" fill="#FFFFFF" opacity="0.45" filter="blur(100px)" />
+  <circle cx="800" cy="1100" r="600" fill="#CBD5E1" opacity="0.3" filter="blur(100px)" />
+
+  <!-- 3D Liquid Chrome Ribbon System (Right-to-Center Focal flow) -->
+  <g filter="url(#shadow-wide)">
+    <!-- Back ribbon strand -->
+    <path
+      d="M 2560 180 C 2200 200, 1800 380, 1600 680 C 1480 860, 1520 1100, 1720 1280 C 1940 1480, 2300 1420, 2560 1340 L 2560 1160 C 2340 1240, 2040 1260, 1900 1120 C 1760 980, 1750 820, 1840 680 C 2000 420, 2300 280, 2560 260 Z"
+      fill="url(#chrome-body-wide)"
+      opacity="0.6"
+    />
+
+    <!-- Upper entering sweep -->
+    <path
+      d="M 2560 -40 C 2340 20, 1960 160, 1650 420 C 1400 640, 1260 880, 1280 1080 C 1300 1180, 1370 1280, 1480 1360 C 1390 1280, 1320 1180, 1300 1060 C 1280 880, 1400 660, 1650 440 C 1950 180, 2320 40, 2560 0 Z"
+      fill="url(#chrome-body-wide)"
+    />
+
+    <!-- Foreground Teardrop Scoop (Primary Focal Point) -->
+    <path
+      d="M 1320 780 C 1200 520, 920 680, 800 940 C 720 1140, 760 1400, 940 1600 C 1120 1800, 1400 1880, 1640 1800 C 1780 1740, 1900 1620, 1970 1440 C 2010 1320, 1990 1160, 1900 1020 C 1760 820, 1580 760, 1440 820 C 1350 860, 1290 960, 1310 1060 C 1330 1160, 1430 1240, 1540 1230 C 1630 1220, 1700 1140, 1680 1050 C 1660 970, 1570 920, 1500 940 C 1450 960, 1420 1010, 1430 1050 C 1390 990, 1410 900, 1480 850 C 1580 780, 1710 820, 1820 960 C 1900 1080, 1920 1210, 1870 1320 C 1810 1450, 1710 1550, 1580 1600 C 1390 1670, 1160 1600, 1020 1430 C 870 1260, 840 1050, 900 890 C 970 680, 1220 560, 1320 780 Z"
+      fill="url(#chrome-scoop-wide)"
+    />
+
+    <!-- Red Specular Light Reflection (Signature Edge from image) -->
+    <path
+      d="M 1300 780 C 1330 850, 1400 940, 1480 1020 C 1560 1090, 1650 1140, 1720 1160"
+      fill="none"
+      stroke="url(#red-specular-wide)"
+      stroke-width="18"
+      stroke-linecap="round"
+      filter="url(#glow-red-wide)"
+    />
+    <path
+      d="M 1315 800 C 1345 860, 1405 930, 1475 995 C 1540 1050, 1620 1100, 1680 1130"
+      fill="none"
+      stroke="#FFFFFF"
+      stroke-width="3.5"
+      stroke-linecap="round"
+      opacity="0.85"
+    />
+
+    <!-- Razor Sharp Double White Rim Highlight on Chrome Crest -->
+    <path
+      d="M 1290 620 C 1100 750, 880 940, 820 1150 C 760 1360, 810 1590, 980 1780 C 1150 1960, 1420 2040, 1640 1960 C 1800 1890, 1920 1760, 1980 1580"
+      fill="none"
+      stroke="url(#specular-rim-wide)"
+      stroke-width="7"
+      stroke-linecap="round"
+    />
+    <path
+      d="M 1305 645 C 1120 770, 915 960, 855 1160 C 800 1350, 845 1560, 1000 1730 C 1155 1900, 1400 1980, 1610 1910 C 1750 1850, 1860 1730, 1920 1570"
+      fill="none"
+      stroke="#FFFFFF"
+      stroke-width="3"
+      stroke-linecap="round"
+      opacity="0.95"
+    />
+
+    <!-- Upper Specular Accents -->
+    <path
+      d="M 1650 420 C 1500 580, 1390 760, 1340 940"
+      fill="none"
+      stroke="#FFFFFF"
+      stroke-width="5"
+      stroke-linecap="round"
+      opacity="0.8"
+    />
+  </g>
+</svg>

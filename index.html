@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      // Ensure window.fetch has both getter and setter so test runners/proxies can wrap window.fetch without throwing
+      (function() {
+        try {
+          var _origFetch = window.fetch;
+          Object.defineProperty(window, 'fetch', {
+            get: function() {
+              return _origFetch;
+            },
+            set: function(val) {
+              _origFetch = val;
+            },
+            configurable: true,
+            enumerable: true
+          });
+        } catch (e) {
+          // ignore if already non-configurable
+        }
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Security Headers / Directives -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(self), geolocation=()" />
+    
+    <title>Smart Convo | Enterprise Voice AI for Real Estate, Retail & Healthcare</title>
+    <meta name="description" content="Enterprise Voice AI platform for Real Estate Developers, Retail Brands, and Healthcare Clinics. Answer every call, qualify every lead in Urdu & English with sub-second latency." />
+    
+    <!-- OpenGraph / Social Cards -->
+    <meta property="og:title" content="Smart Convo | Enterprise Voice AI for Real Estate, Retail & Healthcare" />
+    <meta property="og:description" content="Enterprise Voice AI platform for Real Estate Developers, Retail Brands, and Healthcare Clinics. Answer every call, qualify every lead in Urdu & English with sub-second latency." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Smart Convo | Enterprise Voice AI" />
+    <meta name="twitter:description" content="Enterprise Voice AI platform for Real Estate Developers, Retail Brands, and Healthcare Clinics." />
+    
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    
+    <!-- Fast DNS Prefetch & Preconnect for High-Speed Typography -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-[#060709] text-white antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

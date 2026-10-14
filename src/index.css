@@ -1,0 +1,329 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --apple-font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --neon-yellow: #D4FF00;
+  --electric-blue: #0066FF;
+}
+
+body {
+  background-color: #060709;
+  color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "SF Pro", 'Plus Jakarta Sans', system-ui, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Apple iOS Style Typography for small or explanation texts */
+.ios-subtext {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", system-ui, sans-serif;
+  font-size: 0.8125rem; /* 13px */
+  line-height: 1.45;
+  letter-spacing: -0.008em;
+  color: #cbd5e1;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ios-caption {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", system-ui, sans-serif;
+  font-size: 0.6875rem; /* 11px */
+  line-height: 1.35;
+  letter-spacing: 0.015em;
+  color: #94a3b8;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ios-footnote {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", system-ui, sans-serif;
+  font-size: 0.75rem; /* 12px */
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  color: #a1a1aa;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ios-badge {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro", system-ui, sans-serif;
+  font-size: 0.6875rem; /* 11px */
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom Neon Yellow / Apple Blue Range Sliders */
+input[type="range"].certus-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+  width: 100%;
+}
+
+input[type="range"].certus-slider:focus {
+  outline: none;
+}
+
+input[type="range"].certus-slider::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 9999px;
+  background: #e2e8f0;
+}
+
+input[type="range"].certus-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 22px;
+  width: 22px;
+  border-radius: 50%;
+  background: #D4FF00;
+  box-shadow: 0 0 14px rgba(212, 255, 0, 0.7), 0 2px 6px rgba(0, 0, 0, 0.15);
+  margin-top: -8px;
+  border: 2px solid #0f172a;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+input[type="range"].certus-slider:active::-webkit-slider-thumb {
+  transform: scale(1.15);
+  box-shadow: 0 0 20px rgba(212, 255, 0, 0.9), 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+input[type="range"].certus-slider::-moz-range-track {
+  height: 6px;
+  border-radius: 9999px;
+  background: #e2e8f0;
+}
+
+input[type="range"].certus-slider::-moz-range-progress {
+  height: 6px;
+  border-radius: 9999px;
+  background: #0066FF;
+}
+
+input[type="range"].certus-slider::-moz-range-thumb {
+  height: 22px;
+  width: 22px;
+  border-radius: 50%;
+  background: #D4FF00;
+  box-shadow: 0 0 14px rgba(212, 255, 0, 0.7);
+  border: 2px solid #0f172a;
+}
+
+/* Background UI Smooth Animations */
+@keyframes fluteWave {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-16px) rotate(0.6deg);
+  }
+}
+
+@keyframes silkFloat {
+  0%, 100% {
+    transform: translateX(0px) scaleY(1);
+  }
+  50% {
+    transform: translateX(18px) scaleY(1.02);
+  }
+}
+
+@keyframes loopSwirlLeft {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-16px) rotate(1.5deg);
+  }
+}
+
+@keyframes loopSwirlRight {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(14px) rotate(-1.5deg);
+  }
+}
+
+@keyframes ringPulse {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-12px) scale(1.03);
+  }
+}
+
+@keyframes helixFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-18px);
+  }
+}
+
+@keyframes satinUndulate {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-18px) scale(1.015);
+  }
+}
+
+@keyframes equalizerBob1 {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  40% {
+    transform: translateY(140px);
+  }
+  70% {
+    transform: translateY(60px);
+  }
+}
+
+@keyframes equalizerBob2 {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  30% {
+    transform: translateY(-130px);
+  }
+  60% {
+    transform: translateY(-50px);
+  }
+  85% {
+    transform: translateY(-150px);
+  }
+}
+
+@keyframes equalizerBob3 {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  35% {
+    transform: translateY(110px);
+  }
+  65% {
+    transform: translateY(30px);
+  }
+}
+
+.animate-flute-wave {
+  animation: fluteWave 10s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+.animate-silk-float {
+  animation: silkFloat 12s ease-in-out infinite;
+  transform-origin: left top;
+}
+
+.animate-loop-swirl-left {
+  animation: loopSwirlLeft 9s ease-in-out infinite;
+}
+
+.animate-loop-swirl-right {
+  animation: loopSwirlRight 11s ease-in-out infinite;
+}
+
+.animate-ring-pulse {
+  animation: ringPulse 13s ease-in-out infinite;
+}
+
+.animate-helix-float {
+  animation: helixFloat 12s ease-in-out infinite;
+}
+
+.animate-satin-undulate {
+  animation: satinUndulate 11s ease-in-out infinite;
+}
+
+.animate-equalizer-bob-1 {
+  animation: equalizerBob1 3.2s ease-in-out infinite;
+}
+
+.animate-equalizer-bob-2 {
+  animation: equalizerBob2 2.8s ease-in-out infinite;
+}
+
+.animate-equalizer-bob-3 {
+  animation: equalizerBob3 3.6s ease-in-out infinite;
+}
+
+/* Hardware GPU Acceleration & Smooth Compositing */
+.gpu-accelerated {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform, opacity;
+}
+
+/* Off-screen Render Optimization: browser defers layout & painting until near viewport */
+section:not(#hero) {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 700px;
+}
+
+/* Accessibility: Gracefully disable heavy continuous animations if user requests reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+
+
+
+
+/* Shared page container (used by the About / Contact / Industries / legal pages) */
+.container-large {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media (min-width: 640px) { .container-large { padding-left: 1.5rem; padding-right: 1.5rem; } }
+@media (min-width: 1024px) { .container-large { padding-left: 2rem; padding-right: 2rem; } }
+
+.scrollbar-none { scrollbar-width: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* Hero headline: shimmering lime gradient text */
+.shimmer-lime {
+  background: linear-gradient(100deg, #D4FF00 0%, #9dff7a 32%, #ffffff 50%, #9dff7a 68%, #D4FF00 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: shimmer-lime 4.5s linear infinite;
+}
+@keyframes shimmer-lime {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+@media (prefers-reduced-motion: reduce) { .shimmer-lime { animation: none; } }
+
+/* Phones: smaller base size so type and rem spacing scale down together */
+@media (max-width: 639px) {
+  html { font-size: 13px; }
+  .ios-subtext { font-size: 0.875rem; line-height: 1.55; }
+  .ios-footnote { font-size: 0.8rem; }
+  .ios-caption { font-size: 0.75rem; }
+  .ios-badge { font-size: 0.7rem; }
+}
+
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.animate-marquee { animation: marquee 26s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .animate-marquee { animation: none; } }

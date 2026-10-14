@@ -1,0 +1,182 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 2560" width="1440" height="2560">
+  <defs>
+    <!-- Studio Background Gradient -->
+    <linearGradient id="studio-bg" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#EDF2F7" />
+      <stop offset="35%" stop-color="#F4F7FB" />
+      <stop offset="70%" stop-color="#E2E8F0" />
+      <stop offset="100%" stop-color="#D8E0E9" />
+    </linearGradient>
+
+    <!-- Chrome Outer Body Gradient -->
+    <linearGradient id="chrome-main" x1="0%" y1="30%" x2="100%" y2="70%">
+      <stop offset="0%" stop-color="#CBD5E1" />
+      <stop offset="18%" stop-color="#F8FAFC" />
+      <stop offset="36%" stop-color="#94A3B8" />
+      <stop offset="52%" stop-color="#334155" />
+      <stop offset="70%" stop-color="#64748B" />
+      <stop offset="88%" stop-color="#F1F5F9" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+
+    <!-- Concave Chrome Scoop Gradient -->
+    <linearGradient id="chrome-scoop" x1="15%" y1="10%" x2="85%" y2="90%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.95" />
+      <stop offset="22%" stop-color="#E2E8F0" />
+      <stop offset="42%" stop-color="#94A3B8" />
+      <stop offset="62%" stop-color="#475569" />
+      <stop offset="80%" stop-color="#1E293B" />
+      <stop offset="94%" stop-color="#0F172A" />
+      <stop offset="100%" stop-color="#334155" />
+    </linearGradient>
+
+    <!-- Upper Ribbon Twist Gradient -->
+    <linearGradient id="chrome-upper" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#64748B" />
+      <stop offset="25%" stop-color="#CBD5E1" />
+      <stop offset="50%" stop-color="#FFFFFF" />
+      <stop offset="75%" stop-color="#475569" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+
+    <!-- Lower Ribbon Sweep Gradient -->
+    <linearGradient id="chrome-lower" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#334155" />
+      <stop offset="25%" stop-color="#94A3B8" />
+      <stop offset="55%" stop-color="#F8FAFC" />
+      <stop offset="75%" stop-color="#64748B" />
+      <stop offset="100%" stop-color="#1E293B" />
+    </linearGradient>
+
+    <!-- Red Specular Reflection Gradient (Key signature in user image) -->
+    <linearGradient id="red-specular" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF1744" stop-opacity="0" />
+      <stop offset="25%" stop-color="#FF1744" stop-opacity="0.85" />
+      <stop offset="50%" stop-color="#FF5252" stop-opacity="1" />
+      <stop offset="75%" stop-color="#FF1744" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#D50000" stop-opacity="0" />
+    </linearGradient>
+
+    <!-- Pure Specular Rim Highlight -->
+    <linearGradient id="specular-rim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9" />
+      <stop offset="45%" stop-color="#FFFFFF" stop-opacity="1" />
+      <stop offset="80%" stop-color="#E2E8F0" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#94A3B8" stop-opacity="0.2" />
+    </linearGradient>
+
+    <!-- Soft Drop Shadow Filter for Ribbon Depth -->
+    <filter id="ribbon-shadow" x="-20%" y="-20%" width="150%" height="150%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="35" />
+      <feOffset dx="25" dy="45" />
+      <feComponentTransfer><feFuncA type="linear" slope="0.2" /></feComponentTransfer>
+      <feMerge>
+        <feMergeNode />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <filter id="glow-red" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1440" height="2560" fill="url(#studio-bg)" />
+
+  <!-- Ambient Specular Vignettes -->
+  <circle cx="1100" cy="400" r="600" fill="#FFFFFF" opacity="0.4" filter="blur(80px)" />
+  <circle cx="350" cy="1500" r="500" fill="#CBD5E1" opacity="0.35" filter="blur(90px)" />
+
+  <!-- Main 3D Fluid Ribbon Sculpture Group -->
+  <g filter="url(#ribbon-shadow)">
+
+    <!-- 1. Background Secondary Ribbon Fin (Upper Layer behind) -->
+    <path
+      d="M 1440 220 C 1200 240, 850 420, 720 720 C 650 880, 680 1100, 820 1280 C 980 1480, 1220 1420, 1440 1340 L 1440 1150 C 1260 1220, 1080 1250, 960 1120 C 860 1010, 840 850, 910 710 C 1020 480, 1260 340, 1440 320 Z"
+      fill="url(#chrome-upper)"
+      opacity="0.65"
+    />
+
+    <!-- 2. Lower Ascending Sweep Ribbon Body -->
+    <path
+      d="M 550 1480 C 420 1620, 320 1820, 300 2050 C 270 2320, 480 2520, 820 2560 L 1020 2560 C 720 2480, 580 2300, 600 2060 C 620 1860, 720 1680, 880 1520 Z"
+      fill="url(#chrome-lower)"
+    />
+
+    <!-- 3. Upper Spiral Ribbon Curve (Entering from top right) -->
+    <path
+      d="M 1440 0 C 1300 40, 1020 180, 780 440 C 580 660, 480 880, 500 1080 C 510 1180, 560 1280, 640 1360 C 580 1300, 520 1200, 510 1080 C 490 890, 590 680, 790 470 C 1020 230, 1290 80, 1440 40 Z"
+      fill="url(#chrome-upper)"
+    />
+
+    <!-- 4. Main Teardrop Spoon Concave Face (Focal Foreground Loop) -->
+    <path
+      d="M 520 1080 C 420 860, 160 1020, 80 1260 C 20 1440, 60 1680, 220 1860 C 380 2040, 620 2120, 820 2040 C 940 1990, 1040 1880, 1100 1720 C 1140 1600, 1120 1460, 1040 1340 C 920 1160, 760 1100, 640 1160 C 560 1200, 510 1290, 530 1380 C 550 1480, 640 1550, 740 1540 C 820 1530, 880 1460, 860 1380 C 840 1300, 760 1260, 700 1280 C 660 1300, 630 1340, 640 1380 C 600 1320, 620 1240, 680 1190 C 760 1130, 880 1160, 980 1290 C 1050 1390, 1070 1510, 1030 1610 C 980 1730, 890 1820, 780 1860 C 610 1920, 410 1850, 280 1700 C 150 1550, 120 1350, 170 1200 C 230 1010, 440 900, 520 1080 Z"
+      fill="url(#chrome-scoop)"
+    />
+
+    <!-- 5. Front Crest Ridge (High Gloss Chrome Overhang) -->
+    <path
+      d="M 480 940 C 320 1060, 140 1240, 90 1420 C 40 1600, 80 1810, 230 1980 C 370 2140, 590 2210, 780 2140 C 910 2090, 1020 1960, 1070 1800 C 990 1920, 870 2010, 740 2050 C 570 2100, 380 2040, 260 1900 C 130 1750, 100 1560, 140 1400 C 190 1240, 350 1080, 490 970 Z"
+      fill="url(#chrome-main)"
+    />
+
+    <!-- 6. Distinct Red Specular Reflection in the Inner Fold (Exact match to uploaded image) -->
+    <path
+      d="M 510 1080 C 530 1140, 580 1220, 640 1280 C 700 1340, 770 1380, 820 1400"
+      fill="none"
+      stroke="url(#red-specular)"
+      stroke-width="16"
+      stroke-linecap="round"
+      filter="url(#glow-red)"
+    />
+    <path
+      d="M 520 1100 C 540 1150, 580 1210, 630 1260 C 680 1310, 740 1350, 790 1380"
+      fill="none"
+      stroke="#FFFFFF"
+      stroke-width="3"
+      stroke-linecap="round"
+      opacity="0.8"
+    />
+
+    <!-- 7. Razor Sharp Double White Rim Highlight on Chrome Edge -->
+    <path
+      d="M 500 930 C 340 1050, 150 1230, 90 1420 C 40 1610, 90 1820, 240 1990 C 380 2150, 610 2230, 800 2150 C 940 2090, 1040 1970, 1090 1810"
+      fill="none"
+      stroke="url(#specular-rim)"
+      stroke-width="6"
+      stroke-linecap="round"
+    />
+    <path
+      d="M 515 955 C 360 1070, 180 1250, 125 1425 C 80 1595, 120 1785, 255 1940 C 385 2090, 590 2165, 770 2100 C 895 2045, 990 1940, 1040 1795"
+      fill="none"
+      stroke="#FFFFFF"
+      stroke-width="2.5"
+      stroke-linecap="round"
+      opacity="0.9"
+    />
+
+    <!-- 8. Specular Sheen Accents & Light Gleams -->
+    <path
+      d="M 780 440 C 650 580, 560 740, 520 900"
+      fill="none"
+      stroke="#FFFFFF"
+      stroke-width="4"
+      stroke-linecap="round"
+      opacity="0.75"
+    />
+    <path
+      d="M 1200 120 C 1040 240, 880 420, 780 620"
+      fill="none"
+      stroke="#FFFFFF"
+      stroke-width="3"
+      stroke-linecap="round"
+      opacity="0.55"
+    />
+  </g>
+</svg>
