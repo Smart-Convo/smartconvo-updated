@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Volume2, VolumeX, Video, Mic, MicOff, Play, Phone } from 'lucide-react';
+import { Volume2, VolumeX, Video, Mic, MicOff, Play, Phone, Pointer } from 'lucide-react';
 import { SmartConvoMark } from './SmartConvoLogo';
 
 /**
@@ -166,7 +166,7 @@ export default function CallDemoPhone() {
                         whileTap={{ scale: 0.97 }}
                         className="relative w-full text-left rounded-[22px] p-[12px] bg-white/[0.2] backdrop-blur-2xl border border-white/20 shadow-[0_10px_30px_rgba(0,0,0,0.35)] cursor-pointer"
                       >
-                        <span className="absolute inset-0 rounded-[22px] ring-2 ring-[#D4FF00]/70 animate-pulse pointer-events-none" />
+                        <span className="cta-glow absolute -inset-[3px] rounded-[25px] pointer-events-none" />
                         <div className="flex items-center gap-[10px]">
                           <div className="w-[38px] h-[38px] rounded-[9px] bg-black flex items-center justify-center shrink-0">
                             <SmartConvoMark size={26} />
@@ -179,9 +179,12 @@ export default function CallDemoPhone() {
                             <div className="text-[13px] text-white/75 leading-[17px] mt-[1px]">Monark Customer Care</div>
                           </div>
                         </div>
-                        <div className="mt-[12px] h-[48px] rounded-full bg-[#D4FF00] text-zinc-950 text-[16px] font-bold flex items-center justify-center gap-2 shadow-[0_4px_18px_rgba(212,255,0,0.4)]">
-                          <Play className="w-4 h-4 fill-zinc-950" />
-                          Tap to listen
+                        <div className="cta-btn relative mt-[12px] h-[48px] rounded-full bg-[#D4FF00] text-zinc-950 text-[16px] font-bold flex items-center justify-center gap-2">
+                          <span className="cta-ripple" /><span className="cta-ripple cta-ripple-2" />
+                          <span className="cta-shine" />
+                          <Play className="relative w-4 h-4 fill-zinc-950" />
+                          <span className="relative">Tap to listen</span>
+                          <Pointer className="cta-finger absolute -bottom-3 right-6 w-7 h-7 text-white fill-white drop-shadow-[0_3px_6px_rgba(0,0,0,0.6)]" strokeWidth={1.6} />
                         </div>
                       </motion.button>
                     </div>

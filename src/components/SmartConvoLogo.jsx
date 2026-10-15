@@ -49,6 +49,7 @@ export default function SmartConvoLogo({
   showStarburst = true,
   showEqualizer = false,
   tone, // 'dark' = dark mark + text, for use on light / lime backgrounds
+  tagline = true, // show the 'Voice AI agents' line under the wordmark
   underline = false, // underline the SMART CONVO wordmark (header)
   accentTag = false, // colour the VOICE AI AGENTS tagline with the brand accent
 }) {
@@ -115,41 +116,49 @@ export default function SmartConvoLogo({
         showEqualizer={showEqualizer} 
       />
 
-      {/* Official Typography from brand reference */}
+      {/* Wordmark: Poppins, "Smart" heavy + "Convo" light for contrast */}
       {showText && (
-        <div className="flex flex-col justify-center leading-none text-left">
+        <div className="flex flex-col justify-center text-left">
           <span
-            className={`font-black tracking-[0.08em] uppercase transition-colors text-white ${titleColor}`}
+            className="transition-colors whitespace-nowrap"
             style={{
-              fontSize: `${Math.round(markSize * 0.44)}px`,
-              letterSpacing: '0.08em',
-              fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Plus Jakarta Sans", "Inter", sans-serif',
-              lineHeight: 1.05,
-              color: onLight ? '#0A0A0A' : 'var(--color-white)',
-              textShadow: 'none',
-            }}
-          >
-            {underline ? (
-              <span className="relative inline-block pb-[3px]">
-                SMART CONVO
-                <span aria-hidden="true" className="sc-underline absolute left-0 right-0 bottom-0 h-px" />
-              </span>
-            ) : 'SMART CONVO'}
-          </span>
-          <span
-            className={`font-bold uppercase transition-colors mt-1.5 tracking-[0.24em] ${tagColor}`}
-            style={{
-              fontSize: `${Math.max(9, Math.round(markSize * 0.19))}px`,
-              letterSpacing: '0.24em',
-              fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Plus Jakarta Sans", "Inter", sans-serif',
+              fontSize: `${Math.round(markSize * (tagline ? 0.6 : 0.64))}px`,
+              letterSpacing: '-0.03em',
+              fontFamily: 'Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
               lineHeight: 1,
-              color: accentTag ? 'var(--sc-tagline)' : onLight ? '#2B3300' : 'var(--color-zinc-300)',
-              opacity: accentTag ? 1 : 0.92,
-              fontWeight: accentTag ? 700 : undefined,
+              color: onLight ? '#0A0A0A' : 'var(--color-white)',
             }}
           >
-            VOICE AI AGENTS
+            {(() => {
+              const word = (
+                <>
+                  <span style={{ fontWeight: 800 }}>Smart</span>
+                  <span style={{ fontWeight: 300, marginLeft: '0.18em' }}>Convo</span>
+                </>
+              );
+              return underline ? (
+                <span className="relative inline-block pb-[6px]">
+                  {word}
+                  <span aria-hidden="true" className="sc-underline absolute left-0 right-0 bottom-0 h-px" />
+                </span>
+              ) : word;
+            })()}
           </span>
+          {tagline && (
+            <span
+              className="mt-[4px] transition-colors"
+              style={{
+                fontSize: `${Math.max(10, Math.round(markSize * 0.27))}px`,
+                fontWeight: 500,
+                letterSpacing: '0.01em',
+                fontFamily: 'Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+                lineHeight: 1,
+                color: accentTag ? 'var(--sc-tagline)' : onLight ? '#2B3300' : 'var(--color-zinc-400)',
+              }}
+            >
+              Voice AI agents
+            </span>
+          )}
         </div>
       )}
     </div>

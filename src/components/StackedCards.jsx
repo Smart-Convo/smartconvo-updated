@@ -32,6 +32,7 @@ function StackItem({ index, total, progress, step, scaleStep, dimStep, children 
       style={{
         top: 'var(--stack-top)',
         height: 'var(--stack-slot)',
+        minHeight: 'var(--stack-min, 0px)',
         zIndex: index + 1,
         paddingTop: index * step,
       }}

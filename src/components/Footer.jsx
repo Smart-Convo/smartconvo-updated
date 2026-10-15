@@ -40,6 +40,7 @@ export default function Footer() {
             <h3 className={col}><span className="inline-block w-1.5 h-1.5 rounded-full bg-[#D4FF00] light:bg-[#7c3aed] mr-2 align-middle" />Product</h3>
             <ul className="space-y-3">
               <li><Link to="/industries" className={link}>Industries</Link></li>
+              <li><a href="https://dashboard.pentagonai.co" target="_blank" rel="noopener noreferrer" className={`${link} inline-flex items-center gap-1`}>Dashboard <span aria-hidden="true">↗</span></a></li>
               <li><Link to="/#verticals" className={link}>Features</Link></li>
               <li><Link to="/#how-it-works" className={link}>How it works</Link></li>
               <li><Link to="/#calculator" className={link}>ROI calculator</Link></li>
