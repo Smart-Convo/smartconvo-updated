@@ -1,24 +1,97 @@
-
 import { useRef, useState } from "react"
+import { motion } from "framer-motion"
+import { ArrowUpRight, Mail, Phone, MapPin } from "lucide-react"
 import { sendLead } from "../lib/sendLead"
-import { SectionWrapper } from "../components/kit/SectionWrapper"
-import { GradientText } from "../components/kit/GradientText"
-import { SectionTag } from "../components/kit/SectionTag"
-import { Button } from "../components/kit/Button"
-import { TrustBadge } from "../components/kit/TrustBadge"
+import { Eyebrow, Accent, FONT } from "../components/PageKit"
+import { DASHBOARD_URL } from "../lib/links"
+
+const field =
+  "w-full rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3.5 text-[15px] text-white placeholder:text-zinc-500 focus:outline-none focus:border-accent focus:ring-4 focus:ring-[#D4FF00]/10 light:focus:ring-[#7c3aed]/15 transition-all"
+
+const phones = ["+1 (873) 371-5579", "+1 (416) 876-3223", "+92 300 8047485"]
+
+
+function DashboardBanner() {
+  const bars = [38, 62, 48, 80, 58, 92, 70, 100, 76, 88]
+  return (
+    <section className="container-large pb-14 sm:pb-28">
+      <div className="relative overflow-hidden rounded-[28px] sm:rounded-[48px] p-6 sm:p-14 lg:p-16" style={{ background: "#D4FF00", color: "#0a0a0a" }}>
+        <div className="pointer-events-none absolute -top-32 -left-20 w-[480px] h-[480px] rounded-full bg-[#fff]/60 blur-[100px]" />
+        <div className="pointer-events-none absolute -bottom-40 right-0 w-[520px] h-[520px] rounded-full blur-[110px]" style={{ background: "rgba(124,58,237,0.28)" }} />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.07]" style={{ backgroundImage: "radial-gradient(#000 1px, transparent 1px)", backgroundSize: "22px 22px" }} />
+        <div className="relative grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          <div className="lg:col-span-7">
+            <div className="flex items-center gap-3 text-[11px] sm:text-[12px] font-semibold tracking-[0.22em] uppercase" style={{ color: "rgba(10,10,10,0.65)" }}>
+              <span className="h-px w-7" style={{ background: "#0a0a0a" }} /> Already a customer?
+            </div>
+            <h2 className="mt-4 sm:mt-6 text-[34px] sm:text-[64px] lg:text-[76px] font-semibold tracking-[-0.045em] leading-[0.96]">
+              Your calls, leads and analytics live in the dashboard.
+            </h2>
+            <a
+              href={DASHBOARD_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-7 sm:mt-10 inline-flex items-center gap-3 h-[54px] sm:h-[64px] pl-7 pr-2 rounded-full text-[15px] sm:text-[18px] font-semibold shadow-[0_18px_40px_-14px_rgba(0,0,0,0.6)] hover:scale-[1.02] transition-transform"
+              style={{ background: "#0a0a0a", color: "#D4FF00" }}
+            >
+              Open dashboard
+              <span className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" style={{ background: "#D4FF00", color: "#0a0a0a" }}>
+                <ArrowUpRight className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={2.4} />
+              </span>
+            </a>
+            <p className="mt-3 text-[12.5px] sm:text-[14px]" style={{ color: "rgba(10,10,10,0.65)" }}>dashboard.pentagonai.co</p>
+          </div>
+
+          {/* live mini dashboard */}
+          <div className="lg:col-span-5">
+            <motion.div
+              initial={{ opacity: 0, y: 30, rotate: 3 }}
+              whileInView={{ opacity: 1, y: 0, rotate: -2 }}
+              viewport={{ once: true, margin: "-10% 0px" }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="rounded-[22px] sm:rounded-[28px] p-4 sm:p-6 shadow-[0_40px_80px_-30px_rgba(0,0,0,0.7)]"
+              style={{ background: "#0b0c0f", color: "#fff", border: "1px solid rgba(255,255,255,0.12)" }}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" /><span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" /><span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" /></div>
+                <span className="flex items-center gap-1.5 text-[11px]" style={{ color: "#D4FF00" }}><span className="relative flex w-1.5 h-1.5"><span className="absolute inset-0 rounded-full animate-ping opacity-70" style={{ background: "#D4FF00" }} /><span className="relative w-1.5 h-1.5 rounded-full" style={{ background: "#D4FF00" }} /></span>Live</span>
+              </div>
+              <div className="mt-4 text-[12px]" style={{ color: "#8b90a0" }}>Calls handled this month</div>
+              <div className="text-[34px] sm:text-[46px] font-semibold tracking-tight leading-none tabular-nums">12,480</div>
+              <div className="mt-4 flex items-end gap-1.5 h-[110px] sm:h-[130px]">
+                {bars.map((h, i) => (
+                  <motion.span
+                    key={i}
+                    className="flex-1 rounded-t-md origin-bottom"
+                    style={{ background: i === 7 ? "#D4FF00" : "#2c2e36", height: `${h}%` }}
+                    initial={{ scaleY: 0 }}
+                    whileInView={{ scaleY: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.7, delay: 0.2 + i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                  />
+                ))}
+              </div>
+              <div className="mt-4 grid grid-cols-3 gap-3 pt-4 border-t" style={{ borderColor: "rgba(255,255,255,0.1)" }}>
+                {[["91%", "resolved"], ["0 sec", "wait"], ["3,206", "leads"]].map(([v, l]) => (
+                  <div key={l}><div className="text-[15px] sm:text-[18px] font-semibold">{v}</div><div className="text-[11px]" style={{ color: "#8b90a0" }}>{l}</div></div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
 
 export default function ContactPage() {
   const formRef = useRef<HTMLFormElement>(null)
-  const [isSending, setIsSending] = useState(false)
-  const [sent, setSent] = useState(false)
-  const [error, setError] = useState(false)
+  const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle")
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setIsSending(true)
-    setSent(false)
-    setError(false)
-
+    if (state === "sending") return
+    setState("sending")
     const fd = new FormData(formRef.current!)
     sendLead("contact", {
       name: String(fd.get("name") || ""),
@@ -26,224 +99,130 @@ export default function ContactPage() {
       company: String(fd.get("company") || ""),
       message: String(fd.get("message") || ""),
     })
-      .then(
-        () => {
-          setIsSending(false)
-          setSent(true)
-          formRef.current?.reset()
-          setTimeout(() => setSent(false), 4000)
-        },
-        () => {
-          setIsSending(false)
-          setError(true)
-          setTimeout(() => setError(false), 4000)
-        }
-      )
+      .then(() => {
+        setState("sent")
+        formRef.current?.reset()
+        setTimeout(() => setState("idle"), 5000)
+      })
+      .catch(() => {
+        setState("error")
+        setTimeout(() => setState("idle"), 5000)
+      })
   }
 
-  const contactInfo = [
-    {
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-      ),
-      title: "Email",
-      detail: "info@pentagonai.co",
-    },
-    {
-  icon: (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-    >
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-    </svg>
-  ),
-  title: "Phone",
-  detail: (
-    <>
-      +1 (873) 371-5579
-      <br />
-      +1 (416) 876-3223
-      <br />
-      +92 300 8047485
-    </>
-  ),
-},
-    {
-      icon: (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-      ),
-      title: "Location",
-      detail: "150 King St W Suite 200, M5H 1J9, Toronto, Ontario, Canada",
-    },
-  ]
+  const label = state === "sending" ? "Sending…" : state === "sent" ? "Message sent" : state === "error" ? "Failed. Try again" : "Send message"
 
   return (
-    <div>
-      
+    <div style={{ fontFamily: FONT }} className="overflow-x-clip">
+      {/* ---------- Hero ---------- */}
+      <section className="container-large pt-8 sm:pt-16 pb-8 sm:pb-14">
+        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}><Eyebrow>Contact</Eyebrow></motion.div>
+        <h1 className="mt-5 sm:mt-8 text-[52px] sm:text-[110px] lg:text-[148px] font-semibold tracking-[-0.055em] leading-[0.9] text-white">
+          {["Let's"].map((w) => (
+            <motion.span key={w} className="inline-block mr-[0.2em]" initial={{ opacity: 0, y: 44, filter: "blur(12px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} transition={{ duration: 0.8, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}>{w}</motion.span>
+          ))}
+          <motion.span className="inline-block" initial={{ opacity: 0, y: 44, filter: "blur(12px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} transition={{ duration: 0.8, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}>
+            <Accent>talk.</Accent>
+          </motion.span>
+        </h1>
+        <p className="mt-5 sm:mt-9 max-w-2xl text-[14px] sm:text-[20px] leading-relaxed text-zinc-400">
+          Ready to transform your customer communication? Tell us what you need and we will show you how AI voice agents can help your business grow.
+        </p>
+      </section>
 
-      {/* Hero */}
-      <section className="pt-10 sm:pt-16 pb-10 sm:pb-16">
-        <div className="container-large text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mt-4 mb-4 leading-tight">
-            Get in <GradientText>Touch</GradientText>
-          </h1>
-          <p className="text-base sm:text-lg text-zinc-300 max-w-2xl mx-auto leading-relaxed">
-            Ready to transform your customer communication? Let&apos;s talk about how{" "}
-            <span className="text-accent font-bold">Pentagon AI</span> can help your business grow with AI-powered voice agents.
-          </p>
+      {/* ---------- Details + form ---------- */}
+      <section className="container-large pb-12 sm:pb-24">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-14">
+          {/* left: details */}
+          <div className="lg:col-span-5 order-2 lg:order-1">
+            <dl className="border-t border-white/10">
+              <div className="py-5 sm:py-7 border-b border-white/10 grid grid-cols-[28px_1fr] gap-x-4">
+                <Mail className="w-5 h-5 mt-1 text-accent" strokeWidth={1.8} />
+                <div>
+                  <dt className="text-[11px] tracking-[0.2em] uppercase text-zinc-500">Email</dt>
+                  <dd className="mt-1.5"><a href="mailto:info@pentagonai.co" className="text-[20px] sm:text-[28px] font-semibold tracking-tight text-white hover:text-accent transition-colors break-all">info@pentagonai.co</a></dd>
+                </div>
+              </div>
+              <div className="py-5 sm:py-7 border-b border-white/10 grid grid-cols-[28px_1fr] gap-x-4">
+                <Phone className="w-5 h-5 mt-1 text-accent" strokeWidth={1.8} />
+                <div>
+                  <dt className="text-[11px] tracking-[0.2em] uppercase text-zinc-500">Phone / WhatsApp</dt>
+                  <dd className="mt-1.5 space-y-0.5">
+                    {phones.map((p) => (
+                      <a key={p} href={`tel:${p.replace(/[^+\d]/g, "")}`} className="block text-[18px] sm:text-[24px] font-semibold tracking-tight text-white hover:text-accent transition-colors">{p}</a>
+                    ))}
+                  </dd>
+                </div>
+              </div>
+              <div className="py-5 sm:py-7 border-b border-white/10 grid grid-cols-[28px_1fr] gap-x-4">
+                <MapPin className="w-5 h-5 mt-1 text-accent" strokeWidth={1.8} />
+                <div>
+                  <dt className="text-[11px] tracking-[0.2em] uppercase text-zinc-500">Office</dt>
+                  <dd className="mt-1.5 text-[15px] sm:text-[18px] leading-snug text-white">150 King St W, Suite 200<br />Toronto, Ontario M5H 1J9, Canada</dd>
+                  <a href="https://maps.google.com/?q=150+King+St+W+Suite+200+Toronto+Ontario+Canada" target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center gap-1 text-[13px] font-medium text-accent hover:underline underline-offset-4">Open in Maps <ArrowUpRight className="w-3.5 h-3.5" /></a>
+                </div>
+              </div>
+            </dl>
+
+            <div className="mt-6 sm:mt-8 relative overflow-hidden rounded-[22px] sm:rounded-[28px] border border-white/10 h-[200px] sm:h-[260px]">
+              <iframe
+                title="Smart Convo office map"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2886.8276729474805!2d-79.38569492346621!3d43.64860735110451!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b34d1eced3c73%3A0x96a1c3b6d6b6d6b6!2s150%20King%20St%20W%2C%20Toronto%2C%20ON%20M5H%201J9%2C%20Canada!5e0!3m2!1sen!2s!4v1706865600000!5m2!1sen!2s"
+                className="absolute inset-0 w-full h-full border-0 opacity-70 contrast-90 saturate-50 dark:opacity-60"
+                style={{ filter: "grayscale(100%)" }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          </div>
+
+          {/* right: form */}
+          <div className="lg:col-span-7 order-1 lg:order-2">
+            <form ref={formRef} onSubmit={onSubmit} className="relative overflow-hidden rounded-[26px] sm:rounded-[36px] border border-white/10 bg-panel p-5 sm:p-10 shadow-[0_40px_90px_-50px_rgba(0,0,0,0.9)] light:shadow-[0_40px_90px_-50px_rgba(60,30,120,0.35)]">
+              <div className="pointer-events-none absolute -top-24 -right-16 w-72 h-72 rounded-full bg-[#D4FF00]/10 light:bg-[#7c3aed]/12 blur-[90px]" />
+              <h2 className="relative text-[24px] sm:text-[36px] font-semibold tracking-[-0.03em] text-white">Send us a message</h2>
+              <p className="relative mt-1.5 text-[13px] sm:text-[15px] text-zinc-400">We reply within 24 hours.</p>
+
+              <div className="relative mt-6 sm:mt-8 grid sm:grid-cols-2 gap-4">
+                <label className="block">
+                  <span className="block text-[12px] font-medium tracking-wide text-zinc-400 mb-2">Name</span>
+                  <input id="name" name="name" required placeholder="Your name" className={field} />
+                </label>
+                <label className="block">
+                  <span className="block text-[12px] font-medium tracking-wide text-zinc-400 mb-2">Email</span>
+                  <input id="email" name="email" type="email" required placeholder="you@company.com" className={field} />
+                </label>
+                <label className="block sm:col-span-2">
+                  <span className="block text-[12px] font-medium tracking-wide text-zinc-400 mb-2">Company <span className="text-zinc-500">(optional)</span></span>
+                  <input id="company" name="company" placeholder="Your company" className={field} />
+                </label>
+                <label className="block sm:col-span-2">
+                  <span className="block text-[12px] font-medium tracking-wide text-zinc-400 mb-2">Message</span>
+                  <textarea id="message" name="message" required rows={6} placeholder="Tell us about your needs…" className={`${field} resize-none`} />
+                </label>
+              </div>
+
+              <div className="relative mt-6 sm:mt-8 flex flex-col sm:flex-row sm:items-center gap-4">
+                <button
+                  type="submit"
+                  disabled={state === "sending"}
+                  className="group inline-flex items-center justify-center gap-2.5 h-[52px] sm:h-[58px] pl-7 pr-1.5 rounded-full bg-[#D4FF00] text-zinc-950 text-[15px] sm:text-[16px] font-semibold shadow-[0_12px_36px_rgba(212,255,0,0.35)] disabled:opacity-60 cursor-pointer"
+                >
+                  {label}
+                  <span className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-zinc-950 text-[#D4FF00] flex items-center justify-center transition-transform group-hover:translate-x-0.5"><ArrowUpRight className="w-5 h-5" strokeWidth={2.4} /></span>
+                </button>
+                <p className="flex items-center gap-2 text-[12.5px] text-zinc-500">
+                  <span className="relative flex w-2 h-2"><span className="absolute inset-0 rounded-full bg-[#34d399] animate-ping opacity-60" /><span className="relative w-2 h-2 rounded-full bg-[#34d399]" /></span>
+                  Team available now
+                </p>
+              </div>
+              {state === "error" && <p className="relative mt-4 text-[13px] text-rose-500">We couldn't send that. Please email info@pentagonai.co directly.</p>}
+            </form>
+          </div>
         </div>
       </section>
 
-      {/* Contact Grid */}
-      <SectionWrapper bg="peach" rounded overlaps>
-        <div className="grid md:grid-cols-2 gap-8 sm:gap-10">
-          {/* Contact Form */}
-          <div className="bg-zinc-900/70 rounded-[1.5rem] sm:rounded-[2rem] p-5 sm:p-8 shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
-            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Send us a message</h2>
-            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-white mb-1.5">
-                  Name
-                </label>
-                <input
-                  id="name"
-                  name="name"
-                  placeholder="Your name"
-                  required
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-zinc-500 focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-white mb-1.5">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="your@email.com"
-                  required
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-zinc-500 focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all"
-                />
-              </div>
-              <div>
-                <label htmlFor="company" className="block text-sm font-medium text-white mb-1.5">
-                  Company
-                </label>
-                <input
-                  id="company"
-                  name="company"
-                  placeholder="Your company"
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-zinc-500 focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-white mb-1.5">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  placeholder="Tell us about your needs..."
-                  required
-                  rows={5}
-                  className="w-full px-4 py-3 rounded-xl border border-white/10 bg-white/[0.04] text-white placeholder:text-zinc-500 focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all resize-none"
-                />
-              </div>
-
-              {/* Response Badge */}
-              <div className="flex items-center justify-between bg-[#D4FF0008] border border-[#D4FF0020] rounded-xl px-4 py-3">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-[#D4FF0010] rounded-lg">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4FF00" strokeWidth="2">
-                      <circle cx="12" cy="12" r="10" />
-                      <polyline points="12 6 12 12 16 14" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-xs font-bold text-white">Response Time</p>
-                    <p className="text-xs text-zinc-400">We&apos;ll reply within 24 hours</p>
-                  </div>
-                </div>
-                <TrustBadge text="Available now" className="hidden sm:flex" />
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSending}
-                className="w-full py-3 rounded-[62.5rem] font-bold text-sm transition-all duration-200 hover:brightness-110 hover:scale-[1.02] disabled:opacity-50 cursor-pointer"
-                style={{ background: "#D4FF00", color: "#0a0a0a" }}
-              >
-                {isSending ? "Sending..." : sent ? "Message Sent!" : error ? "Error — Try Again" : "Send Message"}
-              </button>
-            </form>
-          </div>
-
-          {/* Contact Info */}
-          <div className="space-y-6">
-            {contactInfo.map((item, index) => (
-              <div
-                key={index}
-                className="bg-zinc-900/70 rounded-[1rem] p-6 border border-white/10 hover:border-accent/30 transition-all duration-300 hover:shadow-md"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-[#D4FF0010] rounded-xl text-accent flex-shrink-0">
-                    {item.icon}
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold mb-1">{item.title}</h3>
-                    <p className="text-sm text-zinc-300">{item.detail}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-
-            {/* Map */}
-            <div className="relative bg-zinc-900/70 rounded-[1rem] overflow-hidden border border-white/10 hover:border-accent/30 transition-all duration-300 h-[280px] group">
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/60 z-10 pointer-events-none" />
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2886.8276729474805!2d-79.38569492346621!3d43.64860735110451!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b34d1eced3c73%3A0x96a1c3b6d6b6d6b6!2s150%20King%20St%20W%2C%20Toronto%2C%20ON%20M5H%201J9%2C%20Canada!5e0!3m2!1sen!2s!4v1706865600000!5m2!1sen!2s"
-                width="100%"
-                height="100%"
-                style={{ border: 0, filter: "grayscale(100%) contrast(90%)" }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="absolute inset-0 opacity-50 group-hover:opacity-70 transition-opacity duration-500"
-              />
-              <div className="absolute bottom-4 left-4 right-4 z-20 bg-zinc-900/90 backdrop-blur-sm border border-accent/20 rounded-lg p-3">
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-[#D4FF0010] rounded-lg">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4FF00" strokeWidth="2">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                      <circle cx="12" cy="10" r="3" />
-                    </svg>
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-xs font-bold">Our Office</p>
-                    <p className="text-xs text-zinc-400">Toronto, Canada</p>
-                  </div>
-                  <a
-                    href="https://maps.google.com/?q=150+King+St+W+Suite+200+Toronto+Ontario+Canada"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-3 py-1.5 bg-[#D4FF0010] hover:bg-[#D4FF0020] border border-accent/20 rounded-md text-xs text-accent font-bold transition-colors"
-                  >
-                    View
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </SectionWrapper>
-
-      
+      <DashboardBanner />
     </div>
   )
 }

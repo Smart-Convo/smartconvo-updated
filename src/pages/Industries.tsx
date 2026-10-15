@@ -1,11 +1,10 @@
-
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import { motion } from "framer-motion"
+import StackedCards from "../components/StackedCards.jsx"
+import { SmartConvoMark } from "../components/SmartConvoLogo.jsx"
 import { useTheme } from "../components/ThemeProvider.jsx"
-import { SectionWrapper } from "../components/kit/SectionWrapper"
-import { GradientText } from "../components/kit/GradientText"
-import { SectionTag } from "../components/kit/SectionTag"
-import { Button } from "../components/kit/Button"
-import { TrustBadge } from "../components/kit/TrustBadge"
+import { Eyebrow, Accent, PrimaryButton, DashboardButton, FONT } from "../components/PageKit"
 
 const industries = [
   {
@@ -201,257 +200,222 @@ const industries = [
   },
 ]
 
-export default function IndustriesPage() {
-  const { isLight } = useTheme()
-  const [activeIndustryId, setActiveIndustryId] = useState("government")
-  const [activeDept, setActiveDept] = useState(0)
+/* ---- per-industry look (dark / light accent) ---- */
+const LOOK: Record<string, { dark: string; light: string; stats: { v: string; l: string }[] }> = {
+  government: { dark: "#7C9BFF", light: "#3446b8", stats: [{ v: "6", l: "workflows" }, { v: "5 days", l: "to go live" }, { v: "24/7", l: "coverage" }] },
+  healthcare: { dark: "#34d399", light: "#047857", stats: [{ v: "6", l: "workflows" }, { v: "HIPAA", l: "ready" }, { v: "24/7", l: "coverage" }] },
+  restaurants: { dark: "#fb923c", light: "#c2410c", stats: [{ v: "6", l: "workflows" }, { v: "POS", l: "orders synced" }, { v: "24/7", l: "coverage" }] },
+}
 
-  const activeIndustryRaw = industries.find((i) => i.id === activeIndustryId)!
-  const fixAccent = (c: string) => (isLight && c === "#7C9BFF" ? "#3446b8" : c)
-  const activeIndustry = { ...activeIndustryRaw, accentColor: fixAccent(activeIndustryRaw.accentColor) }
-  const activeDeptData = activeIndustry.departments[activeDept]
+function useBreakpoint() {
+  const [w, setW] = useState(() => (typeof window === "undefined" ? 1280 : window.innerWidth))
+  useEffect(() => {
+    const on = () => setW(window.innerWidth)
+    window.addEventListener("resize", on)
+    return () => window.removeEventListener("resize", on)
+  }, [])
+  return { isPhone: w < 640, isDesktop: w >= 1024 }
+}
 
-  const handleIndustrySwitch = (id: string) => {
-    setActiveIndustryId(id)
-    setActiveDept(0)
-  }
-
+/* ---- 3D rotating carousel of an industry's use cases ---- */
+function Cylinder({ items, accent, compact }: { items: any[]; accent: string; compact: boolean }) {
+  const n = items.length
+  const cw = compact ? 206 : 268
+  const ch = compact ? 262 : 318
+  const radius = Math.round(cw / 2 / Math.tan(Math.PI / n)) + 14
   return (
-    <div>
-      
-
-      {/* ── Hero ── */}
-      <section className="pt-10 sm:pt-16 pb-10 sm:pb-16">
-        <div className="container-large text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mt-4 mb-4 leading-tight">
-            Built for the <GradientText>Industries That Matter</GradientText>
-          </h1>
-          <p className="text-base sm:text-lg text-zinc-300 max-w-2xl mx-auto leading-relaxed">
-            Pentagon AI delivers purpose built voice automation for government, healthcare, and restaurants tailored workflows for each sector, live in 5 days.
-          </p>
-        </div>
-      </section>
-
-      {/* ── Industry Selector + Department Explorer ── */}
-      <SectionWrapper bg="peach" rounded overlaps>
-        <div className="animate-on-scroll space-y-6 sm:space-y-8">
-
-          {/* Industry Picker Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
-            {industries.map((industry) => {
-              const isActive = activeIndustryId === industry.id
-              return (
-                <button
-                  key={industry.id}
-                  onClick={() => handleIndustrySwitch(industry.id)}
-                  className={`relative text-left rounded-[1.25rem] sm:rounded-[1.5rem] border-2 p-5 sm:p-6 transition-all duration-300 cursor-pointer overflow-hidden ${
-                    isActive
-                      ? `${industry.activeBg} ${industry.activeBorder} shadow-lg`
-                      : "bg-zinc-900/70 border-white/10 hover:border-white/20 hover:shadow-md"
-                  }`}
-                >
-                  {isActive && (
-                    <span
-                      className="absolute top-0 left-0 right-0 h-1 rounded-t-[1.25rem]"
-                      style={{ background: fixAccent(industry.accentColor) }}
-                    />
-                  )}
-                  <div className="flex items-start justify-between gap-3 mb-3">
-                    <div
-                      className={`w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
-                        isActive ? industry.accentBg : "bg-white/[0.06]"
-                      }`}
-                      style={{ color: isActive ? fixAccent(industry.accentColor) : "var(--color-zinc-500)" }}
-                    >
-                      {industry.icon}
-                    </div>
-                    <span
-                      className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border transition-all ${
-                        isActive
-                          ? `${industry.accentBg} ${industry.accentText} ${industry.accentBorder}`
-                          : "bg-white/[0.06] text-zinc-400 border-transparent"
-                      }`}
-                    >
-                      {industry.departments.length} use cases
-                    </span>
-                  </div>
-                  <p
-                    className={`text-base sm:text-lg font-black mb-1 transition-colors ${
-                      isActive ? industry.accentText : "text-white"
-                    }`}
-                  >
-                    {industry.name}
-                  </p>
-                  <p className="text-xs sm:text-sm text-zinc-400 leading-snug">
-                    {industry.tagline}
-                  </p>
-                </button>
-              )
-            })}
-          </div>
-
-          {/* Department Explorer */}
-          <div className="grid lg:grid-cols-[260px_1fr] gap-4 sm:gap-6">
-            {/* Sidebar Tabs */}
-            <div className="flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 -mx-[var(--global-padding)] px-[var(--global-padding)] lg:mx-0 lg:px-0 scrollbar-none">
-              {activeIndustry.departments.map((dept) => {
-                const isActive = activeDept === dept.id
-                return (
-                  <button
-                    key={dept.id}
-                    onClick={() => setActiveDept(dept.id)}
-                    className={`flex items-center gap-2 sm:gap-3 px-4 py-3 rounded-xl text-left transition-all duration-300 shrink-0 cursor-pointer border ${
-                      isActive
-                        ? `${activeIndustry.activeBg} ${activeIndustry.activeBorder}`
-                        : `bg-zinc-900/70 border-white/10 text-zinc-400 ${activeIndustry.hoverBorder} hover:text-zinc-300`
-                    }`}
-                  >
-                    <span
-                      className="[&>svg]:w-4 [&>svg]:h-4 sm:[&>svg]:w-5 sm:[&>svg]:h-5 flex-shrink-0"
-                      style={{ color: isActive ? activeIndustry.accentColor : "var(--color-zinc-500)" }}
-                    >
-                      {dept.icon}
-                    </span>
-                    <span
-                      className="text-xs sm:text-sm font-medium whitespace-nowrap"
-                      style={{ color: isActive ? activeIndustry.accentColor : undefined }}
-                    >
-                      {dept.title}
-                    </span>
-                  </button>
-                )
-              })}
+    <div className="relative mx-auto mt-6 lg:mt-0" style={{ width: "100%", height: ch + 34, perspective: compact ? 1600 : 1800 }}>
+      <div
+        className="cyl-spin absolute left-1/2 top-4"
+        style={{ width: cw, height: ch, marginLeft: -cw / 2, transformStyle: "preserve-3d" }}
+      >
+        {items.map((d, i) => (
+          <div
+            key={d.title}
+            className="absolute inset-0 rounded-[22px] border border-white/10 bg-panel-2 p-4 sm:p-5 flex flex-col shadow-[0_20px_50px_-26px_rgba(0,0,0,0.8)] light:shadow-[0_20px_50px_-26px_rgba(60,30,120,0.35)]"
+            style={{
+              transform: `rotateY(${(360 / n) * i}deg) translateZ(${radius}px)`,
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
+              backgroundImage: `linear-gradient(160deg, ${accent}1f, transparent 55%)`,
+            }}
+          >
+            <div className="flex items-center gap-2.5">
+              <span className="text-[11px] font-mono tracking-wider" style={{ color: accent }}>{String(i + 1).padStart(2, "0")}</span>
+              <span className="h-px flex-1" style={{ background: `${accent}55` }} />
             </div>
-
-            {/* Detail Panel */}
-            <div className="bg-zinc-900/70 rounded-[1.25rem] sm:rounded-[1.5rem] border border-white/10 p-6 sm:p-8 lg:p-10 min-h-[280px] transition-all duration-300">
-              <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-5">
-                <div
-                  className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center flex-shrink-0 border"
-                  style={{
-                    backgroundColor: `${activeIndustry.accentColor}12`,
-                    borderColor: `${activeIndustry.accentColor}30`,
-                    color: activeIndustry.accentColor,
-                  }}
-                >
-                  {activeDeptData.icon}
-                </div>
-                <div>
-                  <p
-                    className="text-[11px] font-bold uppercase tracking-wider mb-0.5"
-                    style={{ color: activeIndustry.accentColor }}
-                  >
-                    {activeIndustry.shortName}
-                  </p>
-                  <h3 className="text-xl sm:text-2xl font-black text-white">{activeDeptData.title}</h3>
-                </div>
-              </div>
-              <p className="text-sm sm:text-base text-zinc-300 leading-relaxed mb-6 max-w-2xl">
-                {activeDeptData.description}
-              </p>
-              <div className="flex flex-wrap gap-2 sm:gap-3">
-                {activeDeptData.capabilities.map((cap, i) => (
-                  <span
-                    key={i}
-                    className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-lg font-medium border transition-all duration-200"
-                    style={{
-                      backgroundColor: `${activeIndustry.accentColor}08`,
-                      borderColor: `${activeIndustry.accentColor}25`,
-                      color: "var(--color-zinc-300)",
-                    }}
-                  >
-                    {cap}
-                  </span>
-                ))}
-              </div>
-            </div>
+            <h4 className="mt-4 text-[16px] sm:text-[18px] font-semibold tracking-tight text-white leading-snug">{d.title}</h4>
+            <p className={`mt-1.5 text-zinc-400 leading-relaxed ${compact ? "text-[11.5px] line-clamp-4" : "text-[13px] line-clamp-4"}`}>{d.description}</p>
+            <ul className="mt-auto pt-3 space-y-1 border-t border-white/10">
+              {d.capabilities.slice(0, compact ? 2 : 3).map((c: string) => (
+                <li key={c} className="flex items-center gap-2 text-[10.5px] sm:text-[11.5px] text-zinc-300">
+                  <span className="w-3 h-px shrink-0" style={{ background: accent }} />
+                  {c}
+                </li>
+              ))}
+            </ul>
           </div>
-        </div>
-      </SectionWrapper>
+        ))}
+      </div>
+    </div>
+  )
+}
 
-      {/* ── Shared Value Props ── */}
-      <SectionWrapper bg="warm-grey" rounded overlaps>
-        <div className="animate-on-scroll">
-          <div className="text-center mb-10 sm:mb-14">
-            <SectionTag>Why Pentagon AI</SectionTag>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black mt-4 mb-4">
-              One platform. <GradientText>Every industry.</GradientText>
-            </h2>
-            <p className="text-sm sm:text-base text-zinc-300 max-w-2xl mx-auto">
-              Regardless of sector, every Pentagon AI deployment shares the same enterprise grade foundation.
-            </p>
+function Panel({ ind, idx, total, isLight, isPhone }: { ind: any; idx: number; total: number; isLight: boolean; isPhone: boolean }) {
+  const look = LOOK[ind.id]
+  const accent = isLight ? look.light : look.dark
+  return (
+    <article
+      className="relative overflow-hidden rounded-[26px] sm:rounded-[36px] border border-white/10 bg-panel shadow-[0_40px_90px_-40px_rgba(0,0,0,0.9)] light:shadow-[0_40px_90px_-40px_rgba(60,30,120,0.35)]"
+      style={{ height: "var(--stack-slot)", minHeight: isPhone ? 600 : 560 }}
+    >
+      <div className="pointer-events-none absolute inset-0" style={{ background: `radial-gradient(60% 70% at 85% 0%, ${accent}2e, transparent 70%), radial-gradient(50% 60% at 0% 100%, ${accent}1a, transparent 70%)` }} />
+      <span className="pointer-events-none absolute right-5 sm:right-10 top-2 sm:top-3 text-[110px] sm:text-[220px] leading-none font-extrabold tracking-tighter select-none" style={{ color: accent, opacity: 0.09 }}>
+        0{idx + 1}
+      </span>
+      <div className="relative h-full grid lg:grid-cols-12 gap-3 lg:gap-6 items-center p-5 sm:p-10 lg:p-12 content-start lg:content-center">
+        <div className="lg:col-span-5">
+          <div className="flex items-center gap-3">
+            <span className="h-px w-8 sm:w-10" style={{ background: accent }} />
+            <span className="text-[11px] sm:text-[12px] font-medium tracking-[0.2em] uppercase" style={{ color: accent }}>
+              {String(idx + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+            </span>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-            {[
-              {
-                icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>,
-                title: "24/7 Availability",
-                description: "Your AI agent answers every call around the clock no hold music, no voicemail, no missed revenue.",
-              },
-              {
-                icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>,
-                title: "Live in 5 Days",
-                description: "From sign up to fully operational our onboarding takes just 5 days and 45 minutes of your time.",
-              },
-              {
-                icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
-                title: "HIPAA & GDPR Ready",
-                description: "Enterprise grade security and compliance baked in your data and your customers' data stay protected.",
-              },
-              {
-                icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>,
-                title: "Custom Workflows",
-                description: "Every agent is trained on your specific business your terminology, your processes, your escalation paths.",
-              },
-              {
-                icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>,
-                title: "Real Time Analytics",
-                description: "A live dashboard shows call volumes, resolution rates, escalations, and revenue recovered always visible.",
-              },
-              {
-                icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
-                title: "Multi Language Support",
-                description: "Handles diverse accents and languages fluently ensuring every caller is understood and served equally.",
-              },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="bg-zinc-900/70 rounded-[1rem] border border-white/10 p-5 sm:p-6 hover:border-accent/30 hover:shadow-md transition-all duration-300 group"
-              >
-                <div className="w-10 h-10 rounded-xl bg-[#7C9BFF10] flex items-center justify-center text-accent mb-4 group-hover:scale-110 transition-transform duration-300">
-                  {item.icon}
-                </div>
-                <h3 className="text-[15px] font-bold mb-2 group-hover:text-accent transition-colors">{item.title}</h3>
-                <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">{item.description}</p>
+          <h2 className="mt-4 sm:mt-6 text-[34px] sm:text-[56px] lg:text-[64px] font-semibold tracking-[-0.04em] leading-[0.98] text-white">{ind.name}</h2>
+          <p className="mt-3 sm:mt-5 text-[14px] sm:text-[18px] leading-relaxed text-zinc-400 max-w-md">{ind.tagline}</p>
+          <dl className="mt-5 sm:mt-8 grid grid-cols-3 gap-3 border-t border-white/10 pt-4 max-w-md">
+            {look.stats.map((s) => (
+              <div key={s.l}>
+                <dt className="text-[18px] sm:text-[26px] font-semibold tracking-tight text-white leading-none" style={{ color: accent }}>{s.v}</dt>
+                <dd className="mt-1.5 text-[10.5px] sm:text-[12px] text-zinc-500">{s.l}</dd>
               </div>
             ))}
-          </div>
+          </dl>
         </div>
-      </SectionWrapper>
+        <div className="lg:col-span-7 min-w-0 mt-1">
+          <Cylinder items={ind.departments} accent={accent} compact={isPhone} />
+          <p className="mt-2 text-center text-[10.5px] tracking-[0.18em] uppercase text-zinc-500">Hover to pause</p>
+        </div>
+      </div>
+    </article>
+  )
+}
 
-      {/* ── CTA ── */}
-      <section className="relative bg-zinc-900/60 border-y border-white/10 py-16 sm:py-24 overflow-hidden">
-        
-        <div className="container-large relative z-10 text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-4 sm:mb-6">
-            Ready to automate your operations?
-          </h2>
-          <p className="text-base sm:text-lg text-white/90 max-w-2xl mx-auto mb-6 sm:mb-8">
-            Tell us about your industry and we&apos;ll show you exactly how Pentagon AI can work for your team.
-          </p>
-          <Button variant="gradient" size="lg" href="/contact">
-            Book a Demo
-          </Button>
-          <div className="mt-6">
-            <TrustBadge
-              text="Serving government, healthcare, and restaurants across Canada"
-              className="justify-center text-white/80 [&_span]:text-white/80"
-            />
+const VALUE = [
+  { t: "24/7 availability", d: "Every call answered around the clock. No hold music, no voicemail, no missed revenue.", big: true },
+  { t: "Live in 5 days", d: "From sign-up to fully operational in 5 days and 45 minutes of your time." },
+  { t: "HIPAA & GDPR ready", d: "Enterprise-grade security and compliance built in." },
+  { t: "Custom workflows", d: "Trained on your terminology, processes and escalation paths." },
+  { t: "Real-time analytics", d: "Live call volumes, resolution rates and revenue recovered.", big: true },
+  { t: "Multi-language", d: "Handles diverse accents and languages fluently." },
+]
+
+export default function IndustriesPage() {
+  const { isLight } = useTheme()
+  const { isPhone } = useBreakpoint()
+  const industriesList = industries
+
+  return (
+    <div style={{ fontFamily: FONT }} className="overflow-x-clip">
+      {/* ---------- Hero ---------- */}
+      <section className="relative container-large pt-8 sm:pt-14 pb-12 sm:pb-20">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-6 items-center">
+          <div className="lg:col-span-8 text-center lg:text-left">
+<motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="flex justify-center lg:justify-start"><Eyebrow>Industries</Eyebrow></motion.div>
+            <h1 className="mt-5 sm:mt-7 text-[42px] sm:text-[78px] lg:text-[96px] font-semibold tracking-[-0.045em] leading-[0.95] text-white">
+              {["Built", "for", "the"].map((w, i) => (
+                <motion.span key={w} className="inline-block mr-[0.22em]" initial={{ opacity: 0, y: 36, filter: "blur(12px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} transition={{ duration: 0.8, delay: 0.1 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}>
+                  {w}
+                </motion.span>
+              ))}
+              <br />
+              <motion.span className="inline-block" initial={{ opacity: 0, y: 36, filter: "blur(12px)" }} animate={{ opacity: 1, y: 0, filter: "blur(0px)" }} transition={{ duration: 0.8, delay: 0.42, ease: [0.22, 1, 0.36, 1] }}>
+                <Accent>industries that matter.</Accent>
+              </motion.span>
+            </h1>
+            <p className="mt-5 sm:mt-8 max-w-xl mx-auto lg:mx-0 text-[14px] sm:text-[19px] leading-relaxed text-zinc-400">
+              Purpose-built voice automation for government, healthcare and restaurants. Tailored workflows for each sector, live in 5 days.
+            </p>
+            <div className="mt-6 sm:mt-9 flex flex-wrap items-center justify-center lg:justify-start gap-3">
+              <PrimaryButton to="/contact">Book a demo</PrimaryButton>
+              <DashboardButton />
+              
+            </div>
+          </div>
+
+          {/* rotating ring */}
+          <div className="lg:col-span-4 flex justify-center">
+            <div className="relative w-[230px] h-[230px] sm:w-[320px] sm:h-[320px]">
+              <svg viewBox="0 0 300 300" className="absolute inset-0 w-full h-full ring-spin">
+                <defs>
+                  <path id="ind-ring" d="M150,150 m-118,0 a118,118 0 1,1 236,0 a118,118 0 1,1 -236,0" />
+                </defs>
+                <text className="fill-current text-zinc-400" style={{ fontSize: 17, letterSpacing: "0.34em", fontWeight: 600 }}>
+                  <textPath href="#ind-ring">GOVERNMENT • HEALTHCARE • RESTAURANTS • </textPath>
+                </text>
+              </svg>
+              <svg viewBox="0 0 300 300" className="absolute inset-0 w-full h-full ring-spin-rev">
+                <circle cx="150" cy="150" r="84" fill="none" strokeWidth="1.2" strokeDasharray="2 9" strokeLinecap="round" style={{ stroke: "var(--color-accent)" }} />
+              </svg>
+              <div className="absolute inset-[26%] rounded-full border border-white/10 bg-panel flex items-center justify-center shadow-[0_20px_50px_-20px_rgba(0,0,0,0.8)] light:shadow-[0_20px_50px_-20px_rgba(60,30,120,0.4)]">
+                <SmartConvoMark size={isPhone ? 44 : 64} />
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      
+      {/* ---------- Stacking industry panels ---------- */}
+      <section className="container-large pb-8 sm:pb-16">
+        <StackedCards step={isPhone ? 10 : 16} scaleStep={0.035} dimStep={0.14}>
+          {industriesList.map((ind: any, i: number) => (
+            <Panel key={ind.id} ind={ind} idx={i} total={industriesList.length} isLight={isLight} isPhone={isPhone} />
+          ))}
+        </StackedCards>
+      </section>
+
+      {/* ---------- One platform ---------- */}
+      <section className="container-large py-12 sm:py-24">
+        <div className="max-w-3xl">
+          <Eyebrow>Why Smart Convo</Eyebrow>
+          <h2 className="mt-4 text-[32px] sm:text-[60px] font-semibold tracking-[-0.04em] leading-[1] text-white">
+            One platform.<br />
+            <Accent>Every industry.</Accent>
+          </h2>
+        </div>
+        <div className="mt-8 sm:mt-14 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 auto-rows-[minmax(150px,auto)]">
+          {VALUE.map((v, i) => (
+            <motion.div
+              key={v.t}
+              initial={{ opacity: 0, y: 26, rotateX: -12 }}
+              whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+              viewport={{ once: true, margin: "-8% 0px" }}
+              transition={{ duration: 0.6, delay: (i % 4) * 0.07, ease: [0.22, 1, 0.36, 1] }}
+              className={`group relative overflow-hidden rounded-[22px] sm:rounded-[28px] border border-white/10 bg-panel p-4 sm:p-7 flex flex-col justify-between hover:-translate-y-1 hover:border-[#D4FF00]/40 light:hover:border-[#7c3aed]/40 transition-all duration-300 ${v.big ? "col-span-2" : ""}`}
+            >
+              <span className="pointer-events-none absolute -top-16 -right-10 w-44 h-44 rounded-full bg-[#D4FF00]/0 group-hover:bg-[#D4FF00]/15 light:group-hover:bg-[#7c3aed]/15 blur-[60px] transition-colors duration-500" />
+              <span className="relative text-[11px] font-mono text-zinc-500">0{i + 1}</span>
+              <div className="relative mt-6">
+                <h3 className={`font-semibold tracking-tight text-white ${v.big ? "text-[22px] sm:text-[30px]" : "text-[16px] sm:text-[20px]"}`}>{v.t}</h3>
+                <p className="mt-1.5 text-[12px] sm:text-[14px] leading-relaxed text-zinc-400">{v.d}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ---------- CTA ---------- */}
+      <section className="container-large pb-16 sm:pb-28">
+        <div data-keep-dark className="relative overflow-hidden rounded-[28px] sm:rounded-[44px] bg-zinc-950 border border-white/10 px-6 py-12 sm:px-16 sm:py-20 text-center">
+          <div className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 w-[420px] h-[420px] rounded-full bg-[#D4FF00]/15 blur-[110px]" />
+          <h2 className="relative text-[30px] sm:text-[56px] font-semibold tracking-[-0.04em] leading-[1] text-white">Ready to automate<br />your operations?</h2>
+          <p className="relative mt-4 sm:mt-6 max-w-xl mx-auto text-[13px] sm:text-[17px] text-zinc-400">Tell us about your industry and we will show you exactly how Smart Convo can work for your team.</p>
+          <div className="relative mt-7 sm:mt-10 flex flex-wrap items-center justify-center gap-3">
+            <PrimaryButton to="/contact">Book a demo</PrimaryButton>
+            <DashboardButton />
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
