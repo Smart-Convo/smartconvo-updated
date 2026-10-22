@@ -1,124 +1,52 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import SectionHeading from './SectionHeading';
-import { useTheme } from './ThemeProvider';
 import StackedCards from './StackedCards';
-import { CountUp, Kpi, Panel, Donut, DashboardShell, HeroMetric, Ring, LiveFeed, Heatmap } from './DashKit';
+import DayDashboard, { fmt } from './DayView';
 import { sectionContainerVariants, staggerItemVariants, defaultSectionViewport } from '../utils/motionVariants';
 
-const LIME = '#D4FF00';
-const BAR_BASE = '#3a3b42';
-// Same Smart Convo look for all three; each gets a subtle hue added on top of the lime
+// Same Smart Convo look for all three; each gets its own hue
 const THEMES = {
-  municipal: { hue: '#5B9BFF', hueDark: '#2563eb', tint: 'rgba(91,155,255,0.035)', bar: '#34445f', barLight: '#cddcf6', border: 'rgba(91,155,255,0.16)', frame: 'rgba(91,155,255,0.22)', glow: 'rgba(91,155,255,0.16)' },
-  apparel:   { hue: '#FF7A9C', hueDark: '#e11d48', tint: 'rgba(255,122,156,0.035)', bar: '#5a3844', barLight: '#f7d3dc', border: 'rgba(255,122,156,0.16)', frame: 'rgba(255,122,156,0.22)', glow: 'rgba(255,122,156,0.15)' },
-  hospital:  { hue: '#34D6B0', hueDark: '#0d9488', tint: 'rgba(52,214,176,0.035)', bar: '#2f5149', barLight: '#c6ebe0', border: 'rgba(52,214,176,0.16)', frame: 'rgba(52,214,176,0.22)', glow: 'rgba(52,214,176,0.15)' },
+  municipal: { hue: '#5B9BFF', hueDark: '#2563eb', frame: 'rgba(91,155,255,0.22)' },
+  apparel:   { hue: '#FF7A9C', hueDark: '#e11d48', frame: 'rgba(255,122,156,0.22)' },
+  hospital:  { hue: '#34D6B0', hueDark: '#0d9488', frame: 'rgba(52,214,176,0.22)' },
 };
-const seg = (hue, light) => [light ? hue : hue, `${hue}aa`, `${hue}66`, light ? '#c3c7ce' : '#52525B', light ? '#dcdfe4' : '#3A3A40'];
-const donut = (theme, items, light) => items.map(([label, value], i) => ({ label, value, color: seg(theme.hue, light)[i] }));
 
-function Layout({ theme, hero, kpis, donutProps, heat, feed }) {
-  const { isLight } = useTheme();
-  const data = donutProps.build(isLight);
-  return (
-    <div className="space-y-2 sm:space-y-3">
-      <div className="grid lg:grid-cols-[1.35fr_1fr] gap-2 sm:gap-3">
-        <HeroMetric {...hero} ring={<div className="shrink-0 scale-[0.72] sm:scale-100 origin-top-right"><Ring value={hero.ringValue} label={hero.ringLabel} size={96} /></div>} />
-        <LiveFeed rows={feed} max={3} />
-      </div>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3">{kpis}</div>
-      <div className="hidden sm:grid lg:grid-cols-[1fr_1.2fr] gap-2 sm:gap-3">
-        <Panel title={donutProps.title} right={donutProps.right}>
-          <Donut size={96} thickness={11} center={donutProps.center} data={data} />
-        </Panel>
-        <Heatmap seed={heat} />
-      </div>
-    </div>
-  );
-}
+const answeredStat = (A, N, M) => ({ key: 'ans', label: 'Calls answered', before: A, after: N, fmt: fmt.int, note: `${M} went unanswered` });
+const rate = (A, N) => ({ key: 'rate', label: 'Answer rate', before: (A / N) * 100, after: 100, fmt: fmt.pct, note: 'Rest hit voicemail or rang out' });
 
-const K = (label, value, extra = {}) => ({ label, value, ...extra });
-
-function MunicipalityDash() {
-  return (
-    <DashboardShell workspace="Municipal Corporation" theme={THEMES.municipal}>
-      <Layout
-        theme={THEMES.municipal}
-        heat={0}
-        hero={{ label: 'Citizen calls answered', value: 12480, sub: '+18% vs last month', points: [30, 36, 34, 44, 50, 49, 62, 70, 78, 92], ringValue: 100, ringLabel: 'Answered' }}
-        kpis={<>
-          <Kpi label="Avg. answer time" spark={[3, 2.6, 2, 1.4, 1, 0.5, 0.2, 0]}><CountUp value={0} suffix=" sec" /></Kpi>
-          <Kpi label="Resolved first call" delta="+9%" spark={[78, 80, 79, 83, 85, 87, 89, 91]}><CountUp value={91} suffix="%" /></Kpi>
-          <Kpi label="Complaints routed" spark={[20, 26, 24, 33, 38, 44, 52, 61]}><CountUp value={3206} /></Kpi>
-          <Kpi label="Citizen rating" delta="+0.4" spark={[4.1, 4.2, 4.2, 4.4, 4.5, 4.6, 4.7, 4.8]}><CountUp value={4.8} decimals={1} suffix="/5" /></Kpi>
-        </>}
-        donutProps={{ title: 'Calls by department', right: '12.5k', center: { value: '12.5k', label: 'Calls' }, build: (l) => donut(THEMES.municipal, [['Water & sewage', 34], ['Waste', 22], ['Roads', 18], ['Billing', 16], ['Other', 10]], l) }}
-        feed={[
-          { who: 'Ayesha Khan', intent: 'Water leak report', status: 'Resolved' },
-          { who: 'Bilal Ahmed', intent: 'Missed waste collection', status: 'Routed' },
-          { who: 'Sara Malik', intent: 'Bill dispute', status: 'Escalated' },
-          { who: 'Omar Farooq', intent: 'Street light outage', status: 'Routed' },
-          { who: 'Hina Raza', intent: 'Property tax query', status: 'Resolved' },
-          { who: 'Zeeshan Ali', intent: 'Pothole on Canal Road', status: 'Routed' },
-        ]}
-      />
-    </DashboardShell>
-  );
-}
-
-function ApparelDash() {
-  return (
-    <DashboardShell workspace="Apparel Retail Brand" theme={THEMES.apparel}>
-      <Layout
-        theme={THEMES.apparel}
-        heat={2}
-        hero={{ label: 'Revenue protected', value: 4.2, prefix: 'Rs ', suffix: 'M', decimals: 1, sub: 'COD returns down 38%', points: [22, 28, 26, 40, 46, 58, 64, 72, 86, 96], ringValue: 71, ringLabel: 'Confirmed' }}
-        kpis={<>
-          <Kpi label="Orders verified" delta="+24%" spark={[40, 46, 44, 56, 60, 70, 82, 94]}><CountUp value={3240} /></Kpi>
-          <Kpi label="Return rate" delta="-38%" down spark={[28, 27, 25, 24, 21, 19, 18, 17]}><CountUp value={17} suffix="%" /></Kpi>
-          <Kpi label="Avg. confirm time" spark={[70, 64, 60, 55, 50, 47, 44, 42]}><CountUp value={42} suffix=" sec" /></Kpi>
-          <Kpi label="Addresses fixed" delta="+12%" spark={[8, 10, 9, 14, 16, 19, 23, 26]}><CountUp value={292} /></Kpi>
-        </>}
-        donutProps={{ title: 'Order outcomes', right: '3,240 orders', center: { value: '71%', label: 'Confirmed' }, build: (l) => donut(THEMES.apparel, [['Confirmed', 71], ['Rescheduled', 14], ['Address fixed', 9], ['Cancelled', 6]], l) }}
-        feed={[
-          { who: 'Hamza Raza', intent: 'COD order #4821', status: 'Verified' },
-          { who: 'Noor Fatima', intent: 'Address fix #4819', status: 'Verified' },
-          { who: 'Usman Tariq', intent: 'Reschedule #4812', status: 'Rescheduled' },
-          { who: 'Mahnoor Iqbal', intent: 'COD order #4830', status: 'Verified' },
-          { who: 'Danish Butt', intent: 'COD order #4833', status: 'Verified' },
-          { who: 'Areeba Shah', intent: 'Size exchange #4799', status: 'Routed' },
-        ]}
-      />
-    </DashboardShell>
-  );
-}
-
-function HospitalDash() {
-  return (
-    <DashboardShell workspace="Healthcare" theme={THEMES.hospital}>
-      <Layout
-        theme={THEMES.hospital}
-        heat={1}
-        hero={{ label: 'Appointments booked', value: 1860, sub: '+31% after-hours captured', points: [18, 24, 30, 28, 40, 52, 58, 70, 82, 95], ringValue: 87, ringLabel: 'Filled' }}
-        kpis={<>
-          <Kpi label="After-hours captured" spark={[20, 24, 28, 31, 34, 37, 40, 42]}><CountUp value={42} suffix="%" /></Kpi>
-          <Kpi label="No-show rate" delta="-27%" down spark={[15, 14, 13, 12, 11, 10, 9.5, 9]}><CountUp value={9} suffix="%" /></Kpi>
-          <Kpi label="Avg. booking time" spark={[160, 150, 140, 130, 124, 118, 112, 108]}><CountUp value={108} suffix=" sec" /></Kpi>
-          <Kpi label="New patients" delta="+19%" spark={[300, 340, 360, 410, 470, 520, 580, 624]}><CountUp value={624} /></Kpi>
-        </>}
-        donutProps={{ title: 'Bookings by department', right: '1,860', center: { value: '1.9k', label: 'Booked' }, build: (l) => donut(THEMES.hospital, [['Cardiology', 28], ['General', 24], ['Pediatrics', 18], ['Dental', 16], ['Other', 14]], l) }}
-        feed={[
-          { who: 'Ahmed Raza', intent: 'Cardiology, Dr. Umer Aziz', status: 'Booked' },
-          { who: 'Mariam Zafar', intent: 'Pediatrics check-up', status: 'Booked' },
-          { who: 'Imran Shah', intent: 'Report collection', status: 'Resolved' },
-          { who: 'Farah Naeem', intent: 'Dental cleaning', status: 'Booked' },
-          { who: 'Tahir Mehmood', intent: 'ECG follow-up', status: 'Booked' },
-          { who: 'Sana Yousaf', intent: 'Lab sample pickup', status: 'Booked' },
-        ]}
-      />
-    </DashboardShell>
-  );
-}
+const CFG = {
+  municipal: {
+    seed: 11, total: 118, workspace: 'Municipal Corporation', recovered: 'complaint logged',
+    topics: ['Water leak report', 'Missed waste pickup', 'Street light outage', 'Bill dispute', 'Property tax query', 'Pothole on Canal Road', 'Sewage overflow'],
+    names: ['Ayesha Khan', 'Bilal Ahmed', 'Sara Malik', 'Omar Farooq', 'Hina Raza', 'Zeeshan Ali'],
+    stats: ({ A, M, N, afterHoursRecovered: ah }) => [
+      answeredStat(A, N, M),
+      rate(A, N),
+      { key: 'log', label: 'Complaints logged overnight', before: 0, after: ah, fmt: fmt.int, note: 'Nobody on the line after 6 PM' },
+    ],
+  },
+  apparel: {
+    seed: 23, total: 132, workspace: 'Apparel Retail Brand', recovered: 'order confirmed',
+    topics: ['COD order #4821', 'Address fix #4819', 'Reschedule #4812', 'Size exchange #4799', 'COD order #4830', 'Delivery status #4833'],
+    names: ['Hamza Raza', 'Noor Fatima', 'Usman Tariq', 'Mahnoor Iqbal', 'Danish Butt', 'Areeba Shah'],
+    stats: ({ A, M, N }) => [
+      answeredStat(A, N, M),
+      rate(A, N),
+      { key: 'rev', label: 'Order value saved', before: 0, after: M * 5200, fmt: fmt.money, note: 'At about Rs 5,200 per order' },
+    ],
+  },
+  hospital: {
+    seed: 37, total: 104, workspace: 'Healthcare', recovered: 'appointment booked',
+    topics: ['Cardiology, Dr. Umer Aziz', 'Pediatrics check-up', 'Report collection', 'Dental cleaning', 'ECG follow-up', 'Lab sample pickup'],
+    names: ['Ahmed Raza', 'Mariam Zafar', 'Imran Shah', 'Farah Naeem', 'Tahir Mehmood', 'Sana Yousaf'],
+    stats: ({ A, M, N, afterHoursRecovered: ah }) => [
+      answeredStat(A, N, M),
+      { key: 'ah', label: 'After-hours bookings', before: 0, after: ah, fmt: fmt.int, note: 'Clinic closes at 6 PM' },
+      { key: 'rev', label: 'Consultation value saved', before: 0, after: M * 2500, fmt: fmt.money, note: 'At about Rs 2,500 per visit' },
+    ],
+  },
+};
 
 export default function MissedCallProblem() {
   return (
@@ -139,9 +67,9 @@ export default function MissedCallProblem() {
         </motion.div>
 
         <StackedCards step={14} scaleStep={0.04} dimStep={0.18} className="[--stack-min:590px] sm:[--stack-min:670px]">
-          <MunicipalityDash />
-          <ApparelDash />
-          <HospitalDash />
+          <DayDashboard id="m" cfg={CFG.municipal} theme={THEMES.municipal} />
+          <DayDashboard id="a" cfg={CFG.apparel} theme={THEMES.apparel} />
+          <DayDashboard id="h" cfg={CFG.hospital} theme={THEMES.hospital} />
         </StackedCards>
       </div>
     </motion.section>

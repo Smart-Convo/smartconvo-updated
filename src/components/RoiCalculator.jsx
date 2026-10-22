@@ -165,7 +165,7 @@ function useCountUp(target, decimals = 0) {
 }
 
 /** Number box you can type into. Commits on blur / Enter, clamps to bounds. */
-function NumField({ value, onCommit, prefix, suffix, min = 0, max = Infinity, width = 'w-[132px]', label }) {
+function NumField({ value, onCommit, prefix, suffix, min = 0, max = Infinity, width = 'w-[150px] sm:w-[190px]', label }) {
   const [draft, setDraft] = useState(null);
   const shown = draft ?? Math.round(value).toLocaleString('en-US');
   const commit = () => {
@@ -175,7 +175,7 @@ function NumField({ value, onCommit, prefix, suffix, min = 0, max = Infinity, wi
     setDraft(null);
   };
   return (
-    <label className={`flex items-center gap-1.5 ${width} h-[38px] rounded-lg border border-white/12 bg-white/[0.04] px-2.5 focus-within:border-accent focus-within:ring-4 focus-within:ring-[#D4FF00]/10 light:focus-within:ring-[#7c3aed]/15 transition-all`}>
+    <label className={`flex items-baseline justify-end gap-1.5 ${width} border-b border-white/25 focus-within:border-accent transition-colors pb-0.5`}>
       {prefix && <span className="text-[12px] text-zinc-500">{prefix}</span>}
       <input
         inputMode="decimal"
@@ -185,45 +185,42 @@ function NumField({ value, onCommit, prefix, suffix, min = 0, max = Infinity, wi
         onChange={(e) => setDraft(e.target.value)}
         onBlur={commit}
         onKeyDown={(e) => { if (e.key === 'Enter') e.currentTarget.blur(); }}
-        className="min-w-0 flex-1 bg-transparent text-right text-[14px] font-semibold text-white tabular-nums outline-none"
+        className="min-w-0 flex-1 bg-transparent text-right text-[22px] sm:text-[26px] leading-none font-semibold tracking-[-0.03em] text-white tabular-nums outline-none"
+        style={{ fontFamily: '"Bricolage Grotesque", system-ui, sans-serif' }}
       />
       {suffix && <span className="text-[12px] text-zinc-500">{suffix}</span>}
     </label>
   );
 }
 
-/** 12-month cumulative net gain */
-function Projection({ net, cost, money }) {
-  const W = 420, H = 150, padL = 6, padR = 10, padT = 14, padB = 22;
-  const pts = Array.from({ length: 13 }, (_, m) => m * net);
-  const lo = Math.min(0, ...pts), hi = Math.max(0, ...pts);
-  const span = hi - lo || 1;
-  const x = (m) => padL + (m / 12) * (W - padL - padR);
-  const y = (v) => padT + (1 - (v - lo) / span) * (H - padT - padB);
-  const d = pts.map((v, m) => `${m ? 'L' : 'M'}${x(m).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
-  const positive = net >= 0;
-  const color = positive ? 'var(--color-accent)' : '#e11d48';
-  const id = useRef(`pj${Math.random().toString(36).slice(2, 7)}`).current;
-  const y0 = y(0);
+/** One month as 30 ticks: the first ones pay the Smart Convo bill, the rest are profit. */
+function Ruler({ payback }) {
+  const paid = payback == null ? 30 : Math.min(30, Math.max(1, Math.ceil(payback)));
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto overflow-visible" role="img" aria-label={`Cumulative net gain over 12 months: ${money(net * 12)}`}>
-      <defs>
-        <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor={color} stopOpacity="0.28" />
-          <stop offset="100%" stopColor={color} stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      {[0, 3, 6, 9, 12].map((m) => (
-        <g key={m}>
-          <line x1={x(m)} x2={x(m)} y1={padT} y2={H - padB} stroke="currentColor" className="text-white" strokeOpacity="0.06" />
-          <text x={x(m)} y={H - 6} textAnchor="middle" className="fill-zinc-500" style={{ fontSize: 10 }}>{m === 0 ? 'Now' : `M${m}`}</text>
-        </g>
-      ))}
-      <line x1={padL} x2={W - padR} y1={y0} y2={y0} stroke="currentColor" className="text-white" strokeOpacity="0.25" strokeDasharray="3 4" />
-      <path d={`${d} L${x(12)},${y0} L${x(0)},${y0} Z`} fill={`url(#${id})`} />
-      <motion.path key={net} d={d} fill="none" stroke={color} strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.9, ease: 'easeOut' }} />
-      <circle cx={x(12)} cy={y(pts[12])} r="4" fill={color} />
-    </svg>
+    <div>
+      <div className="flex items-end gap-[3px] h-9" role="img" aria-label={`Smart Convo pays for itself on day ${paid} of 30`}>
+        {Array.from({ length: 30 }, (_, i) => {
+          const covered = i < paid;
+          return (
+            <motion.span
+              key={i}
+              className={`flex-1 rounded-[1px] origin-bottom ${covered ? 'bg-zinc-500' : 'bg-accent'}`}
+              style={{ height: i % 5 === 4 ? '100%' : '62%' }}
+              initial={false}
+              animate={{ opacity: 1 }}
+              transition={{ delay: i * 0.01 }}
+            />
+          );
+        })}
+      </div>
+      <div className="relative mt-1.5 h-4 text-[10.5px] text-zinc-500 tabular-nums">
+        <span className="absolute left-0">Day 1</span>
+        <span className="absolute -translate-x-1/2 text-white font-medium transition-all duration-500" style={{ left: `${Math.min(88, Math.max(8, (paid / 30) * 100))}%` }}>
+          {payback == null ? '' : `Paid off on day ${paid}`}
+        </span>
+        <span className="absolute right-0">Day 30</span>
+      </div>
+    </div>
   );
 }
 
@@ -335,48 +332,48 @@ export default function RoiCalculator({ onOpenModal }) {
           </div>
         </motion.div>
 
-        <motion.div variants={staggerItemVariants} className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 items-start">
-          {/* ---------------- inputs ---------------- */}
-          <div className="lg:col-span-7 rounded-[24px] sm:rounded-[28px] border border-white/10 bg-panel p-5 sm:p-8">
+        <motion.div variants={staggerItemVariants} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
+          {/* ---------------- inputs: a plain worksheet ---------------- */}
+          <div className="lg:col-span-7">
             {Object.keys(model.scenarios).length > 1 && (
-              <div className="mb-5 inline-flex flex-wrap p-0.5 rounded-lg border border-white/12 text-[12px] sm:text-[13px] font-semibold">
+              <div className="mb-6 flex flex-wrap gap-x-5 gap-y-1 text-[13px] font-medium">
                 {Object.entries(model.scenarios).map(([k, sc]) => (
-                  <button key={k} onClick={() => pickScenario(k)} className={`px-3 py-1.5 rounded-md cursor-pointer transition-colors ${scenarioKey === k ? 'bg-white text-zinc-950 light:text-[#fff]' : 'text-zinc-400 hover:text-white'}`}>{sc.label}</button>
+                  <button key={k} onClick={() => pickScenario(k)} className={`cursor-pointer pb-1 border-b transition-colors ${scenarioKey === k ? 'text-white border-white' : 'text-zinc-500 border-transparent hover:text-white'}`}>{sc.label}</button>
                 ))}
               </div>
             )}
 
             <div className="flex items-start justify-between gap-4">
-              <div>
-                <h3 className="text-[19px] sm:text-[23px] font-semibold tracking-[-0.02em] text-white leading-snug">{scenario.title}</h3>
-                <p className="mt-2 text-[11.5px] sm:text-[12.5px] font-mono text-zinc-400 leading-relaxed">{scenario.valueFormula}</p>
-              </div>
-              <button onClick={reset} className="shrink-0 inline-flex items-center gap-1.5 text-[12px] font-medium text-zinc-400 hover:text-white cursor-pointer transition-colors" title="Reset to typical values">
+              <h3 className="text-[22px] sm:text-[30px] font-semibold tracking-[-0.03em] text-white leading-[1.15] max-w-xl" style={{ fontFamily: '"Bricolage Grotesque", system-ui, sans-serif' }}>{scenario.title}</h3>
+              <button onClick={reset} className="shrink-0 mt-1 inline-flex items-center gap-1.5 text-[12px] font-medium text-zinc-400 hover:text-white cursor-pointer transition-colors" title="Reset to typical values">
                 <RotateCcw className="w-3.5 h-3.5" /> Reset
               </button>
             </div>
 
-            <div className="mt-6 divide-y divide-white/[0.08] border-t border-white/[0.08]">
-              {scenario.inputs.map((i) => {
+            <ol className="mt-6 border-t border-white/[0.12]">
+              {scenario.inputs.map((i, n) => {
                 const v = vals[i.key];
                 const p = Math.min(100, Math.max(0, ((v - i.min) / (i.max - i.min)) * 100));
                 const isMoney = i.kind === 'money';
                 const display = isMoney && usd ? v / USD_TO_PKR_RATE : v;
                 return (
-                  <div key={`${vertical}-${scenarioKey}-${i.key}`} className="py-4 sm:py-5">
-                    <div className="flex items-center justify-between gap-4">
-                      <div className="min-w-0">
-                        <div className="text-[13px] sm:text-[14px] font-medium text-white">{i.label}</div>
-                        {i.hint && <div className="mt-0.5 text-[11.5px] sm:text-[12px] text-zinc-500">{i.hint}</div>}
+                  <li key={`${vertical}-${scenarioKey}-${i.key}`} className="py-4 sm:py-5 border-b border-white/[0.08]">
+                    <div className="flex items-end justify-between gap-4">
+                      <div className="min-w-0 flex gap-3 sm:gap-4">
+                        <span className="pt-0.5 text-[11px] font-mono text-zinc-600 tabular-nums">{String(n + 1).padStart(2, '0')}</span>
+                        <div>
+                          <div className="text-[13.5px] sm:text-[15px] font-medium text-white leading-snug">{i.label}</div>
+                          {i.hint && <div className="mt-0.5 text-[11.5px] sm:text-[12.5px] text-zinc-500 leading-snug">{i.hint}</div>}
+                        </div>
                       </div>
                       <NumField
                         label={i.label}
                         value={display}
                         prefix={isMoney ? (usd ? '$' : 'Rs') : undefined}
                         suffix={i.kind === 'percent' ? '%' : undefined}
-                        min={isMoney ? 0 : 0}
+                        min={0}
                         max={i.kind === 'percent' ? 100 : (isMoney && usd ? (i.max * 3) / USD_TO_PKR_RATE : i.max * 3)}
-                        onCommit={(n) => setVals((s) => ({ ...s, [i.key]: Math.max(isMoney && i.key === 'cost' ? 1 : 0, isMoney && usd ? Math.round(n * USD_TO_PKR_RATE) : n) }))}
+                        onCommit={(n2) => setVals((s2) => ({ ...s2, [i.key]: Math.max(isMoney && i.key === 'cost' ? 1 : 0, isMoney && usd ? Math.round(n2 * USD_TO_PKR_RATE) : n2) }))}
                       />
                     </div>
                     <input
@@ -385,105 +382,86 @@ export default function RoiCalculator({ onOpenModal }) {
                       max={i.max}
                       step={i.step}
                       value={Math.min(i.max, Math.max(i.min, v))}
-                      onChange={(e) => setVals((s) => ({ ...s, [i.key]: Number(e.target.value) }))}
+                      onChange={(e) => setVals((s2) => ({ ...s2, [i.key]: Number(e.target.value) }))}
                       className="roi-slider mt-3"
                       style={{ '--p': `${p}%` }}
                       aria-label={i.label}
                     />
-                    <div className="mt-1 flex justify-between text-[10.5px] text-zinc-500 tabular-nums">
-                      <span>{valueText(i, i.min)}</span>
-                      <span>{valueText(i, i.max)}</span>
-                    </div>
-                  </div>
+                  </li>
                 );
               })}
-            </div>
+            </ol>
+            <p className="mt-4 text-[11.5px] font-mono text-zinc-500 leading-relaxed">{scenario.valueFormula}</p>
           </div>
 
-          {/* ---------------- result ---------------- */}
-          <div className="lg:col-span-5 lg:sticky lg:top-28 rounded-[24px] sm:rounded-[28px] border border-white/10 bg-panel p-5 sm:p-8 shadow-[0_30px_80px_-50px_rgba(0,0,0,0.7)] light:shadow-[0_30px_80px_-50px_rgba(60,30,120,0.3)]">
-            <div className="flex items-center gap-3 text-[11px] tracking-[0.2em] uppercase text-zinc-500">
-              <span className="h-px w-6 bg-accent" /> Projected return
-            </div>
-
-            <div className="mt-3 flex items-baseline gap-1">
-              <span className={`text-[56px] sm:text-[78px] leading-none font-semibold tracking-[-0.05em] tabular-nums ${positive ? 'text-accent' : 'text-rose-500'}`} style={{ fontFamily: '"Bricolage Grotesque", system-ui, sans-serif' }}>
-                {positive ? '+' : ''}<motion.span>{roiShown}</motion.span>
-              </span>
-              <span className={`text-[28px] sm:text-[36px] font-semibold ${positive ? 'text-accent' : 'text-rose-500'}`}>%</span>
-            </div>
-            <p className="mt-2 text-[13px] text-zinc-400">
-              {Math.round(result.multiple * 100) / 100}× back on {money(result.cost)} a month
-            </p>
-
-            {/* value vs cost */}
-            <div className="mt-6 space-y-3">
-              {[['Value generated', result.value, true], ['Smart Convo cost', result.cost, false]].map(([label, amt, hot]) => (
-                <div key={label}>
-                  <div className="flex items-baseline justify-between text-[12.5px]">
-                    <span className="text-zinc-400">{label}</span>
-                    <span className="font-semibold text-white tabular-nums">{money(amt)} <span className="text-zinc-500 font-normal">/ mo</span></span>
-                  </div>
-                  <div className="mt-1.5 h-2 rounded-full bg-white/[0.07] overflow-hidden">
-                    <motion.div className={`h-full rounded-full ${hot ? 'bg-accent' : 'bg-zinc-500'}`} initial={false} animate={{ width: `${Math.max(2, (amt / barMax) * 100)}%` }} transition={{ type: 'spring', stiffness: 160, damping: 26 }} />
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* projection */}
-            <div className="mt-6">
-              <div className="mb-1 flex items-baseline justify-between text-[12.5px]">
-                <span className="text-zinc-400">Cumulative net gain, 12 months</span>
-                <span className={`font-semibold tabular-nums ${positive ? 'text-white' : 'text-rose-500'}`}>{money(result.net * 12)}</span>
+          {/* ---------------- result: a printed statement ---------------- */}
+          <div className="lg:col-span-5 lg:sticky lg:top-28">
+            <div className="relative bg-panel border border-white/12 px-5 sm:px-7 pt-6 pb-7 shadow-[0_30px_80px_-50px_rgba(0,0,0,0.7)] light:shadow-[0_30px_80px_-50px_rgba(60,30,120,0.3)]" style={{ borderRadius: '4px 4px 0 0' }}>
+              <div className="flex items-baseline justify-between text-[11px] tracking-[0.18em] uppercase text-zinc-500">
+                <span>Monthly statement</span>
+                <span className="normal-case tracking-normal">{model.name}</span>
               </div>
-              <Projection net={result.net} cost={result.cost} money={money} />
-            </div>
 
-            {/* key figures */}
-            <dl className="mt-5 grid grid-cols-3 border-t border-white/[0.08] pt-4">
-              {[['Net gain / month', money(result.net)], ['Payback', paybackText], ['Value / cost', `${Math.round(result.multiple * 10) / 10}×`]].map(([k, v], idx) => (
-                <div key={k} className={idx ? 'pl-3 sm:pl-4 border-l border-white/[0.08]' : ''}>
-                  <dt className="text-[10.5px] sm:text-[11px] text-zinc-500">{k}</dt>
-                  <dd className="mt-1 text-[14px] sm:text-[16px] font-semibold text-white tabular-nums">{v}</dd>
-                </div>
-              ))}
-            </dl>
-
-            {/* the calculation */}
-            <details className="group mt-5 border-t border-white/[0.08] pt-4">
-              <summary className="flex cursor-pointer list-none items-center justify-between text-[12.5px] font-medium text-zinc-300 hover:text-white">
-                How this is calculated
-                <span className="text-zinc-500 transition-transform group-open:rotate-45 text-[18px] leading-none">+</span>
-              </summary>
-              <div className="mt-3 space-y-2 text-[12px]">
+              <dl className="mt-5 space-y-2.5 text-[13px]">
                 {result.rows.map(([k, v]) => (
-                  <div key={k} className="flex items-baseline justify-between gap-4">
-                    <span className="text-zinc-400">{k}</span>
-                    <span className="font-mono text-zinc-200 text-right">{v}</span>
+                  <div key={k} className="flex items-baseline gap-2">
+                    <dt className="text-zinc-400 shrink-0">{k}</dt>
+                    <span className="flex-1 border-b border-dotted border-white/20 translate-y-[-3px]" />
+                    <dd className="font-mono text-[12px] text-zinc-300 text-right">{v}</dd>
                   </div>
                 ))}
-                <div className="pt-2 mt-2 border-t border-white/[0.08] font-mono text-zinc-300 leading-relaxed">
-                  ROI = ({money(result.value)} − {money(result.cost)}) ÷ {money(result.cost)} × 100
+              </dl>
+
+              <div className="mt-4 pt-4 border-t border-white/20 space-y-2 text-[14px]">
+                <div className="flex items-baseline justify-between"><span className="text-zinc-300">Value generated</span><span className="font-semibold text-white tabular-nums">{money(result.value)}</span></div>
+                <div className="flex items-baseline justify-between"><span className="text-zinc-300">Smart Convo</span><span className="font-semibold text-white tabular-nums">− {money(result.cost)}</span></div>
+              </div>
+              <div className="mt-3 pt-3 border-t-2 border-double border-white/30 flex items-baseline justify-between">
+                <span className="text-[14px] text-zinc-300">Net per month</span>
+                <span className={`text-[20px] font-semibold tabular-nums ${positive ? 'text-white' : 'text-rose-500'}`}>{money(result.net)}</span>
+              </div>
+
+              <div className="mt-7 flex items-end justify-between gap-3">
+                <div>
+                  <div className="text-[11px] tracking-[0.18em] uppercase text-zinc-500">Return</div>
+                  <div className={`mt-1 flex items-baseline ${positive ? 'text-accent' : 'text-rose-500'}`} style={{ fontFamily: '"Bricolage Grotesque", system-ui, sans-serif' }}>
+                    <span className="text-[64px] sm:text-[84px] leading-[0.9] font-semibold tracking-[-0.05em] tabular-nums">{positive ? '+' : ''}<motion.span>{roiShown}</motion.span></span>
+                    <span className="text-[26px] sm:text-[34px] font-semibold ml-0.5">%</span>
+                  </div>
+                </div>
+                <div className="text-right text-[12px] text-zinc-400 pb-1.5 leading-snug">
+                  <div className="text-white font-semibold text-[15px] tabular-nums">{Math.round(result.multiple * 10) / 10}×</div>
+                  back on {money(result.cost)}
                 </div>
               </div>
-            </details>
 
-            <div className="mt-6 flex flex-col sm:flex-row gap-3">
-              <button
-                onClick={openModal}
-                className="group flex-1 inline-flex items-center justify-center gap-2 h-[50px] rounded-full bg-[#D4FF00] hover:bg-[#c6ee00] text-zinc-950 text-[14px] font-semibold transition-colors cursor-pointer"
-              >
-                Book a demo
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" strokeWidth={2.4} />
-              </button>
-              <button
-                onClick={copy}
-                className="inline-flex items-center justify-center gap-2 h-[50px] px-5 rounded-full border border-white/20 hover:border-white/45 text-[13.5px] font-medium text-white transition-colors cursor-pointer"
-              >
-                {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
-                {copied ? 'Copied' : 'Copy summary'}
-              </button>
+              <div className="mt-6">
+                <div className="mb-2 text-[11.5px] text-zinc-500">One month, day by day: <span className="text-zinc-400">grey covers the bill, colour is profit</span></div>
+                <Ruler payback={result.payback} />
+              </div>
+
+              <div className="mt-5 text-[12.5px] text-zinc-400">
+                Over 12 months: <span className={`font-semibold tabular-nums ${positive ? 'text-white' : 'text-rose-500'}`}>{money(result.net * 12)}</span> net
+              </div>
+
+              <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={openModal}
+                  className="group flex-1 inline-flex items-center justify-center gap-2 h-[50px] rounded-full bg-[#D4FF00] hover:bg-[#c6ee00] text-zinc-950 text-[14px] font-semibold transition-colors cursor-pointer"
+                >
+                  Book a demo
+                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" strokeWidth={2.4} />
+                </button>
+                <button
+                  onClick={copy}
+                  className="inline-flex items-center justify-center gap-2 h-[50px] px-5 rounded-full border border-white/20 hover:border-white/45 text-[13.5px] font-medium text-white transition-colors cursor-pointer"
+                >
+                  {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+                  {copied ? 'Copied' : 'Copy summary'}
+                </button>
+              </div>
+              {/* torn edge */}
+              <div aria-hidden className="absolute left-0 right-0 -bottom-[7px] h-[8px] text-[var(--color-panel)]" style={{ background: 'linear-gradient(-45deg, transparent 5px, currentColor 0) 0 0 / 10px 8px, linear-gradient(45deg, transparent 5px, currentColor 0) 0 0 / 10px 8px' }} />
             </div>
           </div>
         </motion.div>
