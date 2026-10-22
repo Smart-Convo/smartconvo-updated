@@ -87,30 +87,32 @@ function DashboardBanner() {
 export default function ContactPage() {
   const formRef = useRef<HTMLFormElement>(null)
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle")
+  const [draft, setDraft] = useState({ name: "", email: "", company: "", message: "" })
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (state === "sending") return
     setState("sending")
     const fd = new FormData(formRef.current!)
-    sendLead("contact", {
+    const values = {
       name: String(fd.get("name") || ""),
       email: String(fd.get("email") || ""),
       company: String(fd.get("company") || ""),
       message: String(fd.get("message") || ""),
-    })
+    }
+    setDraft(values)
+    sendLead("contact", values)
       .then(() => {
         setState("sent")
         formRef.current?.reset()
-        setTimeout(() => setState("idle"), 5000)
+        setTimeout(() => setState("idle"), 6000)
       })
       .catch(() => {
         setState("error")
-        setTimeout(() => setState("idle"), 5000)
       })
   }
 
-  const label = state === "sending" ? "Sending…" : state === "sent" ? "Message sent" : state === "error" ? "Failed. Try again" : "Send message"
+  const label = state === "sending" ? "Sending…" : state === "sent" ? "Message sent" : state === "error" ? "Try again" : "Send message"
 
   return (
     <div style={{ fontFamily: FONT }} className="overflow-x-clip">
@@ -216,7 +218,18 @@ export default function ContactPage() {
                   Team available now
                 </p>
               </div>
-              {state === "error" && <p className="relative mt-4 text-[13px] text-rose-500">We couldn't send that. Please email info@pentagonai.co directly.</p>}
+              {state === "error" && (
+                <div className="relative mt-5 rounded-2xl border border-white/12 bg-white/[0.03] p-4 sm:p-5">
+                  <p className="text-[14px] font-medium text-white">That didn't go through.</p>
+                  <p className="mt-1 text-[13px] leading-relaxed text-zinc-400">Your message is still in the form. Press send to try again, or email it to us directly and we'll pick it up from there.</p>
+                  <a
+                    href={`mailto:info@pentagonai.co?subject=${encodeURIComponent(`Website message from ${draft.name}`)}&body=${encodeURIComponent(`Name: ${draft.name}\nEmail: ${draft.email}${draft.company ? `\nCompany: ${draft.company}` : ""}\n\n${draft.message}`)}`}
+                    className="mt-3 inline-flex items-center gap-2 h-[42px] px-5 rounded-full bg-white text-zinc-950 light:text-[#fff] text-[13.5px] font-medium hover:bg-[#D4FF00] light:hover:text-zinc-950 transition-colors"
+                  >
+                    <Mail className="w-4 h-4" /> Email us instead
+                  </a>
+                </div>
+              )}
             </form>
           </div>
         </div>

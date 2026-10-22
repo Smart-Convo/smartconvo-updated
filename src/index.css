@@ -617,3 +617,16 @@ html[data-theme="light"] .phone-frame {
 .cta-finger { transform-origin: 30% 20%; animation: cta-tap 3.6s ease-in-out infinite; }
 @keyframes cta-tap { 0%,55%,100% { transform: translate(6px, 6px) scale(1); opacity: .0; } 62% { transform: translate(0, 0) scale(1); opacity: 1; } 72% { transform: translate(0, 0) scale(0.88); opacity: 1; } 82% { transform: translate(0, 0) scale(1); opacity: 1; } 92% { transform: translate(0, 0) scale(1); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .cta-glow, .cta-btn, .cta-ripple, .cta-shine::after, .cta-finger { animation: none; } }
+
+/* ROI calculator slider: thin filled track, small ringed thumb, no glow */
+:root { --roi-fill: #D4FF00; --roi-track: rgba(255,255,255,0.13); --roi-thumb: #0e0f13; }
+html[data-theme="light"] { --roi-fill: #6d28d9; --roi-track: rgba(20,24,8,0.13); --roi-thumb: #ffffff; }
+input[type="range"].roi-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 22px; background: transparent; cursor: pointer; }
+input[type="range"].roi-slider:focus { outline: none; }
+input[type="range"].roi-slider::-webkit-slider-runnable-track { height: 4px; border-radius: 9999px; background: linear-gradient(90deg, var(--roi-fill) var(--p, 0%), var(--roi-track) var(--p, 0%)); }
+input[type="range"].roi-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; margin-top: -7px; border-radius: 50%; background: var(--roi-thumb); border: 3px solid var(--roi-fill); box-shadow: 0 1px 4px rgba(0,0,0,0.35); transition: transform .15s ease; }
+input[type="range"].roi-slider:active::-webkit-slider-thumb { transform: scale(1.12); }
+input[type="range"].roi-slider:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px color-mix(in srgb, var(--roi-fill) 30%, transparent); }
+input[type="range"].roi-slider::-moz-range-track { height: 4px; border-radius: 9999px; background: var(--roi-track); }
+input[type="range"].roi-slider::-moz-range-progress { height: 4px; border-radius: 9999px; background: var(--roi-fill); }
+input[type="range"].roi-slider::-moz-range-thumb { width: 12px; height: 12px; border-radius: 50%; background: var(--roi-thumb); border: 3px solid var(--roi-fill); box-shadow: 0 1px 4px rgba(0,0,0,0.35); }

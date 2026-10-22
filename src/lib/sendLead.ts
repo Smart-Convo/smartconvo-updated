@@ -118,6 +118,21 @@ export function sendLead(kind: LeadKind, f: LeadFields) {
 export function roiText(c: any): string {
   if (!c) return '';
   const cur = c.currency === 'USD' ? '$' : 'Rs';
+  const rate = c.currency === 'USD' ? 280 : 1;
+  const m = (v: any) => (typeof v === 'number' ? `${cur} ${Math.round(v / rate).toLocaleString()}` : String(v ?? 'n/a'));
+  const lines: string[] = [];
+  if (c.scenario) lines.push(`Model: ${c.industry} · ${c.scenario}`);
+  if (c.roiPercent !== undefined) {
+    lines.push(
+      `ROI: ${Math.round(c.roiPercent * 10) / 10}%`,
+      `Value generated per month: ${m(c.valueGenerated)}`,
+      `Smart Convo monthly cost: ${m(c.monthlyCost)}`,
+      `Net gain per month: ${m(c.netGain)}`
+    );
+    (c.inputs || []).forEach(([k, v]: [string, string]) => lines.push(`- ${k}: ${v}`));
+    return lines.join('\n');
+  }
+  // older calculator format
   const n = (v: any) => (typeof v === 'number' ? v.toLocaleString() : String(v ?? 'n/a'));
   return [
     `Estimated monthly loss: ${cur} ${n(c.monthlyLoss)}`,
