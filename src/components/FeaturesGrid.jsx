@@ -2,46 +2,45 @@ import SectionHeading from './SectionHeading';
 import StackedCards from './StackedCards';
 import React, { useRef, useState, useLayoutEffect, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring, useReducedMotion } from 'framer-motion';
-import { Building2, ShoppingBag, Stethoscope, Languages, MessageSquare, PhoneForwarded, CheckCircle2 } from 'lucide-react';
 import { sectionContainerVariants, staggerItemVariants, staggerCardGridVariants, cardItemVariants, defaultSectionViewport } from '../utils/motionVariants';
 
 const FEATURES = [
   {
-    icon: Building2,
-    title: 'High-Ticket Real Estate Leads',
-    desc: 'Captures buyer budget, society phase, square footage, and locks in private site walk-throughs directly on sales rep calendars.',
-    badge: 'Real Estate Developer Grade'
+    label: 'Real estate',
+    title: 'High-ticket real estate leads',
+    desc: 'Captures buyer budget, society phase and square footage, then books private site visits straight into your sales reps\' calendars.',
+    spec: [['Budget', 'PKR 80–90M'], ['Location', 'DHA Phase 8'], ['Site visit', 'Sat, 4:00 PM']],
   },
   {
-    icon: ShoppingBag,
-    title: 'Automated COD Order Verification',
-    desc: 'Calls retail buyers within 5 minutes of checkout to verify shipping addresses and confirm Cash-on-Delivery, cutting RTO by up to 40%.',
-    badge: 'E-Commerce Logistics'
+    label: 'E-commerce',
+    title: 'Automated COD order verification',
+    desc: 'Calls buyers within minutes of checkout to verify the address and confirm Cash-on-Delivery, cutting returns before they ship.',
+    spec: [['Order', '#4821'], ['Address', 'Verified'], ['Confirmed in', '0:41']],
   },
   {
-    icon: Stethoscope,
-    title: '24/7 Clinical & Diagnostic Intake',
-    desc: 'Books patient consultations, coordinates home lab sample pickups, and answers preparation guidelines with medical precision.',
-    badge: 'Healthcare Compliance'
+    label: 'Healthcare',
+    title: '24/7 clinical and diagnostic intake',
+    desc: 'Books consultations, coordinates home lab pickups and answers preparation questions, day or night.',
+    spec: [['Doctor', 'Dr. Umer Aziz'], ['Department', 'Cardiology'], ['Booked', 'Thu, 4:00 PM']],
   },
   {
-    icon: Languages,
-    title: 'Bilingual Urdu & English Fluency',
-    desc: 'Speaks and understands Pakistani Urdu, English, and conversational code-switching naturally without robotic delays or awkward pauses.',
-    badge: '< 850ms Voice Latency'
+    label: 'Language',
+    title: 'Bilingual Urdu and English, naturally',
+    desc: 'Understands Pakistani Urdu, English and the way people switch between them mid-sentence, without awkward pauses.',
+    spec: [['Caller speaks', 'Roman Urdu'], ['Agent replies', 'Urdu + English'], ['Response time', 'Under 850 ms']],
   },
   {
-    icon: MessageSquare,
-    title: 'Simple CRM Integration & WhatsApp Sync',
-    desc: 'Transcribes every phone call, extracts key deal variables, and instantly pings your sales closers on WhatsApp with the buyer dossier.',
-    badge: 'Full Pipeline Automation'
+    label: 'Sync',
+    title: 'CRM and WhatsApp, in sync',
+    desc: 'Transcribes every call, pulls out the deal details and pings your closers on WhatsApp with the full buyer summary.',
+    spec: [['CRM', 'Lead created'], ['WhatsApp', 'Summary sent'], ['Owner', 'Notified']],
   },
   {
-    icon: PhoneForwarded,
-    title: 'After-Hours & Peak-Time Call Coverage',
-    desc: 'Rings during a sale, a campaign, or at 2 AM? Smart Convo picks up every call, takes the details, and hands your team a ready follow-up list by morning, with no voicemail and no missed leads.',
-    badge: 'Never Misses a Call'
-  }
+    label: 'Coverage',
+    title: 'After-hours and peak-time cover',
+    desc: 'A sale, a campaign or 2 AM. Every call is answered and your team starts the morning with a follow-up list.',
+    spec: [['Time', '02:14 AM'], ['Call', 'Answered'], ['Follow-up', 'Ready by 9 AM']],
+  },
 ];
 
 function useIsDesktop() {
@@ -57,23 +56,34 @@ function useIsDesktop() {
 }
 
 function FeatureCard({ item, idx, total, compact = false }) {
-  const Icon = item.icon;
   return (
-    <div data-lime className={`group relative h-full overflow-hidden rounded-[22px] sm:rounded-3xl bg-[#0f1013] light:bg-[#fff] border border-white/10 light:border-[#c3ec00] light:ring-1 light:ring-inset light:ring-[#D4FF00]/60 shadow-[0_24px_60px_-24px_rgba(0,0,0,0.9)] light:shadow-[0_24px_50px_-26px_rgba(120,150,0,0.40)] ${compact ? 'p-4 sm:p-8' : 'p-6 xl:p-7'}`}>
-      <span className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/[0.035] light:from-[#D4FF00]/[0.22] to-transparent" />
-      <span className="pointer-events-none absolute inset-x-6 top-0 h-[2px] light:h-[3px] bg-gradient-to-r from-transparent via-[#D4FF00]/45 light:via-[#C6F000] to-transparent" />
-      <span className="pointer-events-none absolute -top-16 -right-10 w-48 h-48 rounded-full bg-white/[0.04] light:bg-[#D4FF00]/45 blur-[70px]" />
-      <div className={`relative ${compact ? 'flex items-start gap-3 sm:gap-6' : 'flex flex-col h-full'}`}>
-        <div className={`shrink-0 rounded-2xl bg-white/[0.06] light:bg-[#D4FF00] text-[#D4FF00] light:text-[#1c2600] flex items-center justify-center border border-white/10 light:border-[#b5dc00] ${compact ? 'w-9 h-9 sm:w-14 sm:h-14' : 'w-12 h-12 mb-5'}`}>
-          <Icon className="w-4 h-4 sm:w-6 sm:h-6" strokeWidth={2} />
-        </div>
-        <div className="min-w-0">
-          <div className="flex items-center gap-2 flex-wrap mb-2.5">
-            <span className="text-[9.5px] sm:text-[11px] font-semibold tracking-wide text-zinc-300 light:text-[#2a3600] bg-white/[0.06] light:bg-[#f2ffa8] border border-white/10 light:border-[#c3ec00] px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full">{item.badge}</span>
-            <span className="hidden sm:inline text-[11px] text-zinc-600 font-mono">{String(idx + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
-          </div>
-          <h3 className={`font-semibold text-white tracking-tight leading-snug ${compact ? 'text-[14.5px] sm:text-[22px]' : 'text-[18px]'}`}>{item.title}</h3>
-          <p className={`mt-2 text-zinc-400 leading-relaxed ${compact ? 'text-[12px] sm:text-[15px]' : 'text-[14px]'}`}>{item.desc}</p>
+    <div
+      className={`group relative h-full flex flex-col overflow-hidden border border-white/10 bg-panel hover:border-white/25 transition-colors duration-300 ${compact ? 'rounded-[20px] p-5' : 'rounded-[24px] p-6 xl:p-7'}`}
+      style={{ fontFamily: '"Bricolage Grotesque", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}
+    >
+      {/* label row */}
+      <div className="flex items-center gap-3 text-[11px] tracking-[0.2em] uppercase text-zinc-500">
+        <span className="h-px w-6 bg-accent" />
+        <span>{item.label}</span>
+        <span className="ml-auto font-mono tracking-normal">{String(idx + 1).padStart(2, '0')}/{String(total).padStart(2, '0')}</span>
+      </div>
+
+      <h3 className={`mt-4 sm:mt-5 font-semibold text-white tracking-[-0.035em] leading-[1.04] ${compact ? 'text-[24px]' : 'text-[26px] xl:text-[30px]'}`}>{item.title}</h3>
+      <p className={`mt-2.5 text-zinc-400 leading-relaxed ${compact ? 'text-[13px]' : 'text-[14px] line-clamp-3'}`}>{item.desc}</p>
+
+      {/* example output, like a printed slip */}
+      <div className="mt-auto pt-5">
+        <div className="border-t border-dashed border-white/20 pt-3">
+          <div className="mb-2 text-[10px] font-mono tracking-[0.18em] uppercase text-zinc-500">Example call output</div>
+          <dl className="space-y-1.5 font-mono text-[12px]">
+            {item.spec.map(([k, v]) => (
+              <div key={k} className="flex items-baseline gap-2">
+                <dt className="text-zinc-500 shrink-0">{k}</dt>
+                <span aria-hidden="true" className="flex-1 translate-y-[-3px] border-b border-dotted border-white/20" />
+                <dd className="text-white text-right">{v}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </div>

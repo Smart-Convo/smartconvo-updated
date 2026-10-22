@@ -57,7 +57,7 @@ const VERTICAL_DEFAULTS = {
 };
 
 export default function RoiCalculator({ onOpenModal }) {
-  const [activeVertical, setActiveVertical] = useState('real-estate');
+  const [activeVertical, setActiveVertical] = useState('healthcare');
   const [currency, setCurrency] = useState('PKR'); // 'PKR' | 'USD'
   const [viewScope, setViewScope] = useState('total'); // 'total' (Enterprise) | 'per-branch'
 
@@ -160,15 +160,15 @@ export default function RoiCalculator({ onOpenModal }) {
         <motion.div variants={staggerItemVariants} className="flex flex-wrap items-center justify-between gap-4 mb-8 pb-4 border-b border-zinc-800">
           <div className="flex flex-wrap items-center gap-2">
             <button
-              onClick={() => handleVerticalChange('real-estate')}
+              onClick={() => handleVerticalChange('healthcare')}
               className={`px-4 py-2 rounded-xl text-xs sm:text-[13px] font-extrabold tracking-tight flex items-center gap-2 transition-all cursor-pointer ${
-                activeVertical === 'real-estate'
+                activeVertical === 'healthcare'
                   ? 'bg-[#D4FF00] text-zinc-950 shadow-[0_0_14px_rgba(212,255,0,0.4)]'
                   : 'bg-zinc-900/80 text-zinc-300 hover:text-white hover:bg-zinc-800 border border-zinc-800'
               }`}
             >
-              <Building2 className="w-4 h-4" strokeWidth={2.5} />
-              <span>Real Estate Developers</span>
+              <Stethoscope className="w-4 h-4" strokeWidth={2.5} />
+              <span>Healthcare Clinics</span>
             </button>
             <button
               onClick={() => handleVerticalChange('retail')}
@@ -182,15 +182,15 @@ export default function RoiCalculator({ onOpenModal }) {
               <span>Retail & E-Commerce</span>
             </button>
             <button
-              onClick={() => handleVerticalChange('healthcare')}
+              onClick={() => handleVerticalChange('real-estate')}
               className={`px-4 py-2 rounded-xl text-xs sm:text-[13px] font-extrabold tracking-tight flex items-center gap-2 transition-all cursor-pointer ${
-                activeVertical === 'healthcare'
+                activeVertical === 'real-estate'
                   ? 'bg-[#D4FF00] text-zinc-950 shadow-[0_0_14px_rgba(212,255,0,0.4)]'
                   : 'bg-zinc-900/80 text-zinc-300 hover:text-white hover:bg-zinc-800 border border-zinc-800'
               }`}
             >
-              <Stethoscope className="w-4 h-4" strokeWidth={2.5} />
-              <span>Healthcare Clinics</span>
+              <Building2 className="w-4 h-4" strokeWidth={2.5} />
+              <span>Real Estate Developers</span>
             </button>
           </div>
 
