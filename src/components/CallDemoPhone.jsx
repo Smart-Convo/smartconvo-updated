@@ -8,7 +8,7 @@ import { SmartConvoMark } from './SmartConvoLogo';
  * Plays /monark-call.mp3 (add the file to the public folder).
  */
 
-const AUDIO_SRC = '/monark-call.mp3';
+const AUDIO_SRC = '/agent_recording.m4a';
 const CONTACT = 'Monark Customer Care';
 const sf = '-apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif';
 
@@ -52,6 +52,7 @@ export default function CallDemoPhone() {
   const [speaker, setSpeaker] = useState(true);
   const [muted, setMuted] = useState(false);
   const audioRef = useRef(null);
+  const [blocked, setBlocked] = useState(false);
 
   // Live device clock for lock screen / status bar
   const [now, setNow] = useState(() => new Date());
@@ -81,8 +82,9 @@ export default function CallDemoPhone() {
     if (stage === 'connected') {
       a.currentTime = 0;
       a.muted = muted;
+      setBlocked(false);
       const p = a.play();
-      if (p && p.catch) p.catch(() => {});
+      if (p && p.catch) p.catch(() => setBlocked(true)); // browser refused: offer a one-tap fallback
     } else {
       a.pause();
     }
@@ -102,7 +104,26 @@ export default function CallDemoPhone() {
     setSpeaker(true);
   };
 
-  const startCall = () => setStage('calling');
+  // The tap itself "unlocks" audio (Safari/Chrome only allow sound that follows a user gesture),
+  // so the recording can start on its own when the call connects a moment later.
+  const startCall = () => {
+    const a = audioRef.current;
+    if (a) {
+      a.muted = true;
+      const p = a.play();
+      if (p && p.then) {
+        p.then(() => { a.pause(); a.currentTime = 0; a.muted = muted; }).catch(() => {});
+      }
+    }
+    setStage('calling');
+  };
+
+  const playNow = () => {
+    const a = audioRef.current;
+    if (!a) return;
+    a.muted = muted;
+    a.play().then(() => setBlocked(false)).catch(() => {});
+  };
 
   const inCall = stage !== 'lock';
 
@@ -225,6 +246,11 @@ export default function CallDemoPhone() {
                         {stage === 'calling' ? 'calling…' : fmt(seconds)}
                       </div>
                       <div className="text-[30px] leading-[36px] font-semibold tracking-tight mt-[2px] text-center px-6">{CONTACT}</div>
+                      {blocked && stage === 'connected' && (
+                        <button onClick={playNow} className="mt-5 inline-flex items-center gap-2 h-10 px-5 rounded-full bg-[#D4FF00] text-zinc-950 text-[13.5px] font-semibold cursor-pointer">
+                          <Play className="w-3.5 h-3.5 fill-zinc-950" /> Tap to hear the call
+                        </button>
+                      )}
                     </div>
 
                     {/* Buttons grid */}
